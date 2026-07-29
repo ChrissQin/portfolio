@@ -91,10 +91,16 @@ button {
   inset: 0 0 auto;
   z-index: 50;
   padding: 1.1rem 0;
-  transition: background 0.35s var(--ease), backdrop-filter 0.35s var(--ease);
+  color: #f4f7f9;
+  transition:
+    background 0.35s var(--ease),
+    backdrop-filter 0.35s var(--ease),
+    color 0.35s ease,
+    border-color 0.35s ease;
 }
 
 .nav.is-scrolled {
+  color: var(--ink);
   background: rgba(244, 247, 249, 0.82);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
@@ -124,11 +130,19 @@ button {
 .nav__links a {
   font-size: 0.9rem;
   font-weight: 500;
-  color: var(--ink-muted);
+  color: rgba(244, 247, 249, 0.78);
   transition: color 0.25s ease;
 }
 
+.nav.is-scrolled .nav__links a {
+  color: var(--ink-muted);
+}
+
 .nav__links a:hover {
+  color: #fff;
+}
+
+.nav.is-scrolled .nav__links a:hover {
   color: var(--ink);
 }
 
@@ -136,17 +150,29 @@ button {
   display: inline-flex;
   align-items: center;
   padding: 0.5rem 0.9rem;
-  border: 1px solid var(--line-strong);
+  border: 1px solid rgba(244, 247, 249, 0.45);
   border-radius: var(--radius);
   font-size: 0.85rem;
   font-weight: 500;
+  color: #f4f7f9 !important;
   transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
 }
 
+.nav.is-scrolled .nav__cta {
+  border-color: var(--line-strong);
+  color: var(--ink) !important;
+}
+
 .nav__cta:hover {
+  border-color: rgba(244, 247, 249, 0.85);
+  background: rgba(244, 247, 249, 0.1);
+  color: #fff !important;
+}
+
+.nav.is-scrolled .nav__cta:hover {
   border-color: var(--accent);
   background: var(--accent-soft);
-  color: var(--accent-deep);
+  color: var(--accent-deep) !important;
 }
 
 .nav__toggle {
@@ -154,15 +180,19 @@ button {
   width: 2.5rem;
   height: 2.5rem;
   place-items: center;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(244, 247, 249, 0.35);
   border-radius: var(--radius);
+}
+
+.nav.is-scrolled .nav__toggle {
+  border-color: var(--line);
 }
 
 .nav__toggle span {
   display: block;
   width: 1.1rem;
   height: 1.5px;
-  background: var(--ink);
+  background: currentColor;
   position: relative;
 }
 
