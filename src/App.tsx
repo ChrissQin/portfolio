@@ -3,9 +3,10 @@ import type { Project } from './data/projects'
 import { About } from './components/About'
 import { Contact } from './components/Contact'
 import { Hero } from './components/Hero'
+import { Intro } from './components/Intro'
 import { Nav } from './components/Nav'
-import { Process } from './components/Process'
 import { ProjectModal } from './components/ProjectModal'
+import { Services } from './components/Services'
 import { Work } from './components/Work'
 
 function App() {
@@ -16,15 +17,16 @@ function App() {
       <Nav />
       <main>
         <Hero />
+        <Intro />
         <Work onSelect={setActiveProject} />
-        <Process />
+        <Services />
         <About />
         <Contact />
       </main>
       <footer className="footer">
         <div className="container footer__inner">
-          <span>© {new Date().getFullYear()} Chris Qin</span>
-          <span>Video Editor · Available for hire</span>
+          <span>© {new Date().getFullYear()} cqvisuals Inc.</span>
+          <span>Atlanta, GA · Available for projects</span>
         </div>
       </footer>
       <ProjectModal project={activeProject} onClose={() => setActiveProject(null)} />

@@ -1,12 +1,12 @@
-# Chris Qin — Video Editing Portfolio
+# cqvisuals — Portfolio
 
-Cinematic single-page portfolio for video editor Chris Qin.
+Beginner-friendly video editing and multimedia storytelling portfolio for cqvisuals Inc., modeled after a clean category-and-services layout.
 
 ## Stack
 
 - React + TypeScript
 - Vite
-- Custom CSS (Syne + Outfit)
+- Custom CSS (Syne + Sora)
 
 ## Develop
 
@@ -24,6 +24,6 @@ npm run preview
 
 ## Customize
 
-- Projects and process copy live in `src/data/projects.ts`
+- Projects, categories, and services live in `src/data/projects.ts`
 - Contact email is set in `src/components/Contact.tsx`
 - Replace sample MP4s and Unsplash stills with your own deliverables

@@ -24,15 +24,15 @@ export function Nav() {
     <header className={`nav${scrolled || open ? ' is-scrolled' : ''}`}>
       <div className="container nav__inner">
         <a className="nav__brand" href="#top" onClick={close}>
-          Chris Qin
+          cqvisuals
         </a>
 
         <nav className={`nav__links${open ? ' is-open' : ''}`} aria-label="Primary">
           <a href="#work" onClick={close}>
             Work
           </a>
-          <a href="#process" onClick={close}>
-            Process
+          <a href="#services" onClick={close}>
+            Services
           </a>
           <a href="#about" onClick={close}>
             About

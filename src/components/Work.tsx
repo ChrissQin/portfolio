@@ -1,4 +1,5 @@
-import { projects, type Project } from '../data/projects'
+import { useState } from 'react'
+import { categories, projects, type Category, type Project } from '../data/projects'
 import { Reveal } from './Reveal'
 
 type WorkProps = {
@@ -14,19 +15,45 @@ function PlayIcon() {
 }
 
 export function Work({ onSelect }: WorkProps) {
+  const [active, setActive] = useState<Category>('All')
+
+  const visible =
+    active === 'All' ? projects : projects.filter((project) => project.category === active)
+
   return (
     <section className="section" id="work">
       <div className="container">
         <Reveal className="section__header">
           <p className="section__label">Selected work</p>
-          <h2 className="section__title">Recent cuts</h2>
+          <h2 className="section__title">Cuts across formats</h2>
           <p className="section__text">
-            A short reel of brand films, commercials, and narrative pieces shaped in the edit.
+            Short-form, ads, reels, and documentary pieces for restaurants,
+            startups, nonprofits, and personal media brands.
           </p>
         </Reveal>
 
+        <Reveal className="category-bar" delay={80}>
+          <div className="category-bar__list" role="tablist" aria-label="Project categories">
+            {categories.map((category) => {
+              const selected = category === active
+              return (
+                <button
+                  key={category}
+                  type="button"
+                  role="tab"
+                  aria-selected={selected}
+                  className={`category-bar__item${selected ? ' is-active' : ''}`}
+                  onClick={() => setActive(category)}
+                >
+                  {category}
+                </button>
+              )
+            })}
+          </div>
+        </Reveal>
+
         <div className="work-list">
-          {projects.map((project, index) => (
+          {visible.map((project, index) => (
             <Reveal key={project.id} as="div" delay={index * 70}>
               <button
                 type="button"

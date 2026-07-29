@@ -13,19 +13,22 @@ export function Hero() {
 
       <div className="hero__content">
         <h1 className="hero__brand">
-          Chris
-          <span>Qin</span>
+          cq
+          <span>visuals</span>
         </h1>
-        <p className="hero__headline">Cuts that hold attention.</p>
+        <p className="hero__headline">
+          Videographer / Multimedia Storyteller
+        </p>
         <p className="hero__support">
-          Commercial, narrative, and brand films edited with pace, sound, and intention.
+          Atlanta-based beginner portfolio for short-form, ads, reels, and
+          documentary work—built one honest cut at a time.
         </p>
         <div className="hero__actions">
           <a className="btn btn--primary" href="#work">
-            View selected work
+            View the work
           </a>
           <a className="btn btn--ghost" href="#contact">
-            Start a project
+            Let&apos;s collaborate
           </a>
         </div>
       </div>

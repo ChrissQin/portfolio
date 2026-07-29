@@ -6,10 +6,14 @@ export function Contact() {
       <div className="container">
         <Reveal className="contact__panel">
           <p className="section__label">Contact</p>
-          <h2 className="contact__title">Let&apos;s build the next cut.</h2>
+          <h2 className="contact__title">Got a story to tell?</h2>
           <p className="contact__text">
-            Have footage, a treatment, or a deadline that needs a sharp edit? Send the brief and
-            I&apos;ll reply with availability and a first-pass approach.
+            Whether you need a reel, a restaurant ad, or a short documentary
+            piece, send a note. I&apos;ll reply with availability and a simple
+            plan for the first cut.
+          </p>
+          <p className="contact__tagline">
+            Curious by nature. Editor by practice. Storyteller at heart.
           </p>
           <div className="contact__links">
             <a className="contact__email" href="mailto:thechrisqin@gmail.com">
@@ -18,15 +22,7 @@ export function Contact() {
           </div>
           <div className="contact__links">
             <a className="btn btn--primary" href="mailto:thechrisqin@gmail.com">
-              Email Chris
-            </a>
-            <a
-              className="btn btn--ghost"
-              href="https://github.com/ChrissQin"
-              target="_blank"
-              rel="noreferrer"
-            >
-              GitHub
+              Email cqvisuals
             </a>
           </div>
         </Reveal>
