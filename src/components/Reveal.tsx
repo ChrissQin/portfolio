@@ -19,18 +19,30 @@ export function Reveal({
     const node = ref.current
     if (!node) return
 
+    const show = () => node.classList.add('is-visible')
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      show()
+      return
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          node.classList.add('is-visible')
+          show()
           observer.unobserve(node)
         }
       },
-      { threshold: 0.16, rootMargin: '0px 0px -8% 0px' },
+      { threshold: 0.12, rootMargin: '0px 0px -6% 0px' },
     )
 
     observer.observe(node)
-    return () => observer.disconnect()
+    const fallback = window.setTimeout(show, 2500)
+
+    return () => {
+      observer.disconnect()
+      window.clearTimeout(fallback)
+    }
   }, [])
 
   return (

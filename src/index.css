@@ -380,6 +380,33 @@ button {
   transform: none;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero__brand,
+  .hero__headline,
+  .hero__support,
+  .hero__actions,
+  .hero__scroll,
+  .hero__media img {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
 /* ——— Work ——— */
 .work-list {
   display: grid;
