@@ -390,11 +390,11 @@ button {
   background:
     linear-gradient(
       180deg,
-      rgba(18, 20, 23, 0.28) 0%,
-      rgba(18, 20, 23, 0.42) 42%,
-      rgba(18, 20, 23, 0.88) 100%
+      rgba(18, 20, 23, 0.18) 0%,
+      rgba(18, 20, 23, 0.35) 38%,
+      rgba(18, 20, 23, 0.82) 100%
     ),
-    linear-gradient(90deg, rgba(18, 20, 23, 0.55) 0%, rgba(18, 20, 23, 0.15) 70%);
+    linear-gradient(90deg, rgba(18, 20, 23, 0.48) 0%, rgba(18, 20, 23, 0.08) 72%);
 }
 
 .hero__content {
