@@ -1,23 +1,34 @@
-import { siteConfig } from "@/lib/constants";
+import { Hero } from "@/components/home/Hero";
+import { ProjectCardGrid } from "@/components/work/ProjectCardGrid";
+import { projects } from "@/data/projects";
 
 export default function HomePage() {
+  const checkpointProjects = projects.slice(0, 3);
+
   return (
-    <section className="container py-16 md:py-24">
-      <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-ink-muted">
-        Phase 0 scaffold
-      </p>
-      <h1 className="font-display text-4xl font-semibold tracking-tight text-ink md:text-6xl">
-        {siteConfig.name}
-      </h1>
-      <p className="mt-3 text-lg text-ink-muted md:text-xl">{siteConfig.role}</p>
-      <p className="mt-6 max-w-2xl text-base text-ink md:text-lg">
-        {siteConfig.tagline}
-      </p>
-      <p className="mt-10 max-w-xl text-sm text-ink-muted">
-        Navigation, design tokens, project types, and base layout are in place.
-        The homepage hero and project cards arrive in the Phase 1 visual
-        checkpoint.
-      </p>
-    </section>
+    <>
+      <Hero />
+
+      <section
+        id="featured-work"
+        className="featured-checkpoint"
+        aria-labelledby="featured-heading"
+      >
+        <div className="container">
+          <div className="featured-checkpoint__intro">
+            <p className="section-eyebrow">Featured work</p>
+            <h2 id="featured-heading" className="section-title">
+              Selected projects
+            </h2>
+            <p className="section-lede">
+              Visual checkpoint with three development placeholders. Horizontal
+              and vertical formats share one editorial grid.
+            </p>
+          </div>
+
+          <ProjectCardGrid projects={checkpointProjects} />
+        </div>
+      </section>
+    </>
   );
 }

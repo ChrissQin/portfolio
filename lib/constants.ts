@@ -24,7 +24,11 @@ export const siteConfig = {
   availability: null as string | null,
   /** Default until montage or showreel media is supplied. */
   heroMediaMode: "static" as HeroMediaMode,
-  heroImage: null as string | null,
+  /**
+   * Static poster for the hero. Using a development placeholder until a real
+   * featured still is provided. Montage/showreel modes are not enabled yet.
+   */
+  heroImage: "/projects/project-01/poster.svg" as string | null,
 } as const;
 
 export const navLinks = [

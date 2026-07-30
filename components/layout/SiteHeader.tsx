@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { MobileNav } from "@/components/layout/MobileNav";
 import { navLinks, siteConfig } from "@/lib/constants";
 
 export function SiteHeader() {
@@ -7,23 +8,17 @@ export function SiteHeader() {
   const hasResume = Boolean(siteConfig.resumeUrl);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line/80 bg-bg/90 backdrop-blur-md">
-      <div className="container flex items-center justify-between gap-4 py-4">
-        <Link
-          href="/"
-          className="font-display text-lg font-semibold tracking-tight text-ink md:text-xl"
-        >
+    <header className="site-header">
+      <div className="container site-header__inner">
+        <Link href="/" className="site-header__brand">
           {siteConfig.name}
         </Link>
 
-        <nav aria-label="Primary" className="flex items-center gap-4 md:gap-6">
-          <ul className="hidden items-center gap-5 text-sm text-ink-muted sm:flex md:gap-6">
+        <nav aria-label="Primary" className="site-header__desktop">
+          <ul className="site-header__links">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="transition-colors hover:text-ink"
-                >
+                <Link href={link.href} className="site-header__link">
                   {link.label}
                 </Link>
               </li>
@@ -32,7 +27,7 @@ export function SiteHeader() {
               <li>
                 <a
                   href={siteConfig.resumeUrl ?? undefined}
-                  className="transition-colors hover:text-ink"
+                  className="site-header__link"
                 >
                   Resume
                 </a>
@@ -41,21 +36,20 @@ export function SiteHeader() {
           </ul>
 
           {hasEmail ? (
-            <Link
-              href="/contact"
-              className="rounded-[var(--radius)] bg-accent px-3 py-2 text-sm font-medium text-bg-elevated transition-colors hover:bg-accent-hover"
-            >
+            <Link href="/contact" className="button button--primary button--compact">
               Get in Touch
             </Link>
           ) : (
             <span
-              className="rounded-[var(--radius)] border border-line px-3 py-2 text-sm text-ink-muted"
+              className="button button--ghost button--compact button--disabled"
               title="Contact email placeholder — replace in lib/constants.ts"
             >
               Get in Touch
             </span>
           )}
         </nav>
+
+        <MobileNav />
       </div>
     </header>
   );
