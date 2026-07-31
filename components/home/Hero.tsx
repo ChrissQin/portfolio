@@ -12,8 +12,16 @@ export function Hero() {
             <span className="hero__name">{siteConfig.name}</span>
             <span className="hero__roles">
               {siteConfig.roles.map((role) => (
-                <span key={role} className="hero__role-line">
-                  {role}
+                <span
+                  key={role.text}
+                  className={`hero__role-line hero__role-line--${role.emphasis}`}
+                >
+                  {role.emphasis === "supporting" ? (
+                    <span className="hero__role-plus" aria-hidden="true">
+                      +
+                    </span>
+                  ) : null}
+                  <span className="hero__role-text">{role.text}</span>
                 </span>
               ))}
             </span>

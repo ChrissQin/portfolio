@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 
+import { PlaceholderMedia } from "@/components/media/PlaceholderMedia";
 import { siteConfig } from "@/lib/constants";
 
 export function AboutTeaser() {
@@ -9,33 +9,29 @@ export function AboutTeaser() {
       <div className="container home-about__spread">
         <div className="home-about__visuals">
           <figure className="home-about__frame home-about__frame--portrait">
-            <Image
-              src="/about/portrait-placeholder.svg"
+            <PlaceholderMedia
+              src={null}
               alt="Candid photo placeholder"
-              fill
-              unoptimized
+              label="Candid photo"
+              hint="Asset needed"
+              aspectRatio="4 / 5"
+              motif="portrait"
+              className="home-about__media"
               sizes="(max-width: 900px) 70vw, 18rem"
-              className="home-about__image"
             />
-            <figcaption className="home-about__caption">
-              <span>Candid photo</span>
-              <span className="home-about__caption-hint">Asset needed</span>
-            </figcaption>
           </figure>
 
           <figure className="home-about__frame home-about__frame--timeline">
-            <Image
-              src="/collage/edit-timeline.svg"
+            <PlaceholderMedia
+              src={null}
               alt="Edit timeline placeholder"
-              fill
-              unoptimized
+              label="Timeline crop"
+              hint="Asset needed"
+              aspectRatio="4 / 3"
+              motif="timeline"
+              className="home-about__media"
               sizes="(max-width: 900px) 55vw, 14rem"
-              className="home-about__image"
             />
-            <figcaption className="home-about__caption">
-              <span>Timeline crop</span>
-              <span className="home-about__caption-hint">Asset needed</span>
-            </figcaption>
           </figure>
 
           <p className="home-about__annotation" aria-hidden="true">

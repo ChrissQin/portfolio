@@ -6,10 +6,19 @@ export type SocialLinks = {
 
 export type HeroMediaMode = "static" | "montage" | "showreel";
 
+export type HeroRole = {
+  text: string;
+  emphasis: "primary" | "secondary" | "supporting";
+};
+
 export const siteConfig = {
   name: "Chris Qin",
   role: "Video Editor & Videographer",
-  roles: ["Video Editor", "Videographer", "Creative Production"] as const,
+  roles: [
+    { text: "Video Editor", emphasis: "primary" },
+    { text: "Videographer", emphasis: "secondary" },
+    { text: "Creative Production", emphasis: "supporting" },
+  ] as const satisfies readonly HeroRole[],
   tagline:
     "Editing first. Shooting when the story needs it. Always thinking about pacing, sound, and what makes someone keep watching.",
   intro:

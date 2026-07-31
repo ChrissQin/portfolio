@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 
+import { PlaceholderMedia } from "@/components/media/PlaceholderMedia";
 import type { Project } from "@/lib/projects";
 
 type ProjectCardProps = {
@@ -37,17 +37,19 @@ export function ProjectCard({
       >
         <div className="project-card__frame">
           <div className="project-card__media">
-            <Image
+            <PlaceholderMedia
               src={project.thumbnail}
-              alt={`${project.title} poster placeholder`}
-              fill
-              unoptimized
+              alt={`${project.title} poster`}
+              label={project.title}
+              hint="Poster needed"
+              aspectRatio={isVertical ? "9 / 16" : "16 / 9"}
+              motif={isVertical ? "vertical" : "frame"}
+              className="project-card__placeholder"
               sizes={
                 isVertical
                   ? "(max-width: 899px) 70vw, 20rem"
                   : "(max-width: 899px) 100vw, 60vw"
               }
-              className="project-card__image"
             />
             {showMonitor ? (
               <span className="project-card__monitor" aria-hidden="true" />

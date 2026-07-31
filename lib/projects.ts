@@ -33,7 +33,8 @@ export type Project = {
    * span from orientation pairing so layout does not depend on list order hacks.
    */
   gridSpan?: number;
-  thumbnail: string;
+  /** Real poster path. Null renders a CSS placeholder — never a broken image. */
+  thumbnail: string | null;
   videoUrl?: string;
   videoProvider: VideoProvider;
   responsibilities?: string[];
