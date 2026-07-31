@@ -18,13 +18,14 @@ export function ByTheNumbers() {
           </p>
           <div className="by-numbers__intro">
             <h2 id="by-numbers-heading" className="by-numbers__heading">
-              The work,
+              Years of making,
               <br />
-              in numbers.
+              testing, and shipping.
             </h2>
             <p className="by-numbers__lede">
-              A few numbers behind the edits, shoots, and projects—{" "}
-              <strong>not the whole story, but useful context.</strong>
+              A few milestones from years of publishing my own work, building
+              audiences, and creating videos for founders, brands, and
+              filmmakers.
             </p>
           </div>
         </div>
