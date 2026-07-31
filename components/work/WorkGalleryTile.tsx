@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { ProjectPreview } from "@/components/work/ProjectPreview";
 import { usePrefersReducedMotion } from "@/lib/motion";
-import type { Project } from "@/lib/projects";
+import { formatProjectRoles, type Project } from "@/lib/projects";
 
 type WorkGalleryTileProps = {
   project: Project;
@@ -21,9 +21,12 @@ export function WorkGalleryTile({ project, wide = false }: WorkGalleryTileProps)
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const [finePointer, setFinePointer] = useState(false);
-  const roleLabel = project.roles.join(" + ");
+  const roleLabel = formatProjectRoles(project.roles);
   const interactive = hovered || focused;
   const externalUrl = project.externalUrl?.trim() || null;
+  const isVertical = project.orientation === "vertical";
+  const year = project.year?.trim();
+  const hasYear = Boolean(year && year !== "—");
 
   useEffect(() => {
     const media = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -39,32 +42,54 @@ export function WorkGalleryTile({ project, wide = false }: WorkGalleryTileProps)
         title={project.title}
         thumbnail={project.thumbnail}
         previewVideoUrl={project.previewVideoUrl}
-        orientation="horizontal"
+        orientation={project.orientation}
         active={finePointer && interactive && !reducedMotion}
-        sizes="(max-width: 759px) 100vw, 50vw"
+        sizes={
+          isVertical
+            ? "(max-width: 759px) 100vw, 28vw"
+            : "(max-width: 759px) 100vw, 50vw"
+        }
       />
       <div className="work-tile__shade" aria-hidden="true" />
       <div className="work-tile__meta">
         <h3 className="work-tile__title">{project.title}</h3>
-        <p className="work-tile__detail">
-          <span>{project.contentType}</span>
-          <span aria-hidden="true"> · </span>
-          <span>{roleLabel}</span>
-          {project.year !== "—" ? (
-            <>
-              <span aria-hidden="true"> · </span>
-              <span>{project.year}</span>
-            </>
+        <div className="work-tile__meta-end">
+          <p className="work-tile__detail">
+            <span>{project.contentType}</span>
+            <span aria-hidden="true"> · </span>
+            <span>{roleLabel}</span>
+            {hasYear ? (
+              <>
+                <span aria-hidden="true"> · </span>
+                <span>{year}</span>
+              </>
+            ) : null}
+            {project.subscriberContext ? (
+              <>
+                <span aria-hidden="true"> · </span>
+                <span>{project.subscriberContext}</span>
+              </>
+            ) : null}
+          </p>
+          {project.recognition ? (
+            <p className="work-tile__recognition">{project.recognition}</p>
           ) : null}
-        </p>
+        </div>
       </div>
     </div>
   );
 
   const surfaceClass = `work-tile__link${interactive ? " work-tile__link--active" : ""}`;
+  const tileClass = [
+    "work-tile",
+    isVertical ? "work-tile--vertical" : "work-tile--horizontal",
+    wide ? "work-tile--wide" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <article className={`work-tile${wide ? " work-tile--wide" : ""}`}>
+    <article className={tileClass}>
       {externalUrl ? (
         <a
           href={externalUrl}

@@ -1,8 +1,8 @@
 export type Role =
   | "Editor"
   | "Videographer"
-  | "Editor & Videographer"
-  | "Producer, Videographer & Editor"
+  | "Producer"
+  | "Director"
   | "Social Media Editor";
 
 export type Service = "editing" | "videography" | "production";
@@ -17,12 +17,16 @@ export type GalleryImage = {
 };
 
 export type Project = {
+  /** Internal key only — not used for public project-detail routes. */
   slug: string;
   title: string;
-  client: string;
-  year: string;
+  /** Omit when no client was supplied. */
+  client?: string;
+  /** Omit when no year was supplied — never invent one. */
+  year?: string;
   featured: boolean;
-  description: string;
+  /** Omit or leave empty when no description was supplied. */
+  description?: string;
   contentType: string;
   roles: Role[];
   /** Filter-ready; unused in the Work UI at launch. */
@@ -47,6 +51,10 @@ export type Project = {
   externalUrl?: string;
   videoUrl?: string;
   videoProvider: VideoProvider;
+  /** Supporting channel context (e.g. subscriber count for a YouTube project). */
+  subscriberContext?: string;
+  /** Festival selection / award text. Optional — do not invent recognition. */
+  recognition?: string;
   responsibilities?: string[];
   approach?: string;
   software?: string[];
@@ -55,6 +63,11 @@ export type Project = {
   credits?: string[];
   galleryImages?: GalleryImage[];
 };
+
+/** Concise role line for gallery overlays (e.g. VIDEOGRAPHER + EDITOR). */
+export function formatProjectRoles(roles: Role[]): string {
+  return roles.join(" + ");
+}
 
 export function getProjectBySlug(
   projects: Project[],

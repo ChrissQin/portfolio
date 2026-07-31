@@ -1,5 +1,5 @@
 import { PlaceholderMedia } from "@/components/media/PlaceholderMedia";
-import type { Project } from "@/lib/projects";
+import { formatProjectRoles, type Project } from "@/lib/projects";
 
 type ProjectCardProps = {
   project: Project;
@@ -22,10 +22,12 @@ export function ProjectCard({
   className = "",
 }: ProjectCardProps) {
   const isVertical = project.orientation === "vertical";
-  const roleLabel = project.roles.join(" + ");
+  const roleLabel = formatProjectRoles(project.roles);
   const paddedIndex = String(index).padStart(2, "0");
   const externalUrl = project.externalUrl?.trim() || null;
   const href = externalUrl ?? "#work";
+  const year = project.year?.trim();
+  const hasYear = Boolean(year && year !== "—");
 
   return (
     <article
@@ -74,9 +76,7 @@ export function ProjectCard({
           </p>
           <h3 className="project-card__title">{project.title}</h3>
           <p className="project-card__role">{roleLabel}</p>
-          {project.year !== "—" ? (
-            <p className="project-card__year">{project.year}</p>
-          ) : null}
+          {hasYear ? <p className="project-card__year">{year}</p> : null}
         </div>
       </a>
     </article>

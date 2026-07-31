@@ -1,55 +1,60 @@
 import type { Project } from "@/lib/projects";
 
 /**
- * Development stubs only. Replace with real projects before launch.
- * Titles intentionally read as placeholders — never invent clients or credits.
- * thumbnail is null until a real poster exists (avoids broken-image states).
+ * Featured Selected Work projects — homepage gallery only.
+ * thumbnail / previewVideoUrl stay null until real media is supplied.
+ * Do not invent years, URLs, results, or awards.
  */
 export const projects: Project[] = [
   {
-    slug: "project-01",
-    title: "Project 01 — Content Needed",
-    client: "Personal Project — Content Needed",
-    year: "—",
+    slug: "ga-painting-company-intro",
+    title: "GA Painting Company Intro",
+    client: "GA Painting Company",
+    year: "2026",
     featured: true,
-    description:
-      "Placeholder project for layout development. Replace with a real edit and accurate role details.",
-    contentType: "Content Needed",
-    roles: ["Editor"],
-    services: ["editing"],
+    contentType: "Company Intro",
+    roles: ["Videographer", "Editor"],
+    services: ["videography", "editing"],
     orientation: "horizontal",
     thumbnail: null,
     previewVideoUrl: null,
     videoProvider: "none",
   },
   {
-    slug: "project-02",
-    title: "Project 02 — Content Needed",
-    client: "Personal Project — Content Needed",
-    year: "—",
+    slug: "baba",
+    title: "bàba",
     featured: true,
-    description:
-      "Placeholder vertical project for orientation testing. Replace with real footage and credits.",
-    contentType: "Content Needed",
-    roles: ["Editor & Videographer"],
+    contentType: "YouTube Channel",
+    roles: ["Producer", "Videographer", "Editor"],
+    services: ["production", "videography", "editing"],
+    orientation: "horizontal",
+    thumbnail: null,
+    previewVideoUrl: null,
+    videoProvider: "none",
+    subscriberContext: "7K+ subscribers",
+  },
+  {
+    slug: "houlai-chinese-immigration-story",
+    title: "《后来》：A Chinese Immigration Story",
+    featured: true,
+    contentType: "Short Documentary",
+    roles: ["Director", "Editor", "Videographer"],
+    services: ["production", "editing", "videography"],
+    orientation: "horizontal",
+    thumbnail: null,
+    previewVideoUrl: null,
+    videoProvider: "none",
+    recognition: "Official Selection — Atlanta High School Film Festival",
+  },
+  {
+    slug: "in-motion",
+    title: "In Motion",
+    client: "Uni Uni Bubble Tea",
+    featured: true,
+    contentType: "Vertical Product Advertisement",
+    roles: ["Editor", "Videographer"],
     services: ["editing", "videography"],
     orientation: "vertical",
-    thumbnail: null,
-    previewVideoUrl: null,
-    videoProvider: "none",
-  },
-  {
-    slug: "project-03",
-    title: "Project 03 — Content Needed",
-    client: "Personal Project — Content Needed",
-    year: "—",
-    featured: true,
-    description:
-      "Placeholder project for layout development. Replace with a real project summary.",
-    contentType: "Content Needed",
-    roles: ["Editor"],
-    services: ["editing"],
-    orientation: "horizontal",
     thumbnail: null,
     previewVideoUrl: null,
     videoProvider: "none",
