@@ -43,12 +43,13 @@ export const siteConfig = {
   location: "Georgia, USA",
   locationLabel: "GEORGIA, USA",
   timezone: "America/New_York",
+  /** Keep null — Instagram / LinkedIn are not shown on the public site. */
   socials: {
     instagram: null,
     linkedin: null,
     youtube: null,
   } satisfies SocialLinks,
-  /** Set when a resume PDF or URL is provided. */
+  /** Keep null — résumé is not shown on the public site. */
   resumeUrl: null as string | null,
   /** Set when an availability line is provided. */
   availability: null as string | null,

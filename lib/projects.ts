@@ -45,10 +45,10 @@ export type Project = {
    */
   previewVideoUrl?: string | null;
   /**
-   * Optional genuine external destination (YouTube, campaign page, etc.).
-   * When absent, the tile is a visual portfolio item — not a broken internal link.
+   * Optional genuine external destination.
+   * Homepage gallery tiles do not navigate externally — prefer videoUrl + lightbox.
    */
-  externalUrl?: string;
+  externalUrl?: string | null;
   videoUrl?: string;
   videoProvider: VideoProvider;
   /** Supporting channel context (e.g. subscriber count for a YouTube project). */

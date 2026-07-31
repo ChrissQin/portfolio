@@ -1,9 +1,9 @@
 import type { Project } from "@/lib/projects";
 
 /**
- * Featured Selected Work projects — homepage gallery only.
- * thumbnail / previewVideoUrl stay null until real media is supplied.
- * Do not invent years, URLs, results, or awards.
+ * Featured Selected Work — homepage gallery only.
+ * No project-detail routes. Tiles never navigate externally;
+ * videoUrl feeds the on-page lightbox after explicit play.
  */
 export const projects: Project[] = [
   {
@@ -16,47 +16,54 @@ export const projects: Project[] = [
     roles: ["Videographer", "Editor"],
     services: ["videography", "editing"],
     orientation: "horizontal",
-    thumbnail: null,
+    thumbnail: "/projects/ga-painting-company/poster.png",
     previewVideoUrl: null,
-    videoProvider: "none",
+    videoUrl: "https://youtu.be/S3hpLnVWv_4",
+    videoProvider: "youtube",
   },
   {
     slug: "baba",
     title: "bàba",
+    year: "2026",
     featured: true,
     contentType: "YouTube Channel",
     roles: ["Producer", "Videographer", "Editor"],
     services: ["production", "videography", "editing"],
     orientation: "horizontal",
-    thumbnail: null,
+    thumbnail: "/projects/baba/poster.png",
     previewVideoUrl: null,
-    videoProvider: "none",
+    videoUrl: "https://youtu.be/9zEWl43SAqQ",
+    videoProvider: "youtube",
     subscriberContext: "7K+ subscribers",
   },
   {
     slug: "houlai-chinese-immigration-story",
     title: "《后来》：A Chinese Immigration Story",
+    year: "2025",
     featured: true,
     contentType: "Short Documentary",
     roles: ["Director", "Editor", "Videographer"],
     services: ["production", "editing", "videography"],
     orientation: "horizontal",
-    thumbnail: null,
+    thumbnail: "/projects/hou-lai/poster.png",
     previewVideoUrl: null,
-    videoProvider: "none",
+    videoUrl: "https://youtu.be/snqOu5dtw1Q",
+    videoProvider: "youtube",
     recognition: "Official Selection — Atlanta High School Film Festival",
   },
   {
     slug: "in-motion",
     title: "In Motion",
     client: "Uni Uni Bubble Tea",
+    year: "2025",
     featured: true,
     contentType: "Vertical Product Advertisement",
     roles: ["Editor", "Videographer"],
     services: ["editing", "videography"],
     orientation: "vertical",
-    thumbnail: null,
+    thumbnail: "/projects/in-motion/poster.png",
     previewVideoUrl: null,
-    videoProvider: "none",
+    videoUrl: "https://youtube.com/shorts/-dQCyRpg5Z0",
+    videoProvider: "youtube",
   },
 ];

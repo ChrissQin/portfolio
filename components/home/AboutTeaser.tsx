@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { PlaceholderMedia } from "@/components/media/PlaceholderMedia";
 import { siteConfig } from "@/lib/constants";
 
@@ -12,16 +14,16 @@ export function AboutTeaser() {
       <div className="container home-about__spread">
         <div className="home-about__visuals">
           <figure className="home-about__frame home-about__frame--portrait">
-            <PlaceholderMedia
-              src={null}
-              alt="Candid photo placeholder"
-              label="Candid photo"
-              hint="Asset needed"
-              aspectRatio="4 / 5"
-              motif="portrait"
-              className="home-about__media"
-              sizes="(max-width: 900px) 70vw, 18rem"
-            />
+            <div className="home-about__photo">
+              <Image
+                src="/about/chris-qin.png"
+                alt="Portrait of Chris Qin"
+                fill
+                unoptimized
+                sizes="(max-width: 900px) 70vw, 18rem"
+                className="home-about__photo-img"
+              />
+            </div>
           </figure>
 
           <figure className="home-about__frame home-about__frame--timeline">

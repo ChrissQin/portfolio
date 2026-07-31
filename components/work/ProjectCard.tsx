@@ -12,7 +12,7 @@ type ProjectCardProps = {
 
 /**
  * Legacy masonry card — retained for layout experiments.
- * Prefer WorkGalleryTile on the homepage. Links only via externalUrl or #work.
+ * Prefer WorkGalleryTile on the homepage. Does not navigate externally.
  */
 export function ProjectCard({
   project,
@@ -24,8 +24,6 @@ export function ProjectCard({
   const isVertical = project.orientation === "vertical";
   const roleLabel = formatProjectRoles(project.roles);
   const paddedIndex = String(index).padStart(2, "0");
-  const externalUrl = project.externalUrl?.trim() || null;
-  const href = externalUrl ?? "#work";
   const year = project.year?.trim();
   const hasYear = Boolean(year && year !== "—");
 
@@ -36,17 +34,9 @@ export function ProjectCard({
       data-span={span}
       data-index={paddedIndex}
     >
-      <a
-        href={href}
+      <div
         className="project-card__link"
-        {...(externalUrl
-          ? { target: "_blank", rel: "noopener noreferrer" }
-          : {})}
-        aria-label={
-          externalUrl
-            ? `${project.title}. Role: ${roleLabel}. Opens external project.`
-            : `${project.title}. Role: ${roleLabel}. Jump to selected work.`
-        }
+        aria-label={`${project.title}. Role: ${roleLabel}.`}
       >
         <div className="project-card__frame">
           <div className="project-card__media">
@@ -78,7 +68,7 @@ export function ProjectCard({
           <p className="project-card__role">{roleLabel}</p>
           {hasYear ? <p className="project-card__year">{year}</p> : null}
         </div>
-      </a>
+      </div>
     </article>
   );
 }

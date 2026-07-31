@@ -26,20 +26,11 @@ export function getActiveSocialLinks(
 }
 
 /**
- * Platforms requested in the footer UI that still need real URLs.
- * Omitted from production; shown as disabled placeholders in development.
+ * Instagram, LinkedIn, and résumé are intentionally omitted from the public
+ * site until real URLs are supplied. Never render empty/disabled social labels.
  */
-export function getPendingFooterSocials(
-  socials: SocialLinks = siteConfig.socials,
-): PendingSocial[] {
-  const requested: Array<keyof SocialLinks> = ["instagram", "linkedin"];
-  return requested.flatMap((key) => {
-    if (socials[key]) {
-      return [];
-    }
-    const entry = SOCIAL_LABELS.find(([socialKey]) => socialKey === key);
-    return entry ? [{ key, label: entry[1] }] : [];
-  });
+export function getPendingFooterSocials(): PendingSocial[] {
+  return [];
 }
 
 /** True when at least one actionable contact channel is available. */
