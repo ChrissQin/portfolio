@@ -13,5 +13,5 @@
   <text x="50" y="490" fill="#9c978e" font-family="ui-monospace, monospace" font-size="14">03 MOVE</text>
   <text x="390" y="490" fill="#9c978e" font-family="ui-monospace, monospace" font-size="14">04 CUTAWAY</text>
   <text x="40" y="780" fill="#e8e0d2" font-family="ui-monospace, monospace" font-size="26" font-weight="700">STORYBOARD</text>
-  <text x="40" y="820" fill="#ff5438" font-family="ui-monospace, monospace" font-size="18">ASSET NEEDED</text>
+  <text x="40" y="820" fill="#9c978e" font-family="ui-monospace, monospace" font-size="14" opacity="0.55">Asset needed</text>
 </svg>

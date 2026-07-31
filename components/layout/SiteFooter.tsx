@@ -1,13 +1,14 @@
 import Link from "next/link";
 
-import { navLinks, siteConfig } from "@/lib/constants";
 import { getActiveSocialLinks } from "@/lib/contact";
+import { siteConfig } from "@/lib/constants";
+import { getPrimaryNavLinks } from "@/lib/nav";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
   const socials = getActiveSocialLinks();
   const email = siteConfig.email;
-  const resumeUrl = siteConfig.resumeUrl;
+  const links = getPrimaryNavLinks().filter((link) => link.label !== "Resume");
 
   return (
     <footer className="site-footer">
@@ -20,8 +21,8 @@ export function SiteFooter() {
 
         <nav aria-label="Footer">
           <ul className="site-footer__links">
-            {navLinks.map((link) => (
-              <li key={link.href}>
+            {links.map((link) => (
+              <li key={`${link.label}-${link.href}`}>
                 <Link href={link.href} className="site-footer__link">
                   {link.index} {link.label}
                 </Link>
@@ -34,9 +35,9 @@ export function SiteFooter() {
                 </a>
               </li>
             ) : null}
-            {resumeUrl ? (
+            {siteConfig.resumeUrl ? (
               <li>
-                <a href={resumeUrl} className="site-footer__link">
+                <a href={siteConfig.resumeUrl} className="site-footer__link">
                   Resume
                 </a>
               </li>

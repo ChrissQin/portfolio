@@ -35,5 +35,5 @@
     <rect x="532" y="155" width="8" height="90"/>
   </g>
   <text x="36" y="350" fill="#e8e0d2" font-family="ui-monospace, monospace" font-size="26" font-weight="700">MUSIC / AUDIO</text>
-  <text x="36" y="385" fill="#ff5438" font-family="ui-monospace, monospace" font-size="18">ASSET NEEDED</text>
+  <text x="36" y="385" fill="#9c978e" font-family="ui-monospace, monospace" font-size="14" opacity="0.55">Asset needed</text>
 </svg>

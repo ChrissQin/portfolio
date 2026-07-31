@@ -5,7 +5,6 @@ export function WhatIDo() {
     <section className="what-i-do" aria-labelledby="what-i-do-heading">
       <div className="container">
         <div className="what-i-do__header">
-          <p className="mono-label">Capabilities</p>
           <h2 id="what-i-do-heading" className="display-heading">
             What I Do
           </h2>

@@ -22,7 +22,7 @@ export function WorkspaceCollage({ compact = false }: WorkspaceCollageProps) {
           <div className="workspace-collage__frame">
             <Image
               src={slot.src}
-              alt={slot.label}
+              alt={`${slot.label} placeholder`}
               fill
               unoptimized
               sizes="(max-width: 900px) 45vw, 18rem"
@@ -30,13 +30,11 @@ export function WorkspaceCollage({ compact = false }: WorkspaceCollageProps) {
             />
           </div>
           <figcaption className="workspace-collage__caption">
-            {slot.label}
+            <span className="workspace-collage__caption-label">{slot.label}</span>
+            <span className="workspace-collage__caption-hint">{slot.hint}</span>
           </figcaption>
         </figure>
       ))}
-      <p className="workspace-collage__note" aria-hidden="true">
-        cut here
-      </p>
     </div>
   );
 }

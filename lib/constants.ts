@@ -9,7 +9,7 @@ export type HeroMediaMode = "static" | "montage" | "showreel";
 export const siteConfig = {
   name: "Chris Qin",
   role: "Video Editor & Videographer",
-  roles: ["Video Editor", "Videographer", "Creative Producer"] as const,
+  roles: ["Video Editor", "Videographer", "Creative Production"] as const,
   tagline:
     "Editing first. Shooting when the story needs it. Always thinking about pacing, sound, and what makes someone keep watching.",
   intro:
@@ -30,8 +30,4 @@ export const siteConfig = {
   heroImage: null as string | null,
 } as const;
 
-export const navLinks = [
-  { href: "/work", label: "Work", index: "01" },
-  { href: "/about", label: "About", index: "02" },
-  { href: "/contact", label: "Contact", index: "03" },
-] as const;
+/** Static link definitions are resolved through getPrimaryNavLinks() in lib/nav.ts. */

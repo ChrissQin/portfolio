@@ -12,7 +12,6 @@ export function HomeCTA() {
   return (
     <section className="home-cta" aria-labelledby="home-cta-heading">
       <div className="container home-cta__inner">
-        <p className="mono-label">End card</p>
         <h2 id="home-cta-heading" className="home-cta__title">
           <span>Got footage?</span>
           <span>Let&apos;s make something good.</span>

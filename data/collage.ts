@@ -1,6 +1,7 @@
 export type CollageSlot = {
   id: string;
   label: string;
+  hint: string;
   kind: "timeline" | "storyboard" | "bts" | "audio" | "still";
   src: string;
 };
@@ -9,25 +10,29 @@ export type CollageSlot = {
 export const collageSlots: CollageSlot[] = [
   {
     id: "timeline",
-    label: "EDIT TIMELINE — ASSET NEEDED",
+    label: "Edit timeline",
+    hint: "Asset needed",
     kind: "timeline",
     src: "/collage/edit-timeline.svg",
   },
   {
     id: "storyboard",
-    label: "STORYBOARD — ASSET NEEDED",
+    label: "Storyboard",
+    hint: "Asset needed",
     kind: "storyboard",
     src: "/collage/storyboard.svg",
   },
   {
     id: "bts",
-    label: "BTS PHOTO — ASSET NEEDED",
+    label: "BTS photo",
+    hint: "Asset needed",
     kind: "bts",
     src: "/collage/bts-photo.svg",
   },
   {
     id: "audio",
-    label: "MUSIC / AUDIO — ASSET NEEDED",
+    label: "Music / audio",
+    hint: "Asset needed",
     kind: "audio",
     src: "/collage/music-audio.svg",
   },

@@ -5,6 +5,6 @@
   <path d="M220 620 C280 500 520 500 580 620" fill="none" stroke="#9c978e" stroke-opacity="0.45"/>
   <rect x="120" y="700" width="560" height="8" fill="#ff5438" opacity="0.55"/>
   <text x="48" y="860" fill="#e8e0d2" font-family="ui-monospace, monospace" font-size="28" font-weight="700">BTS PHOTO</text>
-  <text x="48" y="900" fill="#9c978e" font-family="ui-monospace, monospace" font-size="18">ASSET NEEDED</text>
+  <text x="48" y="900" fill="#9c978e" font-family="ui-monospace, monospace" font-size="14" opacity="0.55">Asset needed</text>
   <text x="48" y="80" fill="#ff5438" font-family="ui-monospace, monospace" font-size="14" letter-spacing="2">CAM_A · ON SET</text>
 </svg>

@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 import { MobileNav } from "@/components/layout/MobileNav";
-import { navLinks, siteConfig } from "@/lib/constants";
+import { getPrimaryNavLinks } from "@/lib/nav";
 
 export function SiteHeader() {
-  const hasResume = Boolean(siteConfig.resumeUrl);
+  const links = getPrimaryNavLinks();
 
   return (
     <header className="site-header">
@@ -15,25 +15,14 @@ export function SiteHeader() {
 
         <nav aria-label="Primary" className="site-header__desktop">
           <ul className="site-header__links">
-            {navLinks.map((link) => (
-              <li key={link.href}>
+            {links.map((link) => (
+              <li key={`${link.label}-${link.href}`}>
                 <Link href={link.href} className="site-header__link">
                   <span className="site-header__index">{link.index}</span>
                   {link.label}
                 </Link>
               </li>
             ))}
-            {hasResume ? (
-              <li>
-                <a
-                  href={siteConfig.resumeUrl ?? undefined}
-                  className="site-header__link"
-                >
-                  <span className="site-header__index">04</span>
-                  Resume
-                </a>
-              </li>
-            ) : null}
           </ul>
         </nav>
 

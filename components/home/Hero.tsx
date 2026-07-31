@@ -8,22 +8,15 @@ export function Hero() {
     <section className="hero" aria-labelledby="hero-heading">
       <div className="container hero__layout">
         <div className="hero__copy">
-          <p className="hero__slate">
-            <span>PORTFOLIO_01</span>
-            <span aria-hidden="true">·</span>
-            <span>00:00:01:12</span>
-          </p>
-
-          <p className="hero__name" id="hero-heading">
-            {siteConfig.name}
-          </p>
-
-          <h1 className="hero__roles">
-            {siteConfig.roles.map((role) => (
-              <span key={role} className="hero__role-line">
-                {role}
-              </span>
-            ))}
+          <h1 id="hero-heading" className="hero__heading">
+            <span className="hero__name">{siteConfig.name}</span>
+            <span className="hero__roles">
+              {siteConfig.roles.map((role) => (
+                <span key={role} className="hero__role-line">
+                  {role}
+                </span>
+              ))}
+            </span>
           </h1>
 
           <p className="hero__intro">{siteConfig.intro}</p>

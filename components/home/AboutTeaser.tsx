@@ -11,28 +11,30 @@ export function AboutTeaser() {
           <figure className="home-about__frame home-about__frame--portrait">
             <Image
               src="/about/portrait-placeholder.svg"
-              alt="Candid photo placeholder — asset needed"
+              alt="Candid photo placeholder"
               fill
               unoptimized
               sizes="(max-width: 900px) 70vw, 18rem"
               className="home-about__image"
             />
             <figcaption className="home-about__caption">
-              Candid — Asset Needed
+              <span>Candid photo</span>
+              <span className="home-about__caption-hint">Asset needed</span>
             </figcaption>
           </figure>
 
           <figure className="home-about__frame home-about__frame--timeline">
             <Image
               src="/collage/edit-timeline.svg"
-              alt="Edit timeline placeholder — asset needed"
+              alt="Edit timeline placeholder"
               fill
               unoptimized
               sizes="(max-width: 900px) 55vw, 14rem"
               className="home-about__image"
             />
             <figcaption className="home-about__caption">
-              Timeline crop — Asset Needed
+              <span>Timeline crop</span>
+              <span className="home-about__caption-hint">Asset needed</span>
             </figcaption>
           </figure>
 
@@ -42,7 +44,6 @@ export function AboutTeaser() {
         </div>
 
         <div className="home-about__copy">
-          <p className="mono-label">About / Notes</p>
           <h2 id="about-teaser-heading" className="display-heading">
             {siteConfig.name}
           </h2>

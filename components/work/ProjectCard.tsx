@@ -8,6 +8,7 @@ type ProjectCardProps = {
   /** Desktop 12-column span from the layout packer. */
   span: number;
   index?: number;
+  showMonitor?: boolean;
   className?: string;
 };
 
@@ -15,6 +16,7 @@ export function ProjectCard({
   project,
   span,
   index = 1,
+  showMonitor = false,
   className = "",
 }: ProjectCardProps) {
   const isVertical = project.orientation === "vertical";
@@ -47,7 +49,9 @@ export function ProjectCard({
               }
               className="project-card__image"
             />
-            <span className="project-card__monitor" aria-hidden="true" />
+            {showMonitor ? (
+              <span className="project-card__monitor" aria-hidden="true" />
+            ) : null}
           </div>
         </div>
 

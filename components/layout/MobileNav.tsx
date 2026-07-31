@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 
-import { navLinks, siteConfig } from "@/lib/constants";
+import { getPrimaryNavLinks } from "@/lib/nav";
+import { hasContactMethod } from "@/lib/contact";
+import { siteConfig } from "@/lib/constants";
 
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -15,6 +17,8 @@ export function MobileNav() {
   const toggleRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const wasOpenRef = useRef(false);
+  const links = getPrimaryNavLinks();
+  const showContactCta = hasContactMethod() && Boolean(siteConfig.email);
 
   useEffect(() => {
     if (!open) {
@@ -120,8 +124,8 @@ export function MobileNav() {
           >
             <nav aria-label="Mobile primary">
               <ul className="mobile-nav__list">
-                {navLinks.map((link) => (
-                  <li key={link.href}>
+                {links.map((link) => (
+                  <li key={`${link.label}-${link.href}`}>
                     <Link
                       href={link.href}
                       className="mobile-nav__link"
@@ -132,19 +136,7 @@ export function MobileNav() {
                     </Link>
                   </li>
                 ))}
-                {siteConfig.resumeUrl ? (
-                  <li>
-                    <a
-                      href={siteConfig.resumeUrl}
-                      className="mobile-nav__link"
-                      onClick={closeMenu}
-                    >
-                      <span className="mobile-nav__index">04</span>
-                      Resume
-                    </a>
-                  </li>
-                ) : null}
-                {siteConfig.email ? (
+                {showContactCta ? (
                   <li>
                     <Link
                       href="/contact"

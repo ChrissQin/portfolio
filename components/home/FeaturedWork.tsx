@@ -17,12 +17,9 @@ export function FeaturedWork() {
     >
       <div className="container">
         <div className="home-featured__header">
-          <div>
-            <p className="mono-label">Reel / Cuts</p>
-            <h2 id="featured-heading" className="display-heading">
-              Selected Work
-            </h2>
-          </div>
+          <h2 id="featured-heading" className="display-heading">
+            Selected Work
+          </h2>
           <Link href="/work" className="editorial-link">
             See All Work
             <span aria-hidden="true"> →</span>

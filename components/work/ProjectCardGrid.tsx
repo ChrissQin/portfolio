@@ -18,6 +18,7 @@ export function ProjectCardGrid({ projects }: ProjectCardGridProps) {
           project={project}
           span={span}
           index={index + 1}
+          showMonitor={index === 0}
           className={`project-grid__item project-grid__item--${project.orientation}${index === 1 ? " project-grid__item--accent" : ""}`}
         />
       ))}

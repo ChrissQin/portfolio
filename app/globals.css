@@ -347,7 +347,6 @@ button {
 /* ——— Hero ——— */
 .hero {
   padding: clamp(2.5rem, 6vw, 4rem) 0 clamp(3.5rem, 8vw, 5.5rem);
-  border-bottom: 1px solid var(--line);
 }
 
 .hero__layout {
@@ -363,19 +362,12 @@ button {
   }
 }
 
-.hero__slate {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 0 0 1.25rem;
-  font-family: var(--font-mono-family), ui-monospace, monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
+.hero__heading {
+  margin: 0;
 }
 
 .hero__name {
+  display: block;
   margin: 0 0 1.1rem;
   font-family: var(--font-mono-family), ui-monospace, monospace;
   font-size: 0.9rem;
@@ -386,7 +378,6 @@ button {
 }
 
 .hero__roles {
-  margin: 0;
   display: grid;
   gap: 0.15rem;
 }
@@ -481,6 +472,10 @@ button {
 }
 
 .workspace-collage__caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 0.65rem;
   margin: 0.4rem 0 0;
   font-family: var(--font-mono-family), ui-monospace, monospace;
   font-size: 0.68rem;
@@ -489,15 +484,10 @@ button {
   color: var(--muted);
 }
 
-.workspace-collage__note {
-  position: absolute;
-  left: 0.25rem;
-  bottom: -0.35rem;
-  margin: 0;
-  font-family: var(--font-mono-family), ui-monospace, monospace;
-  font-size: 0.72rem;
-  color: var(--accent);
-  transform: rotate(-6deg);
+.workspace-collage__caption-hint {
+  opacity: 0.55;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
 }
 
 @media (max-width: 979px) {
@@ -508,16 +498,11 @@ button {
   .workspace-collage__item--4 {
     display: none;
   }
-
-  .workspace-collage__note {
-    display: none;
-  }
 }
 
 /* ——— Featured work ——— */
 .home-featured {
-  padding: var(--space-section) 0;
-  border-bottom: 1px solid var(--line);
+  padding: var(--space-section) 0 calc(var(--space-section) * 0.85);
 }
 
 .home-featured__header {
@@ -667,8 +652,7 @@ button {
 
 /* ——— What I Do ——— */
 .what-i-do {
-  padding: var(--space-section) 0;
-  border-bottom: 1px solid var(--line);
+  padding: calc(var(--space-section) * 0.55) 0 var(--space-section);
 }
 
 .what-i-do__header {
@@ -746,7 +730,7 @@ button {
 /* ——— About spread ——— */
 .home-about {
   padding: var(--space-section) 0;
-  border-bottom: 1px solid var(--line);
+  border-top: 1px solid var(--line);
 }
 
 .home-about__spread {
@@ -795,13 +779,22 @@ button {
   position: absolute;
   left: 0.55rem;
   bottom: 0.55rem;
-  padding: 0.2rem 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.25rem 0.45rem;
   background: rgba(13, 13, 11, 0.72);
   font-family: var(--font-mono-family), ui-monospace, monospace;
   font-size: 0.62rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--paper);
+}
+
+.home-about__caption-hint {
+  color: var(--muted);
+  opacity: 0.8;
+  font-size: 0.58rem;
 }
 
 .home-about__annotation {
