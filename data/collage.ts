@@ -14,7 +14,7 @@ export const collageSlots: CollageSlot[] = [
   {
     id: "timeline",
     label: "Edit timeline",
-    hint: "Asset needed",
+    hint: "Unavailable",
     kind: "timeline",
     motif: "timeline",
     aspectRatio: "16 / 10",
@@ -23,7 +23,7 @@ export const collageSlots: CollageSlot[] = [
   {
     id: "storyboard",
     label: "Storyboard",
-    hint: "Asset needed",
+    hint: "Unavailable",
     kind: "storyboard",
     motif: "frame",
     aspectRatio: "4 / 5",
@@ -32,7 +32,7 @@ export const collageSlots: CollageSlot[] = [
   {
     id: "bts",
     label: "BTS photo",
-    hint: "Asset needed",
+    hint: "Unavailable",
     kind: "bts",
     motif: "portrait",
     aspectRatio: "4 / 5",
@@ -41,7 +41,7 @@ export const collageSlots: CollageSlot[] = [
   {
     id: "audio",
     label: "Music / audio",
-    hint: "Asset needed",
+    hint: "Unavailable",
     kind: "audio",
     motif: "audio",
     aspectRatio: "21 / 9",

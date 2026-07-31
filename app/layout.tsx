@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Archivo_Black, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 
 import { SiteFooter } from "@/components/layout/SiteFooter";
@@ -30,28 +30,50 @@ const mono = IBM_Plex_Mono({
 
 const siteUrl = getSiteUrl();
 
+const pageTitle = `${siteConfig.name} — ${siteConfig.role}`;
+const pageDescription =
+  "Portfolio of Chris Qin, an Atlanta-based video editor and videographer working across YouTube, social content, documentary, and branded video.";
+
+export const viewport: Viewport = {
+  themeColor: "#000000",
+  colorScheme: "dark",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${siteConfig.name} — ${siteConfig.role}`,
+    default: pageTitle,
     template: `%s — ${siteConfig.name}`,
   },
-  description: siteConfig.intro,
+  description: pageDescription,
   alternates: {
-    canonical: "/",
+    canonical: siteUrl,
   },
   openGraph: {
     type: "website",
-    url: "/",
-    title: `${siteConfig.name} — ${siteConfig.role}`,
-    description: siteConfig.intro,
+    url: siteUrl,
+    title: pageTitle,
+    description: pageDescription,
     siteName: siteConfig.name,
     locale: "en_US",
+    images: [
+      {
+        url: "/social/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Chris Qin — Video Editor and Videographer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} — ${siteConfig.role}`,
-    description: siteConfig.intro,
+    title: pageTitle,
+    description: pageDescription,
+    images: ["/social/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 

@@ -23,7 +23,6 @@ export function PlaceholderMedia({
   src,
   alt,
   label,
-  hint = "Asset needed",
   aspectRatio,
   className = "",
   sizes,
@@ -42,7 +41,6 @@ export function PlaceholderMedia({
           src={src as string}
           alt={alt}
           fill
-          unoptimized
           priority={priority}
           sizes={sizes}
           className="placeholder-media__image"
@@ -51,11 +49,10 @@ export function PlaceholderMedia({
         <div
           className="placeholder-media__empty"
           role="img"
-          aria-label={`${label}. ${hint}`}
+          aria-label={label}
         >
           <span className="placeholder-media__graphic" aria-hidden="true" />
           <span className="placeholder-media__label">{label}</span>
-          <span className="placeholder-media__hint">{hint}</span>
         </div>
       )}
     </div>

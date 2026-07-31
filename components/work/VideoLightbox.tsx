@@ -14,6 +14,8 @@ import type { Orientation } from "@/lib/projects";
 
 type VideoLightboxProps = {
   title: string;
+  /** Optional supporting line (role / content type) shown under the title. */
+  detail?: string;
   videoUrl: string;
   orientation: Orientation;
   onClose: () => void;
@@ -26,6 +28,7 @@ type VideoLightboxProps = {
  */
 export function VideoLightbox({
   title,
+  detail,
   videoUrl,
   orientation,
   onClose,
@@ -34,6 +37,7 @@ export function VideoLightbox({
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const titleId = useId();
+  const detailId = useId();
   const embedSrc = getYouTubeEmbedSrc(videoUrl, { autoplay: true });
   const isVertical = orientation === "vertical";
 
@@ -65,9 +69,13 @@ export function VideoLightbox({
         return;
       }
 
-      const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
-        'button, [href], iframe, [tabindex]:not([tabindex="-1"])',
-      );
+      // Keep focus in chrome controls — YouTube iframe swallows keys once focused.
+      const focusable = [
+        ...dialogRef.current.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])',
+        ),
+      ].filter((el) => el.tagName !== "IFRAME");
+
       if (focusable.length === 0) {
         return;
       }
@@ -116,13 +124,21 @@ export function VideoLightbox({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
+        aria-describedby={detail ? detailId : undefined}
         tabIndex={-1}
         onKeyDown={onDialogKeyDown}
       >
         <div className="video-lightbox__chrome">
-          <h2 id={titleId} className="video-lightbox__title">
-            {title}
-          </h2>
+          <div className="video-lightbox__heading">
+            <h2 id={titleId} className="video-lightbox__title">
+              {title}
+            </h2>
+            {detail ? (
+              <p id={detailId} className="video-lightbox__detail">
+                {detail}
+              </p>
+            ) : null}
+          </div>
           <button
             ref={closeRef}
             type="button"
@@ -144,6 +160,7 @@ export function VideoLightbox({
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
             loading="lazy"
+            tabIndex={-1}
             referrerPolicy="strict-origin-when-cross-origin"
           />
         </div>

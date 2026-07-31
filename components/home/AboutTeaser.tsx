@@ -18,7 +18,6 @@ export function AboutTeaser() {
                 src="/about/chris-qin-portrait.png"
                 alt="Portrait of Chris Qin"
                 fill
-                unoptimized
                 sizes="(max-width: 900px) 70vw, 18rem"
                 className="home-about__photo-img"
               />
@@ -39,9 +38,9 @@ export function AboutTeaser() {
 
           <p className="home-about__body">
             Editing is still the center of what I do, but I also like being
-            behind the camera and involved before the footage reaches the
-            timeline. Based in Georgia, I work with creators and brands who want
-            cuts that feel intentional—not just finished.
+            behind the camera and getting involved before the footage reaches
+            the timeline. Based in Georgia, I work with creators and brands who
+            want cuts that feel intentional.
           </p>
 
           <ul className="home-about__facts">
