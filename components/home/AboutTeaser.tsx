@@ -1,6 +1,5 @@
 import Image from "next/image";
 
-import { PlaceholderMedia } from "@/components/media/PlaceholderMedia";
 import { siteConfig } from "@/lib/constants";
 
 export function AboutTeaser() {
@@ -16,7 +15,7 @@ export function AboutTeaser() {
           <figure className="home-about__frame home-about__frame--portrait">
             <div className="home-about__photo">
               <Image
-                src="/about/chris-qin.png"
+                src="/about/chris-qin-portrait.png"
                 alt="Portrait of Chris Qin"
                 fill
                 unoptimized
@@ -24,19 +23,6 @@ export function AboutTeaser() {
                 className="home-about__photo-img"
               />
             </div>
-          </figure>
-
-          <figure className="home-about__frame home-about__frame--timeline">
-            <PlaceholderMedia
-              src={null}
-              alt="Edit timeline placeholder"
-              label="Timeline crop"
-              hint="Asset needed"
-              aspectRatio="4 / 3"
-              motif="timeline"
-              className="home-about__media"
-              sizes="(max-width: 900px) 55vw, 14rem"
-            />
           </figure>
         </div>
 

@@ -56,9 +56,9 @@ export const siteConfig = {
   /** Default until montage or showreel media is supplied. */
   heroMediaMode: "static" as HeroMediaMode,
   /**
-   * Final hero poster. Horizontal cinematic frame; dark edges for overlaid type.
+   * Final hero poster — waterfall frame; person near bottom center.
    */
-  heroImage: "/hero/chris-qin-hero.png" as string | null,
+  heroImage: "/hero/hero-waterfall.png" as string | null,
 } as const;
 
 /** Static link definitions are resolved through getPrimaryNavLinks() in lib/nav.ts. */

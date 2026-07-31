@@ -16,7 +16,7 @@ export const projects: Project[] = [
     roles: ["Videographer", "Editor"],
     services: ["videography", "editing"],
     orientation: "horizontal",
-    thumbnail: "/projects/ga-painting-company/poster.png",
+    thumbnail: "/projects/ga-painting/poster.png",
     previewVideoUrl: null,
     videoUrl: "https://youtu.be/S3hpLnVWv_4",
     videoProvider: "youtube",

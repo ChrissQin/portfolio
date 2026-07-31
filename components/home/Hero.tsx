@@ -4,8 +4,7 @@ import { MobileNav } from "@/components/layout/MobileNav";
 import { getPrimaryNavLinks } from "@/lib/nav";
 import { siteConfig } from "@/lib/constants";
 
-const HERO_POSTER =
-  siteConfig.heroImage ?? "/hero/poster-placeholder.svg";
+const HERO_POSTER = siteConfig.heroImage ?? "/hero/hero-waterfall.png";
 
 const DISCIPLINES = [
   { label: "Social & YouTube", mark: true },
@@ -38,8 +37,8 @@ export function Hero() {
             className="cinema-hero__poster"
             src={HERO_POSTER}
             alt="Cinematic waterfall landscape with a solitary figure near the base of the falls"
-            width={2400}
-            height={1350}
+            width={1536}
+            height={1024}
             decoding="async"
             fetchPriority="high"
           />
