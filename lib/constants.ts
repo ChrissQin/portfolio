@@ -23,8 +23,12 @@ export const siteConfig = {
     "Editing first. Shooting when the story needs it. Always thinking about pacing, sound, and what makes someone keep watching.",
   intro:
     "I cut, shoot, and shape videos for creators, brands, and ideas I care about.",
-  /** Replace with the final portfolio email before launch. */
-  email: null as string | null,
+  email: "cqvisualscontact@gmail.com",
+  phoneDisplay: "+1 (404) 567-3549",
+  phoneHref: "tel:+14045673549",
+  location: "Georgia, USA",
+  locationLabel: "GEORGIA, USA",
+  timezone: "America/New_York",
   socials: {
     instagram: null,
     linkedin: null,
