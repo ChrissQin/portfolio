@@ -8,10 +8,11 @@ const HERO_POSTER =
   siteConfig.heroImage ?? "/hero/poster-placeholder.svg";
 
 const DISCIPLINES = [
-  { label: "Video Editing", mark: true },
-  { label: "Videography", mark: false },
+  { label: "Social & YouTube", mark: true },
+  { label: "Editing & Post", mark: false },
+  { label: "Videography", mark: true },
+  { label: "Photography", mark: false },
   { label: "Color Grading", mark: true },
-  { label: "Social & YouTube", mark: false },
 ] as const;
 
 /**
