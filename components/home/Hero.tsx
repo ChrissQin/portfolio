@@ -10,9 +10,8 @@ const HERO_POSTER =
 const DISCIPLINES = [
   { label: "Video Editing", mark: true },
   { label: "Videography", mark: false },
-  { label: "Creative Production", mark: true },
-  { label: "Sound Design", mark: false },
-  { label: "Social & YouTube", mark: true },
+  { label: "Color Grading", mark: true },
+  { label: "Social & YouTube", mark: false },
 ] as const;
 
 /**
@@ -72,7 +71,7 @@ export function Hero() {
 
           <div className="cinema-hero__meta">
             <p className="cinema-hero__meta-line">
-              Video editing &amp; production — Based in Georgia, USA
+              Video editing &amp; production — Based in Atlanta, Georgia
               <span className="cinema-hero__pin" aria-hidden="true" />
             </p>
             <GeorgiaLiveClock className="cinema-hero__clock" showDate />
@@ -84,12 +83,12 @@ export function Hero() {
               <span>Built to keep watching.</span>
             </h1>
             <p className="cinema-hero__lede">
-              Video editing, videography, and creative production for creators,
-              brands, and ideas I care about.
+              Video editing and videography for creators, brands, and ideas I
+              care about.
             </p>
             <p className="cinema-hero__lede cinema-hero__lede--secondary">
-              Pacing, sound, and visual choices built around what makes people
-              stay.
+              Pacing, sound, color, and visual choices built around what makes
+              people stay.
             </p>
           </div>
 

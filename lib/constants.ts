@@ -32,7 +32,6 @@ export const siteConfig = {
   roles: [
     { text: "Video Editor", emphasis: "primary" },
     { text: "Videographer", emphasis: "secondary" },
-    { text: "Creative Production", emphasis: "supporting" },
   ] as const satisfies readonly HeroRole[],
   tagline:
     "Editing first. Shooting when the story needs it. Always thinking about pacing, sound, and what makes someone keep watching.",
