@@ -3,7 +3,7 @@ import { Archivo_Black, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
-import { siteConfig } from "@/lib/constants";
+import { getSiteUrl, siteConfig } from "@/lib/constants";
 
 import "./globals.css";
 
@@ -28,12 +28,31 @@ const mono = IBM_Plex_Mono({
   display: "swap",
 });
 
+const siteUrl = getSiteUrl();
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: `${siteConfig.name} — ${siteConfig.role}`,
     template: `%s — ${siteConfig.name}`,
   },
   description: siteConfig.intro,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: "/",
+    title: `${siteConfig.name} — ${siteConfig.role}`,
+    description: siteConfig.intro,
+    siteName: siteConfig.name,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} — ${siteConfig.role}`,
+    description: siteConfig.intro,
+  },
 };
 
 export default function RootLayout({

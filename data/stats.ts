@@ -46,12 +46,12 @@ export const portfolioStats: PortfolioStat[] = [
 
 export const statsConfig = {
   /**
-   * Keep incomplete metrics in the editorial grid as intentional dashes.
-   * Never invent numeric values — null always renders as a placeholder.
+   * Incomplete metrics (null values) are development-only layout aids.
+   * Production never publishes “Metric needed” placeholders.
    */
-  includeIncompleteMetrics: true,
+  includeIncompleteMetrics: process.env.NODE_ENV !== "production",
   /**
    * When true, hide the entire section unless every enabled metric has a value.
    */
   hideUntilAllEnabledHaveValues: false,
-} as const;
+};

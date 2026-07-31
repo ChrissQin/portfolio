@@ -11,6 +11,21 @@ export type HeroRole = {
   emphasis: "primary" | "secondary" | "supporting";
 };
 
+/**
+ * Canonical site origin for metadata and sitemap.
+ * Override with NEXT_PUBLIC_SITE_URL when a production domain is ready.
+ */
+export function getSiteUrl(): string {
+  const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
+  if (fromEnv) {
+    return fromEnv;
+  }
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL.replace(/\/$/, "")}`;
+  }
+  return "http://localhost:3000";
+}
+
 export const siteConfig = {
   name: "Chris Qin",
   role: "Video Editor & Videographer",

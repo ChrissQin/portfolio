@@ -37,9 +37,14 @@ export type Project = {
   thumbnail: string | null;
   /**
    * Optional muted local preview (mp4/webm). Loaded only after pointer/focus intent.
-   * Prefer this for hover showreel behavior; remote embeds stay on project pages.
+   * Prefer this for hover showreel behavior on the homepage gallery.
    */
   previewVideoUrl?: string | null;
+  /**
+   * Optional genuine external destination (YouTube, campaign page, etc.).
+   * When absent, the tile is a visual portfolio item — not a broken internal link.
+   */
+  externalUrl?: string;
   videoUrl?: string;
   videoProvider: VideoProvider;
   responsibilities?: string[];

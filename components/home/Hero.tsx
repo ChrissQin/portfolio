@@ -1,11 +1,9 @@
-import Link from "next/link";
-
 import { WorkspaceCollage } from "@/components/home/WorkspaceCollage";
 import { siteConfig } from "@/lib/constants";
 
 export function Hero() {
   return (
-    <section className="hero" aria-labelledby="hero-heading">
+    <section id="top" className="hero" aria-labelledby="hero-heading" tabIndex={-1}>
       <div className="container hero__layout">
         <div className="hero__copy">
           <h1 id="hero-heading" className="hero__heading">
@@ -31,14 +29,14 @@ export function Hero() {
           <p className="hero__tagline">{siteConfig.tagline}</p>
 
           <div className="hero__actions">
-            <Link href="#featured-work" className="editorial-link">
+            <a href="#work" className="editorial-link">
               View Selected Work
               <span aria-hidden="true"> ↘</span>
-            </Link>
-            <Link href="/about" className="editorial-link editorial-link--muted">
+            </a>
+            <a href="#about" className="editorial-link editorial-link--muted">
               More About Me
               <span aria-hidden="true"> →</span>
-            </Link>
+            </a>
           </div>
         </div>
 

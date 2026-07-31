@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { PlaceholderMedia } from "@/components/media/PlaceholderMedia";
 import type { Project } from "@/lib/projects";
 
@@ -12,6 +10,10 @@ type ProjectCardProps = {
   className?: string;
 };
 
+/**
+ * Legacy masonry card — retained for layout experiments.
+ * Prefer WorkGalleryTile on the homepage. Links only via externalUrl or #work.
+ */
 export function ProjectCard({
   project,
   span,
@@ -22,6 +24,8 @@ export function ProjectCard({
   const isVertical = project.orientation === "vertical";
   const roleLabel = project.roles.join(" + ");
   const paddedIndex = String(index).padStart(2, "0");
+  const externalUrl = project.externalUrl?.trim() || null;
+  const href = externalUrl ?? "#work";
 
   return (
     <article
@@ -30,10 +34,17 @@ export function ProjectCard({
       data-span={span}
       data-index={paddedIndex}
     >
-      <Link
-        href="/work"
+      <a
+        href={href}
         className="project-card__link"
-        aria-label={`${project.title}. Role: ${roleLabel}. Open work archive.`}
+        {...(externalUrl
+          ? { target: "_blank", rel: "noopener noreferrer" }
+          : {})}
+        aria-label={
+          externalUrl
+            ? `${project.title}. Role: ${roleLabel}. Opens external project.`
+            : `${project.title}. Role: ${roleLabel}. Jump to selected work.`
+        }
       >
         <div className="project-card__frame">
           <div className="project-card__media">
@@ -67,7 +78,7 @@ export function ProjectCard({
             <p className="project-card__year">{project.year}</p>
           ) : null}
         </div>
-      </Link>
+      </a>
     </article>
   );
 }

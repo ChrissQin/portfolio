@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { CopyEmailButton } from "@/components/contact/CopyEmailButton";
 import { siteConfig } from "@/lib/constants";
 import { getActiveSocialLinks, hasContactMethod } from "@/lib/contact";
@@ -22,12 +20,31 @@ export function HomeCTA() {
             {email ? (
               <div className="home-cta__email-row">
                 <a href={`mailto:${email}`} className="editorial-link">
-                  Send Me a Project
+                  Email Me
                   <span aria-hidden="true"> →</span>
+                </a>
+                <a href="#contact" className="editorial-link editorial-link--muted">
+                  Contact
+                  <span aria-hidden="true"> ↘</span>
                 </a>
                 <span className="home-cta__email">{email}</span>
                 <CopyEmailButton email={email} />
               </div>
+            ) : (
+              <div className="home-cta__actions">
+                <a href="#contact" className="editorial-link">
+                  Contact
+                  <span aria-hidden="true"> ↘</span>
+                </a>
+              </div>
+            )}
+
+            {siteConfig.phoneDisplay && siteConfig.phoneHref ? (
+              <p className="home-cta__availability">
+                <a href={siteConfig.phoneHref} className="editorial-link editorial-link--muted">
+                  Call Me · {siteConfig.phoneDisplay}
+                </a>
+              </p>
             ) : null}
 
             {siteConfig.availability ? (
@@ -53,14 +70,14 @@ export function HomeCTA() {
           </div>
         ) : (
           <div className="home-cta__actions">
-            <Link href="/work" className="editorial-link">
-              See All Work
+            <a href="#contact" className="editorial-link">
+              Contact
+              <span aria-hidden="true"> ↘</span>
+            </a>
+            <a href="#about" className="editorial-link editorial-link--muted">
+              About Me
               <span aria-hidden="true"> →</span>
-            </Link>
-            <Link href="/about" className="editorial-link editorial-link--muted">
-              Read More About Me
-              <span aria-hidden="true"> →</span>
-            </Link>
+            </a>
           </div>
         )}
       </div>
