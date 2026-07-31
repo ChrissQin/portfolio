@@ -19,6 +19,7 @@ export const projects: Project[] = [
     services: ["editing"],
     orientation: "horizontal",
     thumbnail: null,
+    previewVideoUrl: null,
     videoProvider: "none",
   },
   {
@@ -34,6 +35,7 @@ export const projects: Project[] = [
     services: ["editing", "videography"],
     orientation: "vertical",
     thumbnail: null,
+    previewVideoUrl: null,
     videoProvider: "none",
   },
   {
@@ -49,6 +51,7 @@ export const projects: Project[] = [
     services: ["editing"],
     orientation: "horizontal",
     thumbnail: null,
+    previewVideoUrl: null,
     videoProvider: "none",
   },
 ];

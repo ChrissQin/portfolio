@@ -42,8 +42,8 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="hero__collage">
-          <WorkspaceCollage />
+        <div className="hero__collage hero__collage--quiet">
+          <WorkspaceCollage compact />
         </div>
       </div>
     </section>

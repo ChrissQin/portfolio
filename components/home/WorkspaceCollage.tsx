@@ -6,7 +6,7 @@ type WorkspaceCollageProps = {
 };
 
 export function WorkspaceCollage({ compact = false }: WorkspaceCollageProps) {
-  const slots = compact ? collageSlots.slice(0, 3) : collageSlots;
+  const slots = compact ? collageSlots.slice(0, 2) : collageSlots.slice(0, 3);
 
   return (
     <div

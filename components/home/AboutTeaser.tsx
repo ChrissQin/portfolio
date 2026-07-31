@@ -34,9 +34,6 @@ export function AboutTeaser() {
             />
           </figure>
 
-          <p className="home-about__annotation" aria-hidden="true">
-            this part matters ↓
-          </p>
         </div>
 
         <div className="home-about__copy">
