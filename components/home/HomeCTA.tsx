@@ -23,21 +23,10 @@ export function HomeCTA() {
                   Email Me
                   <span aria-hidden="true"> →</span>
                 </a>
-                <a href="#contact" className="editorial-link editorial-link--muted">
-                  Contact
-                  <span aria-hidden="true"> ↘</span>
-                </a>
                 <span className="home-cta__email">{email}</span>
                 <CopyEmailButton email={email} />
               </div>
-            ) : (
-              <div className="home-cta__actions">
-                <a href="#contact" className="editorial-link">
-                  Contact
-                  <span aria-hidden="true"> ↘</span>
-                </a>
-              </div>
-            )}
+            ) : null}
 
             {siteConfig.phoneDisplay && siteConfig.phoneHref ? (
               <p className="home-cta__availability">
@@ -70,10 +59,6 @@ export function HomeCTA() {
           </div>
         ) : (
           <div className="home-cta__actions">
-            <a href="#contact" className="editorial-link">
-              Contact
-              <span aria-hidden="true"> ↘</span>
-            </a>
             <a href="#about" className="editorial-link editorial-link--muted">
               About Me
               <span aria-hidden="true"> →</span>

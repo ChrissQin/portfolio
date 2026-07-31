@@ -1,3 +1,7 @@
+"use client";
+
+import { type DragEvent } from "react";
+
 import { HeroRipple } from "@/components/home/HeroRipple";
 import { GeorgiaLiveClock } from "@/components/layout/GeorgiaLiveClock";
 import { MobileNav } from "@/components/layout/MobileNav";
@@ -13,6 +17,10 @@ const DISCIPLINES = [
   { label: "Photography", mark: false },
   { label: "Color Grading", mark: true },
 ] as const;
+
+function preventNativeDrag(event: DragEvent) {
+  event.preventDefault();
+}
 
 /**
  * Reelio-inspired cinematic hero — media frame with internal navigation.
@@ -30,7 +38,10 @@ export function Hero() {
       tabIndex={-1}
     >
       <div className="cinema-hero__frame">
-          <div className="cinema-hero__media">
+        <div
+          className="cinema-hero__media"
+          onDragStart={preventNativeDrag}
+        >
           {/* Static poster — always present for fallback / reduced-motion / no-WebGL */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -41,6 +52,8 @@ export function Hero() {
             height={1024}
             decoding="async"
             fetchPriority="high"
+            draggable={false}
+            onDragStart={preventNativeDrag}
           />
           <HeroRipple imageSrc={HERO_POSTER} />
           <div className="cinema-hero__veil" aria-hidden="true" />
@@ -79,16 +92,16 @@ export function Hero() {
 
           <div className="cinema-hero__copy">
             <h1 id="hero-heading" className="cinema-hero__headline">
-              <span>Cut for the story.</span>
-              <span>Built to keep watching.</span>
+              <span>Building experiences.</span>
+              <span>Make the idea land.</span>
             </h1>
             <p className="cinema-hero__lede">
-              Video editing and videography for creators, brands, and ideas I
-              care about.
+              I help creators, founders, and filmmakers turn rough ideas into
+              videos people understand, feel, and remember.
             </p>
             <p className="cinema-hero__lede cinema-hero__lede--secondary">
-              Pacing, sound, color, and visual choices built around what makes
-              people stay.
+              Concept, structure, pacing, sound, and image — all shaped around
+              what the work is trying to say.
             </p>
           </div>
 

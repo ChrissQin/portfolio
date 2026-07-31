@@ -18,7 +18,7 @@ export function AboutTeaser() {
                 src="/about/chris-qin-portrait.png"
                 alt="Portrait of Chris Qin"
                 fill
-                sizes="(max-width: 900px) 70vw, 18rem"
+                sizes="(max-width: 899px) 100vw, min(480px, 42vw)"
                 className="home-about__photo-img"
               />
             </div>
