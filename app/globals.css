@@ -1075,7 +1075,7 @@ button {
 
 .work-tile--portrait-split .work-tile__split {
   display: grid;
-  grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr);
+  grid-template-columns: auto minmax(0, 1fr);
   align-items: stretch;
   gap: 0;
   overflow: hidden;
@@ -1091,15 +1091,14 @@ button {
   justify-content: center;
   min-width: 0;
   min-height: 0;
-  padding: 0.7rem 0.45rem 0.7rem 0.7rem;
-  container-type: size;
+  padding: 0.55rem 0.35rem 0.55rem 0.55rem;
 }
 
 .work-tile--portrait-split .work-tile__media--portrait {
   position: relative;
   aspect-ratio: 9 / 16;
-  width: min(100cqw, calc(100cqh * 9 / 16));
-  height: min(100cqh, calc(100cqw * 16 / 9));
+  height: 100%;
+  width: auto;
   overflow: hidden;
   border-radius: 0.45rem;
   background: var(--surface);
@@ -1112,7 +1111,7 @@ button {
   justify-content: flex-end;
   gap: 0.28rem;
   min-width: 0;
-  padding: 1rem 1.15rem 1.1rem 0.95rem;
+  padding: 1rem 1.2rem 1.1rem 1.05rem;
 }
 
 .work-tile--portrait-split .work-tile__split-title {
@@ -1165,7 +1164,6 @@ button {
 
   .work-tile--portrait-split .work-tile__split-media {
     padding: 0.95rem 0.95rem 0.35rem;
-    container-type: normal;
   }
 
   .work-tile--portrait-split .work-tile__media--portrait {
