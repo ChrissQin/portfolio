@@ -1068,6 +1068,124 @@ button {
   aspect-ratio: 9 / 16;
 }
 
+/* Portrait-split: 9:16 media beside a text panel in a standard-width tile. */
+.work-tile--portrait-split .work-tile__surface {
+  width: 100%;
+}
+
+.work-tile--portrait-split .work-tile__split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: 0;
+  overflow: hidden;
+  border-radius: 0.7rem;
+  aspect-ratio: 16 / 10;
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+}
+
+.work-tile--portrait-split .work-tile__split-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+  padding: 0.7rem 0.45rem 0.7rem 0.7rem;
+}
+
+.work-tile--portrait-split .work-tile__media--portrait {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 0.45rem;
+  background: var(--surface);
+  isolation: isolate;
+}
+
+.work-tile--portrait-split .work-tile__split-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.28rem;
+  min-width: 0;
+  padding: 1rem 1.15rem 1.1rem 0.95rem;
+}
+
+.work-tile--portrait-split .work-tile__split-title {
+  margin: 0 0 0.2rem;
+  font-family: var(--font-body-family), system-ui, sans-serif;
+  font-size: clamp(1.05rem, 1.9vw, 1.3rem);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  color: var(--paper-bright);
+}
+
+.work-tile--portrait-split .work-tile__split-client,
+.work-tile--portrait-split .work-tile__split-meta {
+  margin: 0;
+  font-family: var(--font-mono-family), ui-monospace, monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.45;
+  color: rgba(213, 193, 173, 0.82);
+}
+
+.work-tile--portrait-split .work-tile__split-client {
+  color: var(--accent);
+  margin-bottom: 0.15rem;
+}
+
+.work-tile--portrait-split .work-tile__split-recognition {
+  margin: 0.35rem 0 0;
+  font-family: var(--font-mono-family), ui-monospace, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+  color: rgba(213, 193, 173, 0.62);
+}
+
+.work-tile--portrait-split .work-tile__play {
+  /* Keep play control on the 9:16 frame only. */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media (max-width: 759px) {
+  .work-tile--portrait-split .work-tile__split {
+    grid-template-columns: 1fr;
+    aspect-ratio: auto;
+  }
+
+  .work-tile--portrait-split .work-tile__split-media {
+    padding: 0.95rem 0.95rem 0.35rem;
+  }
+
+  .work-tile--portrait-split .work-tile__media--portrait {
+    width: min(100%, 15.5rem);
+    height: auto;
+    max-height: none;
+  }
+
+  .work-tile--portrait-split .work-tile__split-panel {
+    padding: 0.85rem 1.05rem 1.15rem;
+    justify-content: flex-start;
+  }
+
+  .work-tile--portrait-split .work-tile__play {
+    opacity: 1;
+    top: 50%;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+  }
+}
+
 .work-tile__media .project-preview,
 .work-tile__media .project-preview__poster,
 .work-tile__media .placeholder-media {

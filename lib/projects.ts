@@ -9,6 +9,12 @@ export type Service = "editing" | "videography" | "production";
 
 export type Orientation = "horizontal" | "vertical";
 
+/**
+ * Gallery presentation. `portrait-split` places true 9:16 media beside a
+ * text panel inside a standard-width tile — reusable for vertical projects.
+ */
+export type GalleryVariant = "standard" | "portrait-split";
+
 export type VideoProvider = "youtube" | "vimeo" | "local" | "none";
 
 export type GalleryImage = {
@@ -32,6 +38,8 @@ export type Project = {
   /** Filter-ready; unused in the Work UI at launch. */
   services: Service[];
   orientation: Orientation;
+  /** Defaults to `standard` when omitted. */
+  galleryVariant?: GalleryVariant;
   /**
    * Optional explicit 12-column span. When omitted, the grid packer assigns a
    * span from orientation pairing so layout does not depend on list order hacks.

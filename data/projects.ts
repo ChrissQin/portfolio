@@ -61,6 +61,7 @@ export const projects: Project[] = [
     roles: ["Editor", "Videographer"],
     services: ["editing", "videography"],
     orientation: "vertical",
+    galleryVariant: "portrait-split",
     thumbnail: "/projects/in-motion/poster.png",
     previewVideoUrl: null,
     videoUrl: "https://youtube.com/shorts/-dQCyRpg5Z0",
