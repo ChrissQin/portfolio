@@ -47,21 +47,29 @@ export const metadata: Metadata = {
   },
   description: pageDescription,
   alternates: {
-    canonical: "/",
+    canonical: siteUrl,
   },
   openGraph: {
     type: "website",
-    url: "/",
+    url: siteUrl,
     title: pageTitle,
     description: pageDescription,
     siteName: siteConfig.name,
     locale: "en_US",
-    // Final OG image still needed — do not invent one.
+    images: [
+      {
+        url: "/social/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Chris Qin — Video Editor and Videographer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: pageTitle,
     description: pageDescription,
+    images: ["/social/og-image.png"],
   },
   robots: {
     index: true,

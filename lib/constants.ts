@@ -11,19 +11,22 @@ export type HeroRole = {
   emphasis: "primary" | "secondary" | "supporting";
 };
 
+/** Production origin — keep in sync with NEXT_PUBLIC_SITE_URL. */
+export const PRODUCTION_SITE_URL = "https://chrisqin.studio";
+
 /**
- * Canonical site origin for metadata and sitemap.
- * Override with NEXT_PUBLIC_SITE_URL when a production domain is ready.
+ * Canonical site origin for metadata, sitemap, and robots.
+ * Prefer NEXT_PUBLIC_SITE_URL; default to the production domain.
  */
 export function getSiteUrl(): string {
   const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
   if (fromEnv) {
     return fromEnv;
   }
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL.replace(/\/$/, "")}`;
+  if (process.env.NODE_ENV === "development") {
+    return "http://localhost:3000";
   }
-  return "http://localhost:3000";
+  return PRODUCTION_SITE_URL;
 }
 
 export const siteConfig = {
