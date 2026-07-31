@@ -1,3 +1,7 @@
+"use client";
+
+import { type DragEvent } from "react";
+
 import { HeroRipple } from "@/components/home/HeroRipple";
 import { GeorgiaLiveClock } from "@/components/layout/GeorgiaLiveClock";
 import { MobileNav } from "@/components/layout/MobileNav";
@@ -13,6 +17,10 @@ const DISCIPLINES = [
   { label: "Photography", mark: false },
   { label: "Color Grading", mark: true },
 ] as const;
+
+function preventNativeDrag(event: DragEvent) {
+  event.preventDefault();
+}
 
 /**
  * Reelio-inspired cinematic hero — media frame with internal navigation.
@@ -30,7 +38,10 @@ export function Hero() {
       tabIndex={-1}
     >
       <div className="cinema-hero__frame">
-          <div className="cinema-hero__media">
+        <div
+          className="cinema-hero__media"
+          onDragStart={preventNativeDrag}
+        >
           {/* Static poster — always present for fallback / reduced-motion / no-WebGL */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -41,6 +52,8 @@ export function Hero() {
             height={1024}
             decoding="async"
             fetchPriority="high"
+            draggable={false}
+            onDragStart={preventNativeDrag}
           />
           <HeroRipple imageSrc={HERO_POSTER} />
           <div className="cinema-hero__veil" aria-hidden="true" />
