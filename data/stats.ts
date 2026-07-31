@@ -12,6 +12,7 @@ export type PortfolioStat = {
 
 /**
  * Confirmed public metrics only — no null / incomplete development states.
+ * Order and copy match the approved By the Numbers content.
  */
 export const portfolioStats: PortfolioStat[] = [
   {
@@ -19,17 +20,9 @@ export const portfolioStats: PortfolioStat[] = [
     value: 15,
     suffix: "M+",
     label: "Total Views",
-    description: "Across personal content channels and collaborative work",
+    description:
+      "Across personal content channels and collaborative work.",
     accessibleValue: "15 million plus",
-    enabled: true,
-  },
-  {
-    id: "years-editing",
-    value: 5,
-    suffix: "+",
-    label: "Years Editing",
-    description: "Creating and editing with Adobe creative software",
-    accessibleValue: "5 plus",
     enabled: true,
   },
   {
@@ -37,8 +30,19 @@ export const portfolioStats: PortfolioStat[] = [
     value: 14,
     suffix: "K+",
     label: "Subscribers",
-    description: "Across personal content channels",
+    description:
+      "Built across different platforms, formats, and content communities.",
     accessibleValue: "14 thousand plus",
+    enabled: true,
+  },
+  {
+    id: "years-creating",
+    value: 5,
+    suffix: "+",
+    label: "Years Creating",
+    description:
+      "From early social experiments to client, commercial, and documentary work.",
+    accessibleValue: "5 plus",
     enabled: true,
   },
   {
@@ -46,7 +50,8 @@ export const portfolioStats: PortfolioStat[] = [
     value: 10,
     suffix: "+",
     label: "Brands Served",
-    description: "Across editing, social, and creative collaborations",
+    description:
+      "Across startups, restaurants, nonprofits, and personal media brands.",
     accessibleValue: "10 plus",
     enabled: true,
   },
