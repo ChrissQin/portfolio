@@ -9,14 +9,15 @@ export type NavLink = {
 };
 
 /**
- * Homepage section anchors. Numbered 01–03 to match the approved header style.
- * Plain hash hrefs preserve native scroll behavior (no Next.js route navigation).
+ * Homepage section anchors. Numbered indices retained for optional use;
+ * cinematic hero uses clean labels without numbers.
+ * Paths use `/#…` so redirects and non-home stubs still land correctly.
  */
 export function getPrimaryNavLinks(): NavLink[] {
   const links: Array<{ href: string; label: string; sectionId: string }> = [
-    { href: "#work", label: "Work", sectionId: "work" },
-    { href: "#about", label: "About", sectionId: "about" },
-    { href: "#contact", label: "Contact", sectionId: "contact" },
+    { href: "/#work", label: "Work", sectionId: "work" },
+    { href: "/#about", label: "About", sectionId: "about" },
+    { href: "/#contact", label: "Contact", sectionId: "contact" },
   ];
 
   if (siteConfig.resumeUrl) {

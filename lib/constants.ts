@@ -55,6 +55,10 @@ export const siteConfig = {
   availability: null as string | null,
   /** Default until montage or showreel media is supplied. */
   heroMediaMode: "static" as HeroMediaMode,
+  /**
+   * Final hero poster path. Null uses the cinematic development placeholder.
+   * Provide a horizontal image ≥2400px wide, dark enough for overlaid type.
+   */
   heroImage: null as string | null,
 } as const;
 

@@ -6,10 +6,10 @@ import {
 import { siteConfig } from "@/lib/constants";
 
 const FOOTER_NAV = [
-  { href: "#top", label: "Home" },
-  { href: "#work", label: "Work" },
-  { href: "#about", label: "About" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#top", label: "Home" },
+  { href: "/#work", label: "Work" },
+  { href: "/#about", label: "About" },
+  { href: "/#contact", label: "Contact" },
 ] as const;
 
 export function SiteFooter() {

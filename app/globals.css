@@ -316,7 +316,7 @@ button {
   position: fixed;
   inset: 0;
   z-index: 55;
-  background: rgba(13, 13, 11, 0.72);
+  background: rgba(0, 0, 0, 0.72);
   border: 0;
 }
 
@@ -488,109 +488,398 @@ button {
   transition: transform 0.25s linear;
 }
 
-/* ——— Hero ——— */
-.hero {
-  padding: clamp(2.5rem, 6vw, 4rem) 0 clamp(3.5rem, 8vw, 5.5rem);
+/* ——— Cinematic hero (Reelio-inspired frame) ——— */
+.cinema-hero {
+  padding: 0.85rem 0.85rem 0;
 }
 
-.hero__layout {
-  display: grid;
-  gap: clamp(2.5rem, 5vw, 3.5rem);
-  align-items: start;
-}
-
-.hero__copy,
-.hero__collage {
-  min-width: 0;
-}
-
-/* Stack through common tablet/laptop widths to protect title scale. */
-@media (min-width: 1180px) {
-  .hero__layout {
-    grid-template-columns: minmax(0, 1.2fr) minmax(17rem, 0.8fr);
-    gap: clamp(2.5rem, 4vw, 3.75rem);
-    align-items: start;
+@media (min-width: 768px) {
+  .cinema-hero {
+    padding: 1.1rem 1.1rem 0;
   }
 }
 
-.hero__heading {
-  margin: 0;
+.cinema-hero__frame {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: min(700px, 100svh);
+  height: calc(100svh - 1.7rem);
+  max-height: 1100px;
+  border-radius: clamp(1.25rem, 2.8vw, 2rem);
+  background: var(--surface);
+  color: var(--text-primary);
 }
 
-.hero__name {
+@media (min-width: 768px) {
+  .cinema-hero__frame {
+    height: calc(100svh - 2.2rem);
+    min-height: 700px;
+  }
+}
+
+.cinema-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.cinema-hero__poster {
   display: block;
-  margin: 0 0 1.1rem;
-  font-family: var(--font-mono-family), ui-monospace, monospace;
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
-.hero__roles {
+.cinema-hero__ripple {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cinema-hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.18) 28%,
+      rgba(0, 0, 0, 0.12) 48%,
+      rgba(0, 0, 0, 0.55) 78%,
+      rgba(0, 0, 0, 0.78) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.45) 0%,
+      rgba(0, 0, 0, 0.08) 42%,
+      rgba(0, 0, 0, 0.35) 100%
+    );
+}
+
+.cinema-hero__ui {
+  position: relative;
+  z-index: 3;
   display: grid;
-  gap: 0.15rem;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "chrome"
+    "meta"
+    "copy"
+    "disciplines"
+    "actions";
+  gap: 1.1rem;
+  align-content: space-between;
+  min-height: 100%;
+  padding: clamp(1rem, 2.5vw, 1.5rem) clamp(1rem, 3vw, 1.85rem)
+    clamp(1.15rem, 3vw, 1.85rem);
+  pointer-events: none;
 }
 
-.hero__role-line {
+.cinema-hero__ui a,
+.cinema-hero__ui button,
+.cinema-hero__mobile-nav {
+  pointer-events: auto;
+}
+
+.cinema-hero__chrome {
+  grid-area: chrome;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.cinema-hero__brand {
+  font-family: var(--font-mono-family), ui-monospace, monospace;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-bright);
+}
+
+.cinema-hero__nav {
+  display: none;
+}
+
+.cinema-hero__nav-list {
+  display: flex;
+  align-items: center;
+  gap: 1.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cinema-hero__nav-link {
+  font-family: var(--font-mono-family), ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  transition: color 0.15s linear;
+}
+
+.cinema-hero__nav-link:hover,
+.cinema-hero__nav-link:focus-visible {
+  color: var(--text-bright);
+}
+
+.cinema-hero__mobile-nav {
+  display: block;
+}
+
+.cinema-hero__mobile-nav .mobile-nav__toggle {
+  border-color: var(--line-strong);
+  color: var(--text-primary);
+}
+
+.cinema-hero__mobile-nav .mobile-nav__bars span {
+  background: var(--text-primary);
+}
+
+@media (min-width: 768px) {
+  .cinema-hero__nav {
+    display: block;
+  }
+
+  .cinema-hero__mobile-nav {
+    display: none;
+  }
+}
+
+.cinema-hero__meta {
+  grid-area: meta;
+  max-width: 22rem;
+  pointer-events: none;
+}
+
+.cinema-hero__meta-line {
+  margin: 0 0 0.65rem;
+  font-family: var(--font-mono-family), ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.cinema-hero__pin {
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-left: 0.45rem;
+  border: 1px solid var(--text-muted);
+  border-radius: 999px;
+  vertical-align: 0.1em;
+  opacity: 0.75;
+}
+
+.cinema-hero__clock .georgia-clock__date {
+  margin: 0;
+  font-family: var(--font-mono-family), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.cinema-hero__clock .georgia-clock__time {
+  margin: 0.2rem 0 0;
+}
+
+.cinema-hero__clock .georgia-clock__digits {
+  font-family: var(--font-mono-family), ui-monospace, monospace;
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.1em;
+  color: var(--text-bright);
+}
+
+.cinema-hero__clock .georgia-clock__time--pending .georgia-clock__digits {
+  opacity: 0.35;
+}
+
+.cinema-hero__copy {
+  grid-area: copy;
+  max-width: 36rem;
+  align-self: end;
+}
+
+.cinema-hero__headline {
+  margin: 0;
+  display: grid;
+  gap: 0.12rem;
+  font-family: var(--font-display-family), system-ui, sans-serif;
+  font-size: clamp(1.85rem, 5.6vw, 3.65rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 0.98;
+  text-transform: uppercase;
+  color: var(--text-bright);
+}
+
+.cinema-hero__lede {
+  margin: 1rem 0 0;
+  max-width: 28rem;
+  font-size: clamp(0.9rem, 1.7vw, 1.02rem);
+  line-height: 1.55;
+  color: var(--text-primary);
+}
+
+.cinema-hero__lede--secondary {
+  margin-top: 0.45rem;
+  color: var(--text-muted);
+}
+
+.cinema-hero__disciplines {
+  grid-area: disciplines;
+  display: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-body-family), system-ui, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--text-primary);
+}
+
+.cinema-hero__disciplines li {
   display: flex;
   align-items: baseline;
-  gap: 0.35rem;
-  font-family: var(--font-display-family), system-ui, sans-serif;
-  font-size: clamp(2.45rem, 7.2vw, 5.2rem);
-  font-weight: 400;
-  letter-spacing: -0.03em;
-  line-height: 0.94;
-  text-transform: uppercase;
+  gap: 0.4rem;
 }
 
-@media (min-width: 1180px) {
-  .hero__role-line {
-    font-size: clamp(2.6rem, 4.6vw, 4.85rem);
-  }
-}
-
-.hero__role-line--supporting {
-  font-size: clamp(1.7rem, 4.8vw, 3.1rem);
-  color: var(--paper);
-  opacity: 0.92;
-}
-
-@media (min-width: 1180px) {
-  .hero__role-line--supporting {
-    font-size: clamp(1.85rem, 3.1vw, 2.85rem);
-  }
-}
-
-.hero__role-plus {
+.cinema-hero__plus {
   color: var(--accent);
-  font-size: 0.72em;
-  line-height: 1;
-  transform: translateY(-0.05em);
+  font-size: 0.85em;
 }
 
-.hero__intro {
-  margin: 1.6rem 0 0;
-  max-width: 32rem;
-  font-size: clamp(1rem, 2.2vw, 1.125rem);
-  line-height: 1.6;
-  color: var(--paper-bright);
-}
-
-.hero__tagline {
-  margin: 0.75rem 0 0;
-  max-width: 34rem;
-  font-size: clamp(0.9375rem, 1.8vw, 1.05rem);
-  line-height: 1.65;
-  color: var(--muted);
-}
-
-.hero__actions {
+.cinema-hero__actions {
+  grid-area: actions;
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem 1.5rem;
-  margin-top: 1.85rem;
+  align-items: center;
+  gap: 0.85rem 1.1rem;
+}
+
+.cinema-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono-family), ui-monospace, monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition:
+    color 0.15s linear,
+    background-color 0.15s linear,
+    border-color 0.15s linear;
+}
+
+.cinema-hero__cta--primary {
+  padding: 0.85rem 1.25rem;
+  border-radius: 999px;
+  background: var(--text-primary);
+  color: var(--bg);
+}
+
+.cinema-hero__cta--primary:hover,
+.cinema-hero__cta--primary:focus-visible {
+  background: var(--text-bright);
+}
+
+.cinema-hero__cta--ghost {
+  color: var(--text-primary);
+  border-bottom: 1px solid transparent;
+}
+
+.cinema-hero__cta--ghost:hover,
+.cinema-hero__cta--ghost:focus-visible {
+  color: var(--text-bright);
+  border-bottom-color: var(--text-bright);
+}
+
+@media (min-width: 900px) {
+  .cinema-hero__ui {
+    grid-template-columns: minmax(0, 1.15fr) minmax(11rem, 0.55fr);
+    grid-template-rows: auto 1fr auto auto;
+    grid-template-areas:
+      "chrome chrome"
+      "meta disciplines"
+      "copy disciplines"
+      "copy actions";
+    column-gap: clamp(1.5rem, 4vw, 3rem);
+    row-gap: 1rem;
+  }
+
+  .cinema-hero__meta {
+    align-self: center;
+  }
+
+  .cinema-hero__disciplines {
+    display: grid;
+    gap: 0.35rem;
+    align-content: center;
+    justify-self: end;
+    text-align: left;
+  }
+
+  .cinema-hero__actions {
+    justify-self: end;
+    align-self: end;
+  }
+
+  .cinema-hero__lede--secondary {
+    display: block;
+  }
+}
+
+@media (max-width: 899px) {
+  .cinema-hero__frame {
+    height: auto;
+    min-height: min(100svh - 1.7rem, 920px);
+  }
+
+  .cinema-hero__lede--secondary {
+    display: none;
+  }
+
+  .cinema-hero__disciplines {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.85rem;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .cinema-hero__disciplines .cinema-hero__plus {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinema-hero__ripple {
+    display: none;
+  }
+}
+
+/* Legacy hero collage helpers retained for WorkspaceCollage elsewhere */
+.hero__collage--quiet {
+  position: relative;
+}
+
+.hero__collage--quiet .workspace-collage__caption-hint {
+  opacity: 0.7;
 }
 
 /* ——— Workspace collage ——— */
@@ -1075,16 +1364,6 @@ button {
   .by-numbers__stat:nth-child(n) {
     transform: none;
   }
-}
-
-.hero__collage--quiet {
-  opacity: 0.72;
-  transform: scale(0.96);
-  transform-origin: top right;
-}
-
-.hero__collage--quiet .workspace-collage__caption-hint {
-  display: none;
 }
 
 /* ——— Project grid / cards ——— */
@@ -1608,10 +1887,15 @@ button {
   margin: 0;
 }
 
-.site-footer__clock--pending .site-footer__clock-digits {
+.site-footer__clock .georgia-clock__time {
+  margin: 0;
+}
+
+.site-footer__clock .georgia-clock__time--pending .georgia-clock__digits {
   opacity: 0;
 }
 
+.site-footer__clock .georgia-clock__digits,
 .site-footer__clock-digits {
   font-family: var(--font-mono-family), ui-monospace, monospace;
   font-size: clamp(1.15rem, 2.5vw, 1.45rem);
