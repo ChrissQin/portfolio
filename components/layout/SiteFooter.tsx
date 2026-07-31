@@ -1,7 +1,5 @@
 import Link from "next/link";
 
-import { CopyEmailButton } from "@/components/contact/CopyEmailButton";
-import { FooterMarquee } from "@/components/layout/FooterMarquee";
 import { GeorgiaClock } from "@/components/layout/GeorgiaClock";
 import {
   getActiveSocialLinks,
@@ -55,13 +53,10 @@ export function SiteFooter() {
         <div className="site-footer__contact">
           <p className="site-footer__eyebrow">Get in touch</p>
           {email ? (
-            <div className="site-footer__contact-stack">
-              <a href={`mailto:${email}`} className="site-footer__contact-link">
-                <span>{email}</span>
-                <span aria-hidden="true">↗</span>
-              </a>
-              <CopyEmailButton email={email} />
-            </div>
+            <a href={`mailto:${email}`} className="site-footer__contact-link">
+              <span>{email}</span>
+              <span aria-hidden="true">↗</span>
+            </a>
           ) : null}
           {phoneDisplay && phoneHref ? (
             <a href={phoneHref} className="site-footer__contact-link">
@@ -104,13 +99,8 @@ export function SiteFooter() {
         ) : null}
       </div>
 
-      <div className="container site-footer__meta">
+      <div className="container site-footer__closing">
         <GeorgiaClock />
-      </div>
-
-      <FooterMarquee />
-
-      <div className="container site-footer__bottom">
         <p className="site-footer__copyright">
           © {year} {siteConfig.name.toUpperCase()}
         </p>

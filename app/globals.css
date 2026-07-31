@@ -1514,12 +1514,6 @@ button {
   align-content: start;
 }
 
-.site-footer__contact-stack {
-  display: grid;
-  gap: 0.45rem;
-  justify-items: start;
-}
-
 .site-footer__contact-link {
   display: inline-flex;
   flex-wrap: wrap;
@@ -1536,8 +1530,23 @@ button {
   color: var(--accent-hover);
 }
 
-.site-footer__meta {
-  padding-bottom: clamp(2rem, 5vw, 3rem);
+.site-footer__closing {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 0.5rem;
+  padding-top: clamp(1.75rem, 4vw, 2.35rem);
+  padding-bottom: clamp(2rem, 4vw, 2.75rem);
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 768px) {
+  .site-footer__closing {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+  }
 }
 
 .site-footer__clock-block {
@@ -1570,47 +1579,6 @@ button {
   color: var(--muted);
 }
 
-.site-footer__marquee {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  margin: 0;
-  padding: 0.85rem 0;
-  border-block: 1px solid var(--line);
-  background: var(--paper);
-  color: var(--bg);
-}
-
-.site-footer__marquee-track {
-  display: flex;
-  width: max-content;
-  gap: 0;
-  animation: footer-marquee 42s linear infinite;
-}
-
-.site-footer__marquee--static .site-footer__marquee-track {
-  animation: none;
-  transform: translateX(-8%);
-}
-
-.site-footer__marquee-text {
-  margin: 0;
-  flex: none;
-  padding-inline: 0.15em;
-  font-family: var(--font-display-family), system-ui, sans-serif;
-  font-size: clamp(2.8rem, 9vw, 6.5rem);
-  font-weight: 400;
-  letter-spacing: -0.03em;
-  line-height: 0.92;
-  text-transform: uppercase;
-  white-space: nowrap;
-  user-select: none;
-}
-
-.site-footer__bottom {
-  padding: 1.15rem 0 1.5rem;
-}
-
 .site-footer__copyright {
   margin: 0;
   font-family: var(--font-mono-family), ui-monospace, monospace;
@@ -1618,22 +1586,6 @@ button {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
-}
-
-@keyframes footer-marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .site-footer__marquee-track {
-    animation: none !important;
-    transform: translateX(-8%);
-  }
 }
 
 .contact-details {
