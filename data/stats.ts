@@ -1,57 +1,61 @@
 export type PortfolioStat = {
   id: string;
-  value: number | null;
+  value: number;
   prefix?: string;
   suffix?: string;
   label: string;
   description: string;
   enabled: boolean;
+  /** Spoken form for screen readers, e.g. "15 million plus". */
+  accessibleValue: string;
 };
 
 /**
- * Only confirmed values may ship publicly.
- * Null placeholders are for local layout development.
+ * Confirmed public metrics only — no null / incomplete development states.
  */
 export const portfolioStats: PortfolioStat[] = [
+  {
+    id: "total-views",
+    value: 15,
+    suffix: "M+",
+    label: "Total Views",
+    description: "Across personal content channels and collaborative work",
+    accessibleValue: "15 million plus",
+    enabled: true,
+  },
   {
     id: "years-editing",
     value: 5,
     suffix: "+",
     label: "Years Editing",
     description: "Creating and editing with Adobe creative software",
+    accessibleValue: "5 plus",
     enabled: true,
   },
   {
-    id: "videos-edited",
-    value: null,
-    label: "Videos Edited",
-    description: "Short-form, YouTube, and social cuts",
+    id: "subscribers",
+    value: 14,
+    suffix: "K+",
+    label: "Subscribers",
+    description: "Across personal content channels",
+    accessibleValue: "14 thousand plus",
     enabled: true,
   },
   {
-    id: "views-across-work",
-    value: null,
-    label: "Views Across Edited Work",
-    description: "Combined reach across published edits",
-    enabled: true,
-  },
-  {
-    id: "creators-brands",
-    value: null,
-    label: "Creators / Brands / Organizations",
-    description: "People and teams collaborated with",
+    id: "brands-served",
+    value: 10,
+    suffix: "+",
+    label: "Brands Served",
+    description: "Across editing, social, and creative collaborations",
+    accessibleValue: "10 plus",
     enabled: true,
   },
 ];
 
 export const statsConfig = {
   /**
-   * Incomplete metrics (null values) are development-only layout aids.
-   * Production never publishes “Metric needed” placeholders.
+   * Public site ships only confirmed metrics.
    */
-  includeIncompleteMetrics: process.env.NODE_ENV !== "production",
-  /**
-   * When true, hide the entire section unless every enabled metric has a value.
-   */
+  includeIncompleteMetrics: false,
   hideUntilAllEnabledHaveValues: false,
-};
+} as const;

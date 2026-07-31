@@ -2,17 +2,8 @@ import { portfolioStats, statsConfig, type PortfolioStat } from "@/data/stats";
 
 export function getVisibleStats(
   stats: PortfolioStat[] = portfolioStats,
-  includeIncomplete = statsConfig.includeIncompleteMetrics,
 ): PortfolioStat[] {
-  return stats.filter((stat) => {
-    if (!stat.enabled) {
-      return false;
-    }
-    if (includeIncomplete) {
-      return true;
-    }
-    return stat.value !== null;
-  });
+  return stats.filter((stat) => stat.enabled);
 }
 
 export function shouldRenderStatsSection(
@@ -24,7 +15,7 @@ export function shouldRenderStatsSection(
   }
 
   if (statsConfig.hideUntilAllEnabledHaveValues) {
-    return allEnabled.every((stat) => stat.value !== null);
+    return allEnabled.every((stat) => stat.enabled);
   }
 
   return true;

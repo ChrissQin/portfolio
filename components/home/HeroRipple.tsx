@@ -176,12 +176,46 @@ export function HeroRipple({ imageSrc, className = "" }: HeroRippleProps) {
 
     const image = new Image();
     image.decoding = "async";
+    image.crossOrigin = "anonymous";
     let textureReady = false;
-    image.onload = () => {
+    canvas.style.opacity = "0";
+
+    const uploadTexture = (source: HTMLImageElement | HTMLCanvasElement) => {
       gl.bindTexture(gl.TEXTURE_2D, texture);
       gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
       textureReady = true;
+      canvas.style.opacity = "1";
+    };
+
+    const poster = parent.querySelector<HTMLImageElement>(".cinema-hero__poster");
+    const startFromPoster = () => {
+      if (poster && poster.complete && poster.naturalWidth > 0) {
+        uploadTexture(poster);
+        return true;
+      }
+      return false;
+    };
+
+    if (!startFromPoster() && poster) {
+      poster.addEventListener(
+        "load",
+        () => {
+          if (!disposed) {
+            uploadTexture(poster);
+          }
+        },
+        { once: true },
+      );
+    }
+
+    image.onload = () => {
+      if (!disposed && !textureReady) {
+        uploadTexture(image);
+      }
+    };
+    image.onerror = () => {
+      // Keep static poster visible; ripple stays hidden.
     };
     image.src = imageSrc;
 
@@ -297,7 +331,7 @@ export function HeroRipple({ imageSrc, className = "" }: HeroRippleProps) {
       }
       gl.uniform4fv(uRipples, rippleData);
 
-      if (textureReady || true) {
+      if (textureReady) {
         gl.drawArrays(gl.TRIANGLES, 0, 6);
       }
     };

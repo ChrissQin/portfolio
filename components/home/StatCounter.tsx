@@ -10,7 +10,7 @@ type StatCounterProps = {
   delayMs?: number;
 };
 
-const DURATION_MS = 1150;
+const DURATION_MS = 1200;
 
 function easeOutCubic(t: number): number {
   return 1 - (1 - t) ** 3;
@@ -20,11 +20,10 @@ export function StatCounter({ stat, delayMs = 0 }: StatCounterProps) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInViewOnce(ref, 0.25);
   const reducedMotion = usePrefersReducedMotion();
-  const incomplete = stat.value === null;
   const [animated, setAnimated] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!inView || incomplete || stat.value === null || reducedMotion) {
+    if (!inView || reducedMotion) {
       return;
     }
 
@@ -51,49 +50,31 @@ export function StatCounter({ stat, delayMs = 0 }: StatCounterProps) {
       window.clearTimeout(timeout);
       window.cancelAnimationFrame(frame);
     };
-  }, [inView, incomplete, reducedMotion, stat.value, delayMs]);
+  }, [inView, reducedMotion, stat.value, delayMs]);
 
-  const display = incomplete
-    ? null
-    : reducedMotion
-      ? String(stat.value)
-      : !inView
-        ? "0"
-        : (animated ?? "0");
+  const display = reducedMotion
+    ? String(stat.value)
+    : !inView
+      ? "0"
+      : (animated ?? "0");
 
   return (
-    <div
-      ref={ref}
-      className={`by-numbers__stat${incomplete ? " by-numbers__stat--incomplete" : ""}`}
-    >
+    <div ref={ref} className="by-numbers__stat">
       <span className="by-numbers__plus" aria-hidden="true">
         +
       </span>
       <p className="by-numbers__label">{stat.label}</p>
       <p
         className="by-numbers__value"
-        aria-label={
-          incomplete
-            ? `${stat.label}: metric needed`
-            : `${stat.prefix ?? ""}${stat.value}${stat.suffix ?? ""} ${stat.label}`
-        }
+        aria-label={`${stat.accessibleValue} ${stat.label}`}
       >
-        {incomplete ? (
-          <span className="by-numbers__dash" aria-hidden="true">
-            —
-          </span>
-        ) : (
-          <>
-            {stat.prefix}
-            <span>{display}</span>
-            {stat.suffix}
-          </>
-        )}
+        <span aria-hidden="true">
+          {stat.prefix}
+          <span>{display}</span>
+          {stat.suffix}
+        </span>
       </p>
       <p className="by-numbers__description">{stat.description}</p>
-      {incomplete ? (
-        <p className="by-numbers__needed">Metric needed</p>
-      ) : null}
       <span className="by-numbers__plus by-numbers__plus--bottom" aria-hidden="true">
         +
       </span>

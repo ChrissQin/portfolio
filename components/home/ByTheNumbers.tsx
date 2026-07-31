@@ -31,7 +31,7 @@ export function ByTheNumbers() {
 
         <div className="by-numbers__grid" data-count={stats.length}>
           {stats.map((stat, index) => (
-            <StatCounter key={stat.id} stat={stat} delayMs={index * 110} />
+            <StatCounter key={stat.id} stat={stat} delayMs={index * 100} />
           ))}
         </div>
       </div>

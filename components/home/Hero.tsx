@@ -31,15 +31,15 @@ export function Hero() {
       tabIndex={-1}
     >
       <div className="cinema-hero__frame">
-        <div className="cinema-hero__media">
+          <div className="cinema-hero__media">
           {/* Static poster — always present for fallback / reduced-motion / no-WebGL */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             className="cinema-hero__poster"
             src={HERO_POSTER}
-            alt=""
+            alt="Cinematic waterfall landscape with a solitary figure near the base of the falls"
             width={2400}
-            height={1500}
+            height={1350}
             decoding="async"
             fetchPriority="high"
           />

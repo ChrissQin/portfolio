@@ -55,10 +55,9 @@ export const siteConfig = {
   /** Default until montage or showreel media is supplied. */
   heroMediaMode: "static" as HeroMediaMode,
   /**
-   * Final hero poster path. Null uses the cinematic development placeholder.
-   * Provide a horizontal image ≥2400px wide, dark enough for overlaid type.
+   * Final hero poster. Horizontal cinematic frame; dark edges for overlaid type.
    */
-  heroImage: null as string | null,
+  heroImage: "/hero/chris-qin-hero.png" as string | null,
 } as const;
 
 /** Static link definitions are resolved through getPrimaryNavLinks() in lib/nav.ts. */
