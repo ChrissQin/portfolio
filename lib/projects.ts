@@ -1,13 +1,19 @@
 export type Role =
   | "Editor"
   | "Videographer"
-  | "Editor & Videographer"
-  | "Producer, Videographer & Editor"
+  | "Producer"
+  | "Director"
   | "Social Media Editor";
 
 export type Service = "editing" | "videography" | "production";
 
 export type Orientation = "horizontal" | "vertical";
+
+/**
+ * Gallery presentation. `portrait-split` places true 9:16 media beside a
+ * text panel inside a standard-width tile — reusable for vertical projects.
+ */
+export type GalleryVariant = "standard" | "portrait-split";
 
 export type VideoProvider = "youtube" | "vimeo" | "local" | "none";
 
@@ -17,17 +23,23 @@ export type GalleryImage = {
 };
 
 export type Project = {
+  /** Internal key only — not used for public project-detail routes. */
   slug: string;
   title: string;
-  client: string;
-  year: string;
+  /** Omit when no client was supplied. */
+  client?: string;
+  /** Omit when no year was supplied — never invent one. */
+  year?: string;
   featured: boolean;
-  description: string;
+  /** Omit or leave empty when no description was supplied. */
+  description?: string;
   contentType: string;
   roles: Role[];
   /** Filter-ready; unused in the Work UI at launch. */
   services: Service[];
   orientation: Orientation;
+  /** Defaults to `standard` when omitted. */
+  galleryVariant?: GalleryVariant;
   /**
    * Optional explicit 12-column span. When omitted, the grid packer assigns a
    * span from orientation pairing so layout does not depend on list order hacks.
@@ -37,11 +49,20 @@ export type Project = {
   thumbnail: string | null;
   /**
    * Optional muted local preview (mp4/webm). Loaded only after pointer/focus intent.
-   * Prefer this for hover showreel behavior; remote embeds stay on project pages.
+   * Prefer this for hover showreel behavior on the homepage gallery.
    */
   previewVideoUrl?: string | null;
+  /**
+   * Optional genuine external destination.
+   * Homepage gallery tiles do not navigate externally — prefer videoUrl + lightbox.
+   */
+  externalUrl?: string | null;
   videoUrl?: string;
   videoProvider: VideoProvider;
+  /** Supporting channel context (e.g. subscriber count for a YouTube project). */
+  subscriberContext?: string;
+  /** Festival selection / award text. Optional — do not invent recognition. */
+  recognition?: string;
   responsibilities?: string[];
   approach?: string;
   software?: string[];
@@ -50,6 +71,11 @@ export type Project = {
   credits?: string[];
   galleryImages?: GalleryImage[];
 };
+
+/** Concise role line for gallery overlays (e.g. VIDEOGRAPHER + EDITOR). */
+export function formatProjectRoles(roles: Role[]): string {
+  return roles.join(" + ");
+}
 
 export function getProjectBySlug(
   projects: Project[],

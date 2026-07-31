@@ -1,18 +1,5 @@
-import type { Metadata } from "next";
+import { HashRedirect } from "@/components/layout/HashRedirect";
 
-export const metadata: Metadata = {
-  title: "Work",
-};
-
-export default function WorkPage() {
-  return (
-    <section className="container page-stub">
-      <p className="mono-label">01 / Archive</p>
-      <h1 className="display-heading">Work</h1>
-      <p>
-        Full project archive arrives in a later phase. Featured cuts live on the
-        homepage for now.
-      </p>
-    </section>
-  );
+export default function WorkRedirectPage() {
+  return <HashRedirect hash="work" />;
 }

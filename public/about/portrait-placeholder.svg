@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500" role="img" aria-label="Candid photo asset needed">
-  <rect width="1200" height="1500" fill="#181816"/>
-  <rect x="40" y="40" width="1120" height="1420" fill="none" stroke="#e8e0d2" stroke-opacity="0.28"/>
-  <text x="80" y="120" fill="#ff5438" font-family="ui-monospace, monospace" font-size="28" letter-spacing="3">STILL · CANDID</text>
-  <circle cx="600" cy="620" r="180" fill="none" stroke="#9c978e" stroke-opacity="0.4" stroke-width="2"/>
-  <path d="M340 980 C420 820 780 820 860 980" fill="none" stroke="#9c978e" stroke-opacity="0.4" stroke-width="2"/>
-  <text x="80" y="1280" fill="#e8e0d2" font-family="ui-monospace, monospace" font-size="48" font-weight="700">CANDID PHOTO</text>
-  <text x="80" y="1340" fill="#9c978e" font-family="ui-monospace, monospace" font-size="18" opacity="0.55">Asset needed</text>
-</svg>

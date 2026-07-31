@@ -1,15 +1,27 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { MobileNav } from "@/components/layout/MobileNav";
 import { getPrimaryNavLinks } from "@/lib/nav";
 
+/**
+ * Global header for non-home routes. On `/`, the cinematic hero owns navigation
+ * so desktop does not show a separate black header bar above the media frame.
+ */
 export function SiteHeader() {
+  const pathname = usePathname();
   const links = getPrimaryNavLinks();
+
+  if (pathname === "/") {
+    return null;
+  }
 
   return (
     <header className="site-header">
       <div className="container site-header__inner">
-        <Link href="/" className="site-header__brand">
+        <Link href="/#top" className="site-header__brand">
           Chris Qin
         </Link>
 
@@ -17,10 +29,9 @@ export function SiteHeader() {
           <ul className="site-header__links">
             {links.map((link) => (
               <li key={`${link.label}-${link.href}`}>
-                <Link href={link.href} className="site-header__link">
-                  <span className="site-header__index">{link.index}</span>
+                <a href={link.href} className="site-header__link">
                   {link.label}
-                </Link>
+                </a>
               </li>
             ))}
           </ul>

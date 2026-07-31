@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 
 import { getPrimaryNavLinks } from "@/lib/nav";
@@ -10,6 +9,20 @@ import { siteConfig } from "@/lib/constants";
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
+function focusSection(sectionId: string) {
+  if (!sectionId) {
+    return;
+  }
+  const target = document.getElementById(sectionId);
+  if (!target) {
+    return;
+  }
+  if (!target.hasAttribute("tabindex")) {
+    target.setAttribute("tabindex", "-1");
+  }
+  target.focus({ preventScroll: true });
+}
+
 export function MobileNav() {
   const [open, setOpen] = useState(false);
   const panelId = useId();
@@ -17,13 +30,18 @@ export function MobileNav() {
   const toggleRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const wasOpenRef = useRef(false);
+  const skipToggleFocusRef = useRef(false);
   const links = getPrimaryNavLinks();
   const showContactCta = hasContactMethod() && Boolean(siteConfig.email);
 
   useEffect(() => {
     if (!open) {
       if (wasOpenRef.current) {
-        toggleRef.current?.focus();
+        // Anchor navigations move focus to the section; Escape/outside keep toggle focus.
+        if (!skipToggleFocusRef.current) {
+          toggleRef.current?.focus();
+        }
+        skipToggleFocusRef.current = false;
         wasOpenRef.current = false;
       }
       return;
@@ -88,6 +106,15 @@ export function MobileNav() {
 
   const closeMenu = () => setOpen(false);
 
+  const onAnchorNavigate = (sectionId: string) => {
+    skipToggleFocusRef.current = true;
+    closeMenu();
+    // Unlock body scroll via open=false effect, then move focus to the section.
+    window.requestAnimationFrame(() => {
+      focusSection(sectionId);
+    });
+  };
+
   return (
     <div className="mobile-nav md:hidden" ref={rootRef}>
       <button
@@ -126,25 +153,25 @@ export function MobileNav() {
               <ul className="mobile-nav__list">
                 {links.map((link) => (
                   <li key={`${link.label}-${link.href}`}>
-                    <Link
+                    <a
                       href={link.href}
                       className="mobile-nav__link"
-                      onClick={closeMenu}
+                      onClick={() => onAnchorNavigate(link.sectionId)}
                     >
                       <span className="mobile-nav__index">{link.index}</span>
                       {link.label}
-                    </Link>
+                    </a>
                   </li>
                 ))}
                 {showContactCta ? (
                   <li>
-                    <Link
-                      href="/contact"
+                    <a
+                      href={`mailto:${siteConfig.email}`}
                       className="mobile-nav__cta"
                       onClick={closeMenu}
                     >
                       Send a project
-                    </Link>
+                    </a>
                   </li>
                 ) : null}
               </ul>

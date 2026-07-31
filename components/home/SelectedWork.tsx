@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { WorkGalleryTile } from "@/components/work/WorkGalleryTile";
 import { projects } from "@/data/projects";
 import { getFeaturedProjects } from "@/lib/projects";
@@ -13,9 +11,10 @@ export function SelectedWork() {
 
   return (
     <section
-      id="featured-work"
+      id="work"
       className="selected-work"
       aria-labelledby="selected-work-heading"
+      tabIndex={-1}
     >
       <div className="container">
         <div className="selected-work__header">
@@ -27,10 +26,10 @@ export function SelectedWork() {
               [{count}]
             </p>
           </div>
-          <Link href="/work" className="selected-work__all">
-            See All Work
+          <a href="#contact" className="selected-work__all">
+            Contact Me
             <span aria-hidden="true"> →</span>
-          </Link>
+          </a>
         </div>
 
         <div className="selected-work__grid" data-count={featured.length}>

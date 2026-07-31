@@ -1,7 +1,5 @@
-import Link from "next/link";
-
 import { PlaceholderMedia } from "@/components/media/PlaceholderMedia";
-import type { Project } from "@/lib/projects";
+import { formatProjectRoles, type Project } from "@/lib/projects";
 
 type ProjectCardProps = {
   project: Project;
@@ -12,6 +10,10 @@ type ProjectCardProps = {
   className?: string;
 };
 
+/**
+ * Legacy masonry card — retained for layout experiments.
+ * Prefer WorkGalleryTile on the homepage. Does not navigate externally.
+ */
 export function ProjectCard({
   project,
   span,
@@ -20,8 +22,10 @@ export function ProjectCard({
   className = "",
 }: ProjectCardProps) {
   const isVertical = project.orientation === "vertical";
-  const roleLabel = project.roles.join(" + ");
+  const roleLabel = formatProjectRoles(project.roles);
   const paddedIndex = String(index).padStart(2, "0");
+  const year = project.year?.trim();
+  const hasYear = Boolean(year && year !== "—");
 
   return (
     <article
@@ -30,10 +34,9 @@ export function ProjectCard({
       data-span={span}
       data-index={paddedIndex}
     >
-      <Link
-        href="/work"
+      <div
         className="project-card__link"
-        aria-label={`${project.title}. Role: ${roleLabel}. Open work archive.`}
+        aria-label={`${project.title}. Role: ${roleLabel}.`}
       >
         <div className="project-card__frame">
           <div className="project-card__media">
@@ -63,11 +66,9 @@ export function ProjectCard({
           </p>
           <h3 className="project-card__title">{project.title}</h3>
           <p className="project-card__role">{roleLabel}</p>
-          {project.year !== "—" ? (
-            <p className="project-card__year">{project.year}</p>
-          ) : null}
+          {hasYear ? <p className="project-card__year">{year}</p> : null}
         </div>
-      </Link>
+      </div>
     </article>
   );
 }

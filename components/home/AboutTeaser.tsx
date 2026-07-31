@@ -1,39 +1,29 @@
-import Link from "next/link";
+import Image from "next/image";
 
-import { PlaceholderMedia } from "@/components/media/PlaceholderMedia";
 import { siteConfig } from "@/lib/constants";
 
 export function AboutTeaser() {
   return (
-    <section className="home-about" aria-labelledby="about-teaser-heading">
+    <section
+      id="about"
+      className="home-about"
+      aria-labelledby="about-teaser-heading"
+      tabIndex={-1}
+    >
       <div className="container home-about__spread">
         <div className="home-about__visuals">
           <figure className="home-about__frame home-about__frame--portrait">
-            <PlaceholderMedia
-              src={null}
-              alt="Candid photo placeholder"
-              label="Candid photo"
-              hint="Asset needed"
-              aspectRatio="4 / 5"
-              motif="portrait"
-              className="home-about__media"
-              sizes="(max-width: 900px) 70vw, 18rem"
-            />
+            <div className="home-about__photo">
+              <Image
+                src="/about/chris-qin-portrait.png"
+                alt="Portrait of Chris Qin"
+                fill
+                unoptimized
+                sizes="(max-width: 900px) 70vw, 18rem"
+                className="home-about__photo-img"
+              />
+            </div>
           </figure>
-
-          <figure className="home-about__frame home-about__frame--timeline">
-            <PlaceholderMedia
-              src={null}
-              alt="Edit timeline placeholder"
-              label="Timeline crop"
-              hint="Asset needed"
-              aspectRatio="4 / 3"
-              motif="timeline"
-              className="home-about__media"
-              sizes="(max-width: 900px) 55vw, 14rem"
-            />
-          </figure>
-
         </div>
 
         <div className="home-about__copy">
@@ -50,7 +40,8 @@ export function AboutTeaser() {
           <p className="home-about__body">
             Editing is still the center of what I do, but I also like being
             behind the camera and involved before the footage reaches the
-            timeline.
+            timeline. Based in Georgia, I work with creators and brands who want
+            cuts that feel intentional—not just finished.
           </p>
 
           <ul className="home-about__facts">
@@ -58,11 +49,6 @@ export function AboutTeaser() {
             <li>Short-form, YouTube, lifestyle, social</li>
             <li>Fast communication · adapts to creator voice</li>
           </ul>
-
-          <Link href="/about" className="editorial-link">
-            Read More About Me
-            <span aria-hidden="true"> →</span>
-          </Link>
         </div>
       </div>
     </section>

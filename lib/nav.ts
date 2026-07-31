@@ -1,28 +1,31 @@
 import { siteConfig } from "@/lib/constants";
-import { hasContactMethod } from "@/lib/contact";
 
 export type NavLink = {
   href: string;
   label: string;
   index: string;
+  /** DOM id without hash — used for focus after mobile menu close. */
+  sectionId: string;
 };
 
 /**
- * Primary navigation with dynamic numbering. Contact is omitted until a real
- * contact method exists so visitors are not sent to an empty page.
+ * Homepage section anchors. Numbered indices retained for optional use;
+ * cinematic hero uses clean labels without numbers.
+ * Paths use `/#…` so redirects and non-home stubs still land correctly.
  */
 export function getPrimaryNavLinks(): NavLink[] {
-  const links: Array<{ href: string; label: string }> = [
-    { href: "/work", label: "Work" },
-    { href: "/about", label: "About" },
+  const links: Array<{ href: string; label: string; sectionId: string }> = [
+    { href: "/#work", label: "Work", sectionId: "work" },
+    { href: "/#about", label: "About", sectionId: "about" },
+    { href: "/#contact", label: "Contact", sectionId: "contact" },
   ];
 
-  if (hasContactMethod()) {
-    links.push({ href: "/contact", label: "Contact" });
-  }
-
   if (siteConfig.resumeUrl) {
-    links.push({ href: siteConfig.resumeUrl, label: "Resume" });
+    links.push({
+      href: siteConfig.resumeUrl,
+      label: "Resume",
+      sectionId: "",
+    });
   }
 
   return links.map((link, index) => ({

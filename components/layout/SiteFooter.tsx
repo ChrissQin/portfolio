@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { GeorgiaClock } from "@/components/layout/GeorgiaClock";
 import {
   getActiveSocialLinks,
@@ -8,10 +6,10 @@ import {
 import { siteConfig } from "@/lib/constants";
 
 const FOOTER_NAV = [
-  { href: "/", label: "Home" },
-  { href: "/work", label: "Work" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/#top", label: "Home" },
+  { href: "/#work", label: "Work" },
+  { href: "/#about", label: "About" },
+  { href: "/#contact", label: "Contact" },
 ] as const;
 
 export function SiteFooter() {
@@ -25,7 +23,7 @@ export function SiteFooter() {
   const showSocialBlock = socials.length > 0 || pendingSocials.length > 0;
 
   return (
-    <footer className="site-footer" aria-label="Site footer">
+    <footer id="contact" className="site-footer" tabIndex={-1}>
       <div className="container site-footer__top">
         <div className="site-footer__identity">
           <p className="site-footer__name">{siteConfig.name}</p>
@@ -41,10 +39,10 @@ export function SiteFooter() {
           <ul className="site-footer__nav-list">
             {FOOTER_NAV.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="site-footer__nav-link">
+                <a href={link.href} className="site-footer__nav-link">
                   <span>{link.label}</span>
                   <span aria-hidden="true">↗</span>
-                </Link>
+                </a>
               </li>
             ))}
           </ul>
