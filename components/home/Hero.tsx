@@ -79,16 +79,16 @@ export function Hero() {
 
           <div className="cinema-hero__copy">
             <h1 id="hero-heading" className="cinema-hero__headline">
-              <span>Cut for the story.</span>
-              <span>Built to keep watching.</span>
+              <span>Building experiences.</span>
+              <span>Make the idea land.</span>
             </h1>
             <p className="cinema-hero__lede">
-              Video editing and videography for creators, brands, and ideas I
-              care about.
+              I help creators, founders, and filmmakers turn rough ideas into
+              videos people understand, feel, and remember.
             </p>
             <p className="cinema-hero__lede cinema-hero__lede--secondary">
-              Pacing, sound, color, and visual choices built around what makes
-              people stay.
+              Concept, structure, pacing, sound, and image — all shaped around
+              what the work is trying to say.
             </p>
           </div>
 

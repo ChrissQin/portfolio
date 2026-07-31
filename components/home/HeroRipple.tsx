@@ -35,7 +35,14 @@ uniform vec2 u_pointer;
 uniform float u_hover;
 uniform float u_time;
 uniform vec4 u_ripples[4];
+/* object-fit: cover — scale + focal offset from viewport UV → texture UV */
+uniform vec2 u_coverScale;
+uniform vec2 u_coverOffset;
 varying vec2 v_uv;
+
+vec2 coverUv(vec2 screenUv) {
+  return screenUv * u_coverScale + u_coverOffset;
+}
 
 void main() {
   vec2 uv = v_uv;
@@ -64,13 +71,65 @@ void main() {
     }
   }
 
-  uv = clamp(uv, 0.001, 0.999);
-  vec4 color = texture2D(u_image, uv);
+  vec2 texUv = clamp(coverUv(uv), 0.001, 0.999);
+  vec4 color = texture2D(u_image, texUv);
   float lift = exp(-dist * 5.5) * u_hover * 0.14;
   color.rgb += vec3(lift * 0.95, lift * 0.88, lift * 0.78);
   gl_FragColor = color;
 }
 `;
+
+/** Parse CSS object-position / --hero-object-position into 0–1 coords (CSS top-origin Y). */
+function parseCssObjectPosition(value: string): { x: number; y: number } {
+  const parts = value.trim().split(/\s+/);
+  const parsePart = (raw: string | undefined, fallback: number) => {
+    if (!raw) {
+      return fallback;
+    }
+    if (raw.endsWith("%")) {
+      const n = Number.parseFloat(raw);
+      return Number.isFinite(n) ? n / 100 : fallback;
+    }
+    if (raw === "left" || raw === "top") {
+      return 0;
+    }
+    if (raw === "right" || raw === "bottom") {
+      return 1;
+    }
+    if (raw === "center") {
+      return 0.5;
+    }
+    return fallback;
+  };
+  return {
+    x: parsePart(parts[0], 0.5),
+    y: parsePart(parts[1], 0.5),
+  };
+}
+
+/**
+ * CSS object-fit: cover mapping from viewport UV → texture UV.
+ * focalCssY is top-origin (CSS); WebGL UVs are bottom-origin after FLIP_Y upload.
+ */
+function coverTransform(
+  viewW: number,
+  viewH: number,
+  imageW: number,
+  imageH: number,
+  focalCssX: number,
+  focalCssY: number,
+): { scale: [number, number]; offset: [number, number] } {
+  const viewAspect = viewW / Math.max(viewH, 1);
+  const imageAspect = imageW / Math.max(imageH, 1);
+  const scaleX = Math.min(1, viewAspect / imageAspect);
+  const scaleY = Math.min(1, imageAspect / viewAspect);
+  const focalX = focalCssX;
+  const focalY = 1 - focalCssY;
+  return {
+    scale: [scaleX, scaleY],
+    offset: [(1 - scaleX) * focalX, (1 - scaleY) * focalY],
+  };
+}
 
 function createShader(gl: WebGLRenderingContext, type: number, source: string) {
   const shader = gl.createShader(type);
@@ -178,17 +237,50 @@ export function HeroRipple({ imageSrc, className = "" }: HeroRippleProps) {
     image.decoding = "async";
     image.crossOrigin = "anonymous";
     let textureReady = false;
+    let imageW = 1536;
+    let imageH = 1024;
+    let coverScale: [number, number] = [1, 1];
+    let coverOffset: [number, number] = [0, 0];
     canvas.style.opacity = "0";
 
-    const uploadTexture = (source: HTMLImageElement | HTMLCanvasElement) => {
+    const poster = parent.querySelector<HTMLImageElement>(".cinema-hero__poster");
+
+    const readFocal = () => {
+      const hero = parent.closest(".cinema-hero") ?? parent;
+      const raw =
+        getComputedStyle(hero).getPropertyValue("--hero-object-position").trim() ||
+        (poster ? getComputedStyle(poster).objectPosition : "50% 50%");
+      return parseCssObjectPosition(raw || "50% 50%");
+    };
+
+    const updateCover = () => {
+      const rect = parent.getBoundingClientRect();
+      const focal = readFocal();
+      const transform = coverTransform(
+        Math.max(rect.width, 1),
+        Math.max(rect.height, 1),
+        imageW,
+        imageH,
+        focal.x,
+        focal.y,
+      );
+      coverScale = transform.scale;
+      coverOffset = transform.offset;
+    };
+
+    const uploadTexture = (source: HTMLImageElement) => {
+      if (source.naturalWidth > 0 && source.naturalHeight > 0) {
+        imageW = source.naturalWidth;
+        imageH = source.naturalHeight;
+      }
       gl.bindTexture(gl.TEXTURE_2D, texture);
       gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
+      updateCover();
       textureReady = true;
       canvas.style.opacity = "1";
     };
 
-    const poster = parent.querySelector<HTMLImageElement>(".cinema-hero__poster");
     const startFromPoster = () => {
       if (poster && poster.complete && poster.naturalWidth > 0) {
         uploadTexture(poster);
@@ -224,6 +316,8 @@ export function HeroRipple({ imageSrc, className = "" }: HeroRippleProps) {
     const uHover = gl.getUniformLocation(program, "u_hover");
     const uTime = gl.getUniformLocation(program, "u_time");
     const uRipples = gl.getUniformLocation(program, "u_ripples");
+    const uCoverScale = gl.getUniformLocation(program, "u_coverScale");
+    const uCoverOffset = gl.getUniformLocation(program, "u_coverOffset");
 
     const pointer = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
     let hover = 0;
@@ -246,6 +340,7 @@ export function HeroRipple({ imageSrc, className = "" }: HeroRippleProps) {
         canvas.height = h;
         gl.viewport(0, 0, w, h);
       }
+      updateCover();
     };
 
     const toUv = (clientX: number, clientY: number) => {
@@ -318,6 +413,8 @@ export function HeroRipple({ imageSrc, className = "" }: HeroRippleProps) {
       gl.uniform2f(uPointer, pointer.x, pointer.y);
       gl.uniform1f(uHover, hover);
       gl.uniform1f(uTime, t);
+      gl.uniform2f(uCoverScale, coverScale[0], coverScale[1]);
+      gl.uniform2f(uCoverOffset, coverOffset[0], coverOffset[1]);
 
       const rippleData = new Float32Array(16);
       for (let i = 0; i < MAX_RIPPLES; i++) {
