@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="900" viewBox="0 0 720 900" role="img" aria-label="Storyboard asset needed">
+  <rect width="720" height="900" fill="#22221f"/>
+  <rect x="20" y="20" width="680" height="860" fill="none" stroke="#e8e0d2" stroke-opacity="0.28"/>
+  <text x="40" y="60" fill="#9c978e" font-family="ui-monospace, monospace" font-size="16" letter-spacing="2">SHOT LIST / SB_03</text>
+  <rect x="40" y="90" width="300" height="170" fill="none" stroke="#e8e0d2" stroke-opacity="0.35"/>
+  <rect x="380" y="90" width="300" height="170" fill="none" stroke="#e8e0d2" stroke-opacity="0.35"/>
+  <rect x="40" y="300" width="300" height="170" fill="none" stroke="#e8e0d2" stroke-opacity="0.35"/>
+  <rect x="380" y="300" width="300" height="170" fill="none" stroke="#e8e0d2" stroke-opacity="0.35"/>
+  <path d="M70 160 C140 120, 220 200, 300 150" fill="none" stroke="#ff5438" stroke-width="2" opacity="0.7"/>
+  <path d="M410 370 C480 330, 560 400, 640 350" fill="none" stroke="#e8e0d2" stroke-width="2" opacity="0.45"/>
+  <text x="50" y="280" fill="#9c978e" font-family="ui-monospace, monospace" font-size="14">01 WIDE</text>
+  <text x="390" y="280" fill="#9c978e" font-family="ui-monospace, monospace" font-size="14">02 CU</text>
+  <text x="50" y="490" fill="#9c978e" font-family="ui-monospace, monospace" font-size="14">03 MOVE</text>
+  <text x="390" y="490" fill="#9c978e" font-family="ui-monospace, monospace" font-size="14">04 CUTAWAY</text>
+  <text x="40" y="780" fill="#e8e0d2" font-family="ui-monospace, monospace" font-size="26" font-weight="700">STORYBOARD</text>
+  <text x="40" y="820" fill="#9c978e" font-family="ui-monospace, monospace" font-size="14" opacity="0.55">Asset needed</text>
+</svg>

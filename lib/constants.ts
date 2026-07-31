@@ -6,13 +6,29 @@ export type SocialLinks = {
 
 export type HeroMediaMode = "static" | "montage" | "showreel";
 
+export type HeroRole = {
+  text: string;
+  emphasis: "primary" | "secondary" | "supporting";
+};
+
 export const siteConfig = {
   name: "Chris Qin",
   role: "Video Editor & Videographer",
+  roles: [
+    { text: "Video Editor", emphasis: "primary" },
+    { text: "Videographer", emphasis: "secondary" },
+    { text: "Creative Production", emphasis: "supporting" },
+  ] as const satisfies readonly HeroRole[],
   tagline:
-    "I shape footage into engaging stories through pacing, sound, and purposeful visuals.",
-  /** Replace with the final portfolio email before launch. */
-  email: null as string | null,
+    "Editing first. Shooting when the story needs it. Always thinking about pacing, sound, and what makes someone keep watching.",
+  intro:
+    "I cut, shoot, and shape videos for creators, brands, and ideas I care about.",
+  email: "cqvisualscontact@gmail.com",
+  phoneDisplay: "+1 (404) 567-3549",
+  phoneHref: "tel:+14045673549",
+  location: "Georgia, USA",
+  locationLabel: "GEORGIA, USA",
+  timezone: "America/New_York",
   socials: {
     instagram: null,
     linkedin: null,
@@ -24,15 +40,7 @@ export const siteConfig = {
   availability: null as string | null,
   /** Default until montage or showreel media is supplied. */
   heroMediaMode: "static" as HeroMediaMode,
-  /**
-   * Static poster for the hero. Using a development placeholder until a real
-   * featured still is provided. Montage/showreel modes are not enabled yet.
-   */
-  heroImage: "/projects/project-01/poster.svg" as string | null,
+  heroImage: null as string | null,
 } as const;
 
-export const navLinks = [
-  { href: "/work", label: "Work" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-] as const;
+/** Static link definitions are resolved through getPrimaryNavLinks() in lib/nav.ts. */

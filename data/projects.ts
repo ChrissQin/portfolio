@@ -3,6 +3,7 @@ import type { Project } from "@/lib/projects";
 /**
  * Development stubs only. Replace with real projects before launch.
  * Titles intentionally read as placeholders — never invent clients or credits.
+ * thumbnail is null until a real poster exists (avoids broken-image states).
  */
 export const projects: Project[] = [
   {
@@ -17,7 +18,8 @@ export const projects: Project[] = [
     roles: ["Editor"],
     services: ["editing"],
     orientation: "horizontal",
-    thumbnail: "/projects/project-01/poster.svg",
+    thumbnail: null,
+    previewVideoUrl: null,
     videoProvider: "none",
   },
   {
@@ -32,7 +34,8 @@ export const projects: Project[] = [
     roles: ["Editor & Videographer"],
     services: ["editing", "videography"],
     orientation: "vertical",
-    thumbnail: "/projects/project-02/poster.svg",
+    thumbnail: null,
+    previewVideoUrl: null,
     videoProvider: "none",
   },
   {
@@ -47,7 +50,8 @@ export const projects: Project[] = [
     roles: ["Editor"],
     services: ["editing"],
     orientation: "horizontal",
-    thumbnail: "/projects/project-03/poster.svg",
+    thumbnail: null,
+    previewVideoUrl: null,
     videoProvider: "none",
   },
 ];

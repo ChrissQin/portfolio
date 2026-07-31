@@ -33,7 +33,13 @@ export type Project = {
    * span from orientation pairing so layout does not depend on list order hacks.
    */
   gridSpan?: number;
-  thumbnail: string;
+  /** Real poster path. Null renders a CSS placeholder — never a broken image. */
+  thumbnail: string | null;
+  /**
+   * Optional muted local preview (mp4/webm). Loaded only after pointer/focus intent.
+   * Prefer this for hover showreel behavior; remote embeds stay on project pages.
+   */
+  previewVideoUrl?: string | null;
   videoUrl?: string;
   videoProvider: VideoProvider;
   responsibilities?: string[];

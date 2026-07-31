@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="Edit timeline asset needed">
+  <rect width="960" height="540" fill="#181816"/>
+  <rect x="16" y="16" width="928" height="508" fill="none" stroke="#e8e0d2" stroke-opacity="0.25"/>
+  <text x="36" y="52" fill="#ff5438" font-family="ui-monospace, monospace" font-size="18" letter-spacing="2">SEQ_01 · TIMELINE</text>
+  <rect x="36" y="80" width="888" height="120" fill="#22221f"/>
+  <rect x="48" y="100" width="180" height="36" fill="#ff5438" opacity="0.85"/>
+  <rect x="240" y="100" width="120" height="36" fill="#9c978e" opacity="0.45"/>
+  <rect x="380" y="100" width="220" height="36" fill="#e8e0d2" opacity="0.35"/>
+  <rect x="48" y="150" width="260" height="28" fill="#9c978e" opacity="0.3"/>
+  <rect x="320" y="150" width="160" height="28" fill="#ff5438" opacity="0.45"/>
+  <g stroke="#e8e0d2" stroke-opacity="0.2">
+    <line x1="36" y1="240" x2="924" y2="240"/>
+    <line x1="36" y1="280" x2="924" y2="280"/>
+    <line x1="36" y1="320" x2="924" y2="320"/>
+    <line x1="36" y1="360" x2="924" y2="360"/>
+  </g>
+  <rect x="80" y="250" width="140" height="20" fill="#e8e0d2" opacity="0.25"/>
+  <rect x="260" y="290" width="200" height="20" fill="#ff5438" opacity="0.35"/>
+  <rect x="500" y="330" width="160" height="20" fill="#e8e0d2" opacity="0.2"/>
+  <text x="36" y="470" fill="#e8e0d2" font-family="ui-monospace, monospace" font-size="28" font-weight="700">EDIT TIMELINE</text>
+  <text x="36" y="505" fill="#9c978e" font-family="ui-monospace, monospace" font-size="14" opacity="0.55">Asset needed</text>
+</svg>
