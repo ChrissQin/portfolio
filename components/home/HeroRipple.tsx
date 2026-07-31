@@ -19,6 +19,9 @@ type Ripple = {
 
 const MAX_RIPPLES = 4;
 
+/** Intrinsic hero poster size — must match the source asset. */
+const IMAGE_RESOLUTION: [number, number] = [1536, 1024];
+
 const VERT = `
 attribute vec2 a_position;
 varying vec2 v_uv;
@@ -35,11 +38,28 @@ uniform vec2 u_pointer;
 uniform float u_hover;
 uniform float u_time;
 uniform vec4 u_ripples[4];
+uniform vec2 u_resolution;
+uniform vec2 u_imageResolution;
 varying vec2 v_uv;
 
+vec2 coverUv(vec2 screenUv) {
+  float viewportAspect = u_resolution.x / max(u_resolution.y, 1.0);
+  float imageAspect = u_imageResolution.x / max(u_imageResolution.y, 1.0);
+  vec2 coverScale = vec2(1.0);
+  if (viewportAspect > imageAspect) {
+    coverScale.y = imageAspect / viewportAspect;
+  } else {
+    coverScale.x = viewportAspect / imageAspect;
+  }
+  return (screenUv - 0.5) * coverScale + 0.5;
+}
+
 void main() {
-  vec2 uv = v_uv;
-  vec2 fromPointer = uv - u_pointer;
+  /* Centered object-fit: cover — then ripple in texture space */
+  vec2 uv = coverUv(v_uv);
+  vec2 pointer = coverUv(u_pointer);
+
+  vec2 fromPointer = uv - pointer;
   float dist = length(fromPointer);
   vec2 dir = dist > 0.0001 ? fromPointer / dist : vec2(0.0);
 
@@ -53,7 +73,7 @@ void main() {
     if (strength > 0.001 && born > 0.0) {
       float age = u_time - born;
       if (age >= 0.0 && age < 1.35) {
-        vec2 origin = u_ripples[i].xy;
+        vec2 origin = coverUv(u_ripples[i].xy);
         float waveDist = distance(uv, origin);
         float radius = age * 0.5;
         float ring = exp(-pow((waveDist - radius) * 36.0, 2.0));
@@ -111,6 +131,7 @@ function createProgram(gl: WebGLRenderingContext) {
 /**
  * Lightweight WebGL light-ripple over the hero poster.
  * Affects only the media texture — UI sits above with normal stacking.
+ * Texture UVs use centered cover cropping matching CSS object-fit: cover.
  */
 export function HeroRipple({ imageSrc, className = "" }: HeroRippleProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -178,9 +199,16 @@ export function HeroRipple({ imageSrc, className = "" }: HeroRippleProps) {
     image.decoding = "async";
     image.crossOrigin = "anonymous";
     let textureReady = false;
+    let imageResolution: [number, number] = [...IMAGE_RESOLUTION];
+    let resolution: [number, number] = [1, 1];
     canvas.style.opacity = "0";
 
-    const uploadTexture = (source: HTMLImageElement | HTMLCanvasElement) => {
+    const uploadTexture = (source: HTMLImageElement) => {
+      if (source.naturalWidth > 0 && source.naturalHeight > 0) {
+        imageResolution = [source.naturalWidth, source.naturalHeight];
+      } else {
+        imageResolution = [...IMAGE_RESOLUTION];
+      }
       gl.bindTexture(gl.TEXTURE_2D, texture);
       gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
@@ -224,6 +252,8 @@ export function HeroRipple({ imageSrc, className = "" }: HeroRippleProps) {
     const uHover = gl.getUniformLocation(program, "u_hover");
     const uTime = gl.getUniformLocation(program, "u_time");
     const uRipples = gl.getUniformLocation(program, "u_ripples");
+    const uResolution = gl.getUniformLocation(program, "u_resolution");
+    const uImageResolution = gl.getUniformLocation(program, "u_imageResolution");
 
     const pointer = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
     let hover = 0;
@@ -238,14 +268,18 @@ export function HeroRipple({ imageSrc, className = "" }: HeroRippleProps) {
 
     const resize = () => {
       const rect = parent.getBoundingClientRect();
+      const cssW = Math.max(rect.width, 1);
+      const cssH = Math.max(rect.height, 1);
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const w = Math.max(1, Math.floor(rect.width * dpr));
-      const h = Math.max(1, Math.floor(rect.height * dpr));
+      const w = Math.max(1, Math.floor(cssW * dpr));
+      const h = Math.max(1, Math.floor(cssH * dpr));
+      // Drawing-buffer aspect must match CSS box aspect (dpr cancels).
+      resolution = [cssW, cssH];
       if (canvas.width !== w || canvas.height !== h) {
         canvas.width = w;
         canvas.height = h;
-        gl.viewport(0, 0, w, h);
       }
+      gl.viewport(0, 0, w, h);
     };
 
     const toUv = (clientX: number, clientY: number) => {
@@ -318,6 +352,8 @@ export function HeroRipple({ imageSrc, className = "" }: HeroRippleProps) {
       gl.uniform2f(uPointer, pointer.x, pointer.y);
       gl.uniform1f(uHover, hover);
       gl.uniform1f(uTime, t);
+      gl.uniform2f(uResolution, resolution[0], resolution[1]);
+      gl.uniform2f(uImageResolution, imageResolution[0], imageResolution[1]);
 
       const rippleData = new Float32Array(16);
       for (let i = 0; i < MAX_RIPPLES; i++) {
