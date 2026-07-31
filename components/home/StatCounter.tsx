@@ -18,7 +18,7 @@ function easeOutCubic(t: number): number {
 
 export function StatCounter({ stat, delayMs = 0 }: StatCounterProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInViewOnce(ref, 0.4);
+  const inView = useInViewOnce(ref, 0.25);
   const reducedMotion = usePrefersReducedMotion();
   const incomplete = stat.value === null;
   const [animated, setAnimated] = useState<string | null>(null);
@@ -62,7 +62,13 @@ export function StatCounter({ stat, delayMs = 0 }: StatCounterProps) {
         : (animated ?? "0");
 
   return (
-    <div ref={ref} className="by-numbers__stat">
+    <div
+      ref={ref}
+      className={`by-numbers__stat${incomplete ? " by-numbers__stat--incomplete" : ""}`}
+    >
+      <span className="by-numbers__plus" aria-hidden="true">
+        +
+      </span>
       <p className="by-numbers__label">{stat.label}</p>
       <p
         className="by-numbers__value"
@@ -73,12 +79,9 @@ export function StatCounter({ stat, delayMs = 0 }: StatCounterProps) {
         }
       >
         {incomplete ? (
-          <>
-            <span className="by-numbers__dash" aria-hidden="true">
-              —
-            </span>
-            <span className="by-numbers__needed">Metric needed</span>
-          </>
+          <span className="by-numbers__dash" aria-hidden="true">
+            —
+          </span>
         ) : (
           <>
             {stat.prefix}
@@ -88,6 +91,12 @@ export function StatCounter({ stat, delayMs = 0 }: StatCounterProps) {
         )}
       </p>
       <p className="by-numbers__description">{stat.description}</p>
+      {incomplete ? (
+        <p className="by-numbers__needed">Metric needed</p>
+      ) : null}
+      <span className="by-numbers__plus by-numbers__plus--bottom" aria-hidden="true">
+        +
+      </span>
     </div>
   );
 }

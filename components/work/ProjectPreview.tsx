@@ -14,6 +14,7 @@ type ProjectPreviewProps = {
   active: boolean;
   /** Mobile/touch: user explicitly requested preview. */
   forcePreview?: boolean;
+  sizes?: string;
 };
 
 /**
@@ -27,6 +28,7 @@ export function ProjectPreview({
   orientation,
   active,
   forcePreview = false,
+  sizes,
 }: ProjectPreviewProps) {
   const reducedMotion = usePrefersReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -41,6 +43,11 @@ export function ProjectPreview({
 
   const showVideo = shouldLoadVideo && intent;
   const aspectRatio = orientation === "vertical" ? "9 / 16" : "16 / 9";
+  const imageSizes =
+    sizes ??
+    (orientation === "vertical"
+      ? "(max-width: 899px) 80vw, 28vw"
+      : "(max-width: 899px) 100vw, 70vw");
 
   useEffect(() => {
     const video = videoRef.current;
@@ -70,13 +77,8 @@ export function ProjectPreview({
         aspectRatio={aspectRatio}
         motif={orientation === "vertical" ? "vertical" : "frame"}
         className="project-preview__poster"
-        sizes={
-          orientation === "vertical"
-            ? "(max-width: 899px) 80vw, 28vw"
-            : "(max-width: 899px) 100vw, 70vw"
-        }
+        sizes={imageSizes}
       />
-
       {shouldLoadVideo && previewVideoUrl ? (
         <video
           ref={videoRef}
