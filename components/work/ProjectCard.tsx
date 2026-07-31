@@ -31,9 +31,9 @@ export function ProjectCard({
       data-index={paddedIndex}
     >
       <Link
-        href="/work"
+        href={`/work/${project.slug}`}
         className="project-card__link"
-        aria-label={`${project.title}. Role: ${roleLabel}. Open work archive.`}
+        aria-label={`${project.title}. Role: ${roleLabel}. View project.`}
       >
         <div className="project-card__frame">
           <div className="project-card__media">

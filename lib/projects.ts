@@ -9,11 +9,14 @@ export type Service = "editing" | "videography" | "production";
 
 export type Orientation = "horizontal" | "vertical";
 
-export type VideoProvider = "youtube" | "vimeo" | "local" | "none";
+export type VideoProvider = "youtube" | "vimeo" | "local" | "external" | "none";
+
+export type ProjectDepth = "simple" | "expanded";
 
 export type GalleryImage = {
-  src: string;
+  src: string | null;
   alt: string;
+  hint?: string;
 };
 
 export type Project = {
@@ -22,6 +25,8 @@ export type Project = {
   client: string;
   year: string;
   featured: boolean;
+  /** Only published projects appear publicly. */
+  published: boolean;
   description: string;
   contentType: string;
   roles: Role[];
@@ -40,8 +45,9 @@ export type Project = {
    * Prefer this for hover showreel behavior; remote embeds stay on project pages.
    */
   previewVideoUrl?: string | null;
-  videoUrl?: string;
+  videoUrl?: string | null;
   videoProvider: VideoProvider;
+  projectDepth: ProjectDepth;
   responsibilities?: string[];
   approach?: string;
   software?: string[];
@@ -51,35 +57,44 @@ export type Project = {
   galleryImages?: GalleryImage[];
 };
 
+export function getPublishedProjects(projects: Project[]): Project[] {
+  return projects.filter((project) => project.published);
+}
+
 export function getProjectBySlug(
   projects: Project[],
   slug: string,
 ): Project | undefined {
-  return projects.find((project) => project.slug === slug);
+  return getPublishedProjects(projects).find((project) => project.slug === slug);
 }
 
 export function getFeaturedProjects(projects: Project[]): Project[] {
-  return projects.filter((project) => project.featured);
+  return getPublishedProjects(projects).filter((project) => project.featured);
 }
 
 export function getAdjacentProjects(
   projects: Project[],
   slug: string,
 ): { previous: Project | null; next: Project | null } {
-  const index = projects.findIndex((project) => project.slug === slug);
+  const published = getPublishedProjects(projects);
+  const index = published.findIndex((project) => project.slug === slug);
 
   if (index === -1) {
     return { previous: null, next: null };
   }
 
   return {
-    previous: index > 0 ? projects[index - 1] : null,
-    next: index < projects.length - 1 ? projects[index + 1] : null,
+    previous: index > 0 ? published[index - 1] : null,
+    next: index < published.length - 1 ? published[index + 1] : null,
   };
 }
 
-/** Expanded when approach, gallery, software, or results are present. */
-export function getProjectDepth(project: Project): "simple" | "expanded" {
+/** Prefer explicit projectDepth; fall back to content presence. */
+export function getProjectDepth(project: Project): ProjectDepth {
+  if (project.projectDepth) {
+    return project.projectDepth;
+  }
+
   const hasExpandedContent = Boolean(
     project.approach ||
       (project.galleryImages && project.galleryImages.length > 0) ||
@@ -88,4 +103,8 @@ export function getProjectDepth(project: Project): "simple" | "expanded" {
   );
 
   return hasExpandedContent ? "expanded" : "simple";
+}
+
+export function getProjectRoleLabel(project: Project): string {
+  return project.roles.join(" + ");
 }
