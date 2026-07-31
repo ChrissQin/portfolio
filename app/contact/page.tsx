@@ -6,13 +6,12 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <section className="container py-16 md:py-24">
-      <h1 className="font-display text-4xl font-semibold tracking-tight md:text-5xl">
-        Contact
-      </h1>
-      <p className="mt-4 max-w-xl text-ink-muted">
-        Email CTA and copy-email interaction arrive in Phase 4. Contact details
-        remain placeholders until provided.
+    <section className="container page-stub">
+      <p className="mono-label">03 / Inbox</p>
+      <h1 className="display-heading">Contact</h1>
+      <p>
+        Contact details stay unpublished until a real email and channels are
+        provided.
       </p>
     </section>
   );

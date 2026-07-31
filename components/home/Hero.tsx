@@ -1,50 +1,48 @@
-import Image from "next/image";
 import Link from "next/link";
 
+import { WorkspaceCollage } from "@/components/home/WorkspaceCollage";
 import { siteConfig } from "@/lib/constants";
 
-const staticPoster =
-  siteConfig.heroImage ?? "/projects/project-01/poster.svg";
-
 export function Hero() {
-  const hasEmail = Boolean(siteConfig.email);
-
   return (
     <section className="hero" aria-labelledby="hero-heading">
-      <div className="hero__media" aria-hidden="true">
-        <Image
-          src={staticPoster}
-          alt=""
-          fill
-          priority
-          unoptimized
-          sizes="100vw"
-          className="hero__image"
-        />
-        <div className="hero__scrim" />
-      </div>
+      <div className="container hero__layout">
+        <div className="hero__copy">
+          <p className="hero__slate">
+            <span>PORTFOLIO_01</span>
+            <span aria-hidden="true">·</span>
+            <span>00:00:01:12</span>
+          </p>
 
-      <div className="container hero__content">
-        <p className="hero__eyebrow">Portfolio</p>
-        <h1 id="hero-heading" className="hero__name">
-          {siteConfig.name}
-        </h1>
-        <p className="hero__role">{siteConfig.role}</p>
-        <p className="hero__tagline">{siteConfig.tagline}</p>
+          <p className="hero__name" id="hero-heading">
+            {siteConfig.name}
+          </p>
 
-        <div className="hero__actions">
-          <Link href="#featured-work" className="button button--primary">
-            View My Work
-          </Link>
-          {hasEmail ? (
-            <Link href="/contact" className="button button--ghost">
-              Get in Touch
+          <h1 className="hero__roles">
+            {siteConfig.roles.map((role) => (
+              <span key={role} className="hero__role-line">
+                {role}
+              </span>
+            ))}
+          </h1>
+
+          <p className="hero__intro">{siteConfig.intro}</p>
+          <p className="hero__tagline">{siteConfig.tagline}</p>
+
+          <div className="hero__actions">
+            <Link href="#featured-work" className="editorial-link">
+              View Selected Work
+              <span aria-hidden="true"> ↘</span>
             </Link>
-          ) : (
-            <Link href="/about" className="button button--ghost">
-              About
+            <Link href="/about" className="editorial-link editorial-link--muted">
+              More About Me
+              <span aria-hidden="true"> →</span>
             </Link>
-          )}
+          </div>
+        </div>
+
+        <div className="hero__collage">
+          <WorkspaceCollage />
         </div>
       </div>
     </section>

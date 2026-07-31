@@ -17,20 +17,15 @@ export function FeaturedWork() {
     >
       <div className="container">
         <div className="home-featured__header">
-          <div className="home-featured__intro">
-            <p className="section-eyebrow">Featured work</p>
-            <h2 id="featured-heading" className="section-title">
-              Selected projects
+          <div>
+            <p className="mono-label">Reel / Cuts</p>
+            <h2 id="featured-heading" className="display-heading">
+              Selected Work
             </h2>
-            <p className="section-lede">
-              A focused set of edits and filmed pieces. Each project lists my
-              exact role so you can see where editing—and when relevant,
-              videography—comes in.
-            </p>
           </div>
-
-          <Link href="/work" className="text-link home-featured__all">
-            View All Work
+          <Link href="/work" className="editorial-link">
+            See All Work
+            <span aria-hidden="true"> →</span>
           </Link>
         </div>
 

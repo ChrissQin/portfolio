@@ -127,6 +127,7 @@ export function MobileNav() {
                       className="mobile-nav__link"
                       onClick={closeMenu}
                     >
+                      <span className="mobile-nav__index">{link.index}</span>
                       {link.label}
                     </Link>
                   </li>
@@ -138,6 +139,7 @@ export function MobileNav() {
                       className="mobile-nav__link"
                       onClick={closeMenu}
                     >
+                      <span className="mobile-nav__index">04</span>
                       Resume
                     </a>
                   </li>
@@ -149,7 +151,7 @@ export function MobileNav() {
                       className="mobile-nav__cta"
                       onClick={closeMenu}
                     >
-                      Get in Touch
+                      Send a project
                     </Link>
                   </li>
                 ) : null}

@@ -1,55 +1,40 @@
-export type ServiceItem = {
-  id: "editing" | "videography" | "production";
+export type Capability = {
+  id: "edit" | "shoot" | "build";
+  index: string;
   title: string;
   emphasis: "primary" | "secondary";
-  summary: string;
-  areas: string[];
+  lines: string[];
 };
 
-export const services: ServiceItem[] = [
+export const capabilities: Capability[] = [
   {
-    id: "editing",
-    title: "Video Editing",
+    id: "edit",
+    index: "01",
+    title: "Edit",
     emphasis: "primary",
-    summary:
-      "My strongest focus. I shape short-form and long-form footage with pacing, sound, and visual detail built for how people actually watch.",
-    areas: [
-      "Short-form content",
-      "Long-form YouTube",
-      "Social media",
-      "Lifestyle and personality-driven content",
-      "Pacing and retention",
-      "Sound design",
-      "Captions and motion graphics",
+    lines: [
+      "Short-form, YouTube, social, lifestyle.",
+      "Pacing, sound, structure, captions, motion.",
     ],
   },
   {
-    id: "videography",
-    title: "Videography",
+    id: "shoot",
+    index: "02",
+    title: "Shoot",
     emphasis: "secondary",
-    summary:
-      "I also shoot when a project needs it—capturing clean, usable footage for creators and everyday production needs as this side of my work continues to grow.",
-    areas: [
-      "Interviews",
-      "Creator-focused shoots",
-      "Social content",
-      "Events",
-      "Lifestyle footage",
-      "Behind-the-scenes content",
+    lines: [
+      "Interviews, creators, events, behind-the-scenes.",
+      "Small-footprint production with editing already in mind.",
     ],
   },
   {
-    id: "production",
-    title: "Creative Production",
+    id: "build",
+    index: "03",
+    title: "Build",
     emphasis: "secondary",
-    summary:
-      "From early concepts through delivery, I help organize shoots and adapt content so it feels right for each platform and creator voice.",
-    areas: [
-      "Content concepts",
-      "Pre-production planning",
-      "Shoot organization",
-      "Platform adaptation",
-      "End-to-end content creation",
+    lines: [
+      "Concepts, pre-production, shoot planning,",
+      "and turning one idea into content across platforms.",
     ],
   },
 ];

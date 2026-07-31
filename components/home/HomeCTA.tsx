@@ -12,23 +12,21 @@ export function HomeCTA() {
   return (
     <section className="home-cta" aria-labelledby="home-cta-heading">
       <div className="container home-cta__inner">
-        <p className="section-eyebrow home-cta__eyebrow">Next step</p>
+        <p className="mono-label">End card</p>
         <h2 id="home-cta-heading" className="home-cta__title">
-          {showContact ? "Have a project in mind?" : "Want to see more?"}
+          <span>Got footage?</span>
+          <span>Let&apos;s make something good.</span>
         </h2>
-        <p className="home-cta__lede">
-          {showContact
-            ? "Tell me about the edit, shoot, or collaboration you have in mind."
-            : "Browse the work or read a little more about how I approach editing and production."}
-        </p>
 
         {showContact ? (
           <div className="home-cta__contact">
             {email ? (
               <div className="home-cta__email-row">
-                <a href={`mailto:${email}`} className="button button--primary">
-                  {email}
+                <a href={`mailto:${email}`} className="editorial-link">
+                  Send Me a Project
+                  <span aria-hidden="true"> →</span>
                 </a>
+                <span className="home-cta__email">{email}</span>
                 <CopyEmailButton email={email} />
               </div>
             ) : null}
@@ -45,7 +43,7 @@ export function HomeCTA() {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-link"
+                      className="editorial-link editorial-link--muted"
                     >
                       {social.label}
                     </a>
@@ -56,11 +54,13 @@ export function HomeCTA() {
           </div>
         ) : (
           <div className="home-cta__actions">
-            <Link href="/work" className="button button--primary">
-              View My Work
+            <Link href="/work" className="editorial-link">
+              See All Work
+              <span aria-hidden="true"> →</span>
             </Link>
-            <Link href="/about" className="button button--ghost-ink">
-              Learn More About Me
+            <Link href="/about" className="editorial-link editorial-link--muted">
+              Read More About Me
+              <span aria-hidden="true"> →</span>
             </Link>
           </div>
         )}

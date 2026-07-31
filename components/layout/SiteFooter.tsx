@@ -13,9 +13,9 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="container site-footer__inner">
         <div className="site-footer__identity">
-          <p className="site-footer__name">{siteConfig.name}</p>
-          <p className="site-footer__role">{siteConfig.role}</p>
-          <p className="site-footer__year">© {year}</p>
+          <p className="site-footer__name">Chris Qin</p>
+          <p className="site-footer__credit">Editor / Videographer</p>
+          <p className="site-footer__year">{year}</p>
         </div>
 
         <nav aria-label="Footer">
@@ -23,7 +23,7 @@ export function SiteFooter() {
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link href={link.href} className="site-footer__link">
-                  {link.label}
+                  {link.index} {link.label}
                 </Link>
               </li>
             ))}

@@ -1,14 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500" role="img" aria-label="Portrait placeholder">
-  <defs>
-    <linearGradient id="p" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#3a4148"/>
-      <stop offset="100%" stop-color="#1c2024"/>
-    </linearGradient>
-  </defs>
-  <rect width="1200" height="1500" fill="url(#p)"/>
-  <rect x="72" y="72" width="1056" height="1356" fill="none" stroke="#7a848e" stroke-width="2" opacity="0.5"/>
-  <circle cx="600" cy="560" r="160" fill="none" stroke="#9AA1A8" stroke-width="2" opacity="0.55"/>
-  <path d="M320 1060c60-160 180-240 280-240s220 80 280 240" fill="none" stroke="#9AA1A8" stroke-width="2" opacity="0.55"/>
-  <text x="120" y="1320" fill="#ECEAE6" font-family="system-ui, sans-serif" font-size="42" font-weight="600">Portrait  Content Needed</text>
-  <text x="120" y="1380" fill="#9AA1A8" font-family="system-ui, sans-serif" font-size="28">Replace with a portrait or production photo</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500" role="img" aria-label="Candid photo asset needed">
+  <rect width="1200" height="1500" fill="#181816"/>
+  <rect x="40" y="40" width="1120" height="1420" fill="none" stroke="#e8e0d2" stroke-opacity="0.28"/>
+  <text x="80" y="120" fill="#ff5438" font-family="ui-monospace, monospace" font-size="28" letter-spacing="3">STILL · CANDID</text>
+  <circle cx="600" cy="620" r="180" fill="none" stroke="#9c978e" stroke-opacity="0.4" stroke-width="2"/>
+  <path d="M340 980 C420 820 780 820 860 980" fill="none" stroke="#9c978e" stroke-opacity="0.4" stroke-width="2"/>
+  <text x="80" y="1280" fill="#e8e0d2" font-family="ui-monospace, monospace" font-size="48" font-weight="700">CANDID PHOTO</text>
+  <text x="80" y="1340" fill="#9c978e" font-family="ui-monospace, monospace" font-size="28">ASSET NEEDED</text>
 </svg>

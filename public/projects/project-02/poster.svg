@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="1600" viewBox="0 0 900 1600" role="img" aria-label="Project 02 placeholder poster">
-  <rect width="900" height="1600" fill="#2A2E33"/>
-  <rect x="40" y="40" width="820" height="1520" fill="none" stroke="#6B737C" stroke-width="2"/>
-  <text x="72" y="140" fill="#ECEAE6" font-family="system-ui, sans-serif" font-size="36" font-weight="600">Project 02</text>
-  <text x="72" y="190" fill="#ECEAE6" font-family="system-ui, sans-serif" font-size="28">Content Needed</text>
-  <text x="72" y="250" fill="#9AA1A8" font-family="system-ui, sans-serif" font-size="22">9:16 placeholder</text>
-  <text x="72" y="290" fill="#9AA1A8" font-family="system-ui, sans-serif" font-size="22">Editor &amp; Videographer</text>
+  <rect width="900" height="1600" fill="#22221f"/>
+  <rect x="36" y="36" width="828" height="1528" fill="none" stroke="#e8e0d2" stroke-opacity="0.25"/>
+  <text x="72" y="120" fill="#ff5438" font-family="ui-monospace, monospace" font-size="24" letter-spacing="3">02 / VERTICAL</text>
+  <text x="72" y="720" fill="#e8e0d2" font-family="ui-monospace, monospace" font-size="52" font-weight="700">PROJECT 02</text>
+  <text x="72" y="790" fill="#9c978e" font-family="ui-monospace, monospace" font-size="28">CONTENT NEEDED</text>
+  <text x="72" y="1480" fill="#9c978e" font-family="ui-monospace, monospace" font-size="22">9:16 · EDITOR + VIDEOGRAPHER</text>
 </svg>

@@ -6,46 +6,68 @@ import { siteConfig } from "@/lib/constants";
 export function AboutTeaser() {
   return (
     <section className="home-about" aria-labelledby="about-teaser-heading">
-      <div className="container home-about__grid">
-        <div className="home-about__media">
-          <div className="home-about__portrait">
+      <div className="container home-about__spread">
+        <div className="home-about__visuals">
+          <figure className="home-about__frame home-about__frame--portrait">
             <Image
               src="/about/portrait-placeholder.svg"
-              alt="Portrait placeholder — replace with a photo of Chris Qin editing or filming"
+              alt="Candid photo placeholder — asset needed"
               fill
               unoptimized
-              sizes="(max-width: 900px) 100vw, 28rem"
+              sizes="(max-width: 900px) 70vw, 18rem"
               className="home-about__image"
             />
-          </div>
-          <p className="home-about__media-caption">
-            Portrait or production photo — Content Needed
+            <figcaption className="home-about__caption">
+              Candid — Asset Needed
+            </figcaption>
+          </figure>
+
+          <figure className="home-about__frame home-about__frame--timeline">
+            <Image
+              src="/collage/edit-timeline.svg"
+              alt="Edit timeline placeholder — asset needed"
+              fill
+              unoptimized
+              sizes="(max-width: 900px) 55vw, 14rem"
+              className="home-about__image"
+            />
+            <figcaption className="home-about__caption">
+              Timeline crop — Asset Needed
+            </figcaption>
+          </figure>
+
+          <p className="home-about__annotation" aria-hidden="true">
+            this part matters ↓
           </p>
         </div>
 
         <div className="home-about__copy">
-          <p className="section-eyebrow">About</p>
-          <h2 id="about-teaser-heading" className="section-title">
+          <p className="mono-label">About / Notes</p>
+          <h2 id="about-teaser-heading" className="display-heading">
             {siteConfig.name}
           </h2>
-          <p className="home-about__lead">
-            I&apos;m a video editor and videographer with more than five years
-            of experience creating and editing content in Adobe creative
-            software.
+
+          <p className="home-about__statement">
+            I&apos;ve been editing for more than five years—long enough that
+            pacing, sound, and the tiny choices that make a video feel finished
+            are what I think about first.
           </p>
-          <p>
-            Editing is currently my strongest area. I care about pacing, sound,
-            story, and the small visual decisions that change how a piece feels.
-            I also shoot content and like being involved across the production
-            process when a project calls for it.
+
+          <p className="home-about__body">
+            Editing is still the center of what I do, but I also like being
+            behind the camera and involved before the footage reaches the
+            timeline.
           </p>
-          <p>
-            I work across short-form, YouTube, lifestyle, and social content,
-            and I value responsive communication, reliability, and adapting to
-            each creator&apos;s voice.
-          </p>
-          <Link href="/about" className="text-link home-about__link">
-            More About Me
+
+          <ul className="home-about__facts">
+            <li>Adobe creative software · 5+ years</li>
+            <li>Short-form, YouTube, lifestyle, social</li>
+            <li>Fast communication · adapts to creator voice</li>
+          </ul>
+
+          <Link href="/about" className="editorial-link">
+            Read More About Me
+            <span aria-hidden="true"> →</span>
           </Link>
         </div>
       </div>
