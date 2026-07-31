@@ -22,6 +22,23 @@ const MAX_RIPPLES = 4;
 /** Intrinsic hero poster size — must match the source asset. */
 const IMAGE_RESOLUTION: [number, number] = [1536, 1024];
 
+/**
+ * Subtle / premium interaction tuning.
+ * Hover ~0.25× prior amplitude; click ~0.3× prior amplitude.
+ */
+const HOVER_STRENGTH = 0.0045; // was 0.018
+const HOVER_FALLOFF = 10.5; // was 7.5 — slightly smaller, softer local area
+const HOVER_LIFT = 0.036; // was 0.14
+const CLICK_STRENGTH = 0.0085; // was 0.028
+const CLICK_DURATION = 1.0; // was 1.35 — fades a bit quicker
+const CLICK_EXPANSION = 0.42; // was 0.5
+const CLICK_RING_SOFTNESS = 24.0; // was 36 — softer ring edge
+const CLICK_POINTER_STRENGTH = 0.32; // was 1.0
+const CLICK_TOUCH_STRENGTH = 0.18; // was 0.55
+const POINTER_FOLLOW = 0.1;
+const HOVER_ENGAGE = 0.1;
+const HOVER_SETTLE = 0.16; // settle quickly when pointer stops / leaves
+
 const VERT = `
 attribute vec2 a_position;
 varying vec2 v_uv;
@@ -40,6 +57,13 @@ uniform float u_time;
 uniform vec4 u_ripples[4];
 uniform vec2 u_resolution;
 uniform vec2 u_imageResolution;
+uniform float u_hoverStrength;
+uniform float u_hoverFalloff;
+uniform float u_hoverLift;
+uniform float u_clickStrength;
+uniform float u_clickDuration;
+uniform float u_clickExpansion;
+uniform float u_clickRingSoftness;
 varying vec2 v_uv;
 
 vec2 coverUv(vec2 screenUv) {
@@ -64,29 +88,29 @@ void main() {
   vec2 dir = dist > 0.0001 ? fromPointer / dist : vec2(0.0);
 
   /* Soft delayed light + micro displacement following the pointer */
-  float hoverFalloff = exp(-dist * 7.5) * u_hover;
-  uv -= dir * hoverFalloff * 0.018;
+  float hoverFalloff = exp(-dist * u_hoverFalloff) * u_hover;
+  uv -= dir * hoverFalloff * u_hoverStrength;
 
   for (int i = 0; i < 4; i++) {
     float strength = u_ripples[i].w;
     float born = u_ripples[i].z;
     if (strength > 0.001 && born > 0.0) {
       float age = u_time - born;
-      if (age >= 0.0 && age < 1.35) {
+      if (age >= 0.0 && age < u_clickDuration) {
         vec2 origin = coverUv(u_ripples[i].xy);
         float waveDist = distance(uv, origin);
-        float radius = age * 0.5;
-        float ring = exp(-pow((waveDist - radius) * 36.0, 2.0));
-        float decay = 1.0 - age / 1.35;
+        float radius = age * u_clickExpansion;
+        float ring = exp(-pow((waveDist - radius) * u_clickRingSoftness, 2.0));
+        float decay = 1.0 - age / u_clickDuration;
         vec2 waveDir = waveDist > 0.0001 ? normalize(uv - origin) : vec2(0.0);
-        uv += waveDir * ring * strength * decay * 0.028;
+        uv += waveDir * ring * strength * decay * u_clickStrength;
       }
     }
   }
 
   uv = clamp(uv, 0.001, 0.999);
   vec4 color = texture2D(u_image, uv);
-  float lift = exp(-dist * 5.5) * u_hover * 0.14;
+  float lift = exp(-dist * (u_hoverFalloff * 0.72)) * u_hover * u_hoverLift;
   color.rgb += vec3(lift * 0.95, lift * 0.88, lift * 0.78);
   gl_FragColor = color;
 }
@@ -254,6 +278,16 @@ export function HeroRipple({ imageSrc, className = "" }: HeroRippleProps) {
     const uRipples = gl.getUniformLocation(program, "u_ripples");
     const uResolution = gl.getUniformLocation(program, "u_resolution");
     const uImageResolution = gl.getUniformLocation(program, "u_imageResolution");
+    const uHoverStrength = gl.getUniformLocation(program, "u_hoverStrength");
+    const uHoverFalloff = gl.getUniformLocation(program, "u_hoverFalloff");
+    const uHoverLift = gl.getUniformLocation(program, "u_hoverLift");
+    const uClickStrength = gl.getUniformLocation(program, "u_clickStrength");
+    const uClickDuration = gl.getUniformLocation(program, "u_clickDuration");
+    const uClickExpansion = gl.getUniformLocation(program, "u_clickExpansion");
+    const uClickRingSoftness = gl.getUniformLocation(
+      program,
+      "u_clickRingSoftness",
+    );
 
     const pointer = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
     let hover = 0;
@@ -316,7 +350,11 @@ export function HeroRipple({ imageSrc, className = "" }: HeroRippleProps) {
       const uv = toUv(event.clientX, event.clientY);
       // Coarse/touch: tap ripple only; fine pointer: click wave
       if (finePointer.matches || event.pointerType === "touch") {
-        pushRipple(uv.x, uv.y, finePointer.matches ? 1 : 0.55);
+        pushRipple(
+          uv.x,
+          uv.y,
+          finePointer.matches ? CLICK_POINTER_STRENGTH : CLICK_TOUCH_STRENGTH,
+        );
       }
       if (finePointer.matches) {
         pointer.tx = uv.x;
@@ -336,9 +374,10 @@ export function HeroRipple({ imageSrc, className = "" }: HeroRippleProps) {
       raf = window.requestAnimationFrame(draw);
 
       const t = (now - start) / 1000;
-      pointer.x += (pointer.tx - pointer.x) * 0.08;
-      pointer.y += (pointer.ty - pointer.y) * 0.08;
-      hover += (targetHover - hover) * 0.08;
+      pointer.x += (pointer.tx - pointer.x) * POINTER_FOLLOW;
+      pointer.y += (pointer.ty - pointer.y) * POINTER_FOLLOW;
+      const hoverRate = targetHover > hover ? HOVER_ENGAGE : HOVER_SETTLE;
+      hover += (targetHover - hover) * hoverRate;
 
       resize();
       gl.useProgram(program);
@@ -354,6 +393,13 @@ export function HeroRipple({ imageSrc, className = "" }: HeroRippleProps) {
       gl.uniform1f(uTime, t);
       gl.uniform2f(uResolution, resolution[0], resolution[1]);
       gl.uniform2f(uImageResolution, imageResolution[0], imageResolution[1]);
+      gl.uniform1f(uHoverStrength, HOVER_STRENGTH);
+      gl.uniform1f(uHoverFalloff, HOVER_FALLOFF);
+      gl.uniform1f(uHoverLift, HOVER_LIFT);
+      gl.uniform1f(uClickStrength, CLICK_STRENGTH);
+      gl.uniform1f(uClickDuration, CLICK_DURATION);
+      gl.uniform1f(uClickExpansion, CLICK_EXPANSION);
+      gl.uniform1f(uClickRingSoftness, CLICK_RING_SOFTNESS);
 
       const rippleData = new Float32Array(16);
       for (let i = 0; i < MAX_RIPPLES; i++) {
