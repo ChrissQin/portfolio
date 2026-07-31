@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="1600" viewBox="0 0 900 1600" role="img" aria-label="Project 02 placeholder poster">
-  <rect width="900" height="1600" fill="#22221f"/>
-  <rect x="36" y="36" width="828" height="1528" fill="none" stroke="#e8e0d2" stroke-opacity="0.25"/>
-  <text x="72" y="120" fill="#ff5438" font-family="ui-monospace, monospace" font-size="24" letter-spacing="3">02 / VERTICAL</text>
-  <text x="72" y="720" fill="#e8e0d2" font-family="ui-monospace, monospace" font-size="52" font-weight="700">PROJECT 02</text>
-  <text x="72" y="790" fill="#9c978e" font-family="ui-monospace, monospace" font-size="28">CONTENT NEEDED</text>
-  <text x="72" y="1480" fill="#9c978e" font-family="ui-monospace, monospace" font-size="22">9:16 · EDITOR + VIDEOGRAPHER</text>
+  <rect width="900" height="1600" fill="#151210"/>
+  <rect x="36" y="36" width="828" height="1528" fill="none" stroke="#d5c1ad" stroke-opacity="0.25"/>
+  <text x="72" y="120" fill="#c5b2a0" font-family="ui-monospace, monospace" font-size="24" letter-spacing="3">02 / VERTICAL</text>
+  <text x="72" y="720" fill="#d5c1ad" font-family="ui-monospace, monospace" font-size="52" font-weight="700">PROJECT 02</text>
+  <text x="72" y="790" fill="#938678" font-family="ui-monospace, monospace" font-size="28">CONTENT NEEDED</text>
+  <text x="72" y="1480" fill="#938678" font-family="ui-monospace, monospace" font-size="22">9:16 · EDITOR + VIDEOGRAPHER</text>
 </svg>

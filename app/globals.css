@@ -1,15 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #0d0d0b;
-  --surface: #181816;
-  --surface-raised: #22221f;
-  --paper: #e8e0d2;
-  --paper-bright: #f3ecdf;
-  --muted: #b0aaa0;
-  --line: rgba(232, 224, 210, 0.2);
-  --accent: #ff5438;
-  --accent-hover: #ff725b;
+  /* CQ Visuals brand palette — black / warm beige / muted taupe */
+  --bg: #000000;
+  --surface: #0b0a09;
+  --surface-raised: #151210;
+
+  --text-primary: #d5c1ad;
+  --text-bright: #eadbca;
+  --text-muted: #938678;
+
+  --accent: #c5b2a0;
+  --accent-hover: #dfcbb7;
+
+  --line: rgba(213, 193, 173, 0.18);
+  --line-strong: rgba(213, 193, 173, 0.34);
+
+  /* Compatibility aliases used by existing component styles */
+  --paper: var(--text-primary);
+  --paper-bright: var(--text-bright);
+  --muted: var(--text-muted);
+
   --max-width: 74rem;
   --radius: 0.15rem;
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -25,7 +36,11 @@
   --color-paper: var(--paper);
   --color-paper-bright: var(--paper-bright);
   --color-muted: var(--muted);
+  --color-text-primary: var(--text-primary);
+  --color-text-bright: var(--text-bright);
+  --color-text-muted: var(--text-muted);
   --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --font-display: var(--font-display-family);
@@ -339,7 +354,7 @@ button {
 }
 
 .mobile-nav__link:hover {
-  background: rgba(232, 224, 210, 0.05);
+  background: rgba(213, 193, 173, 0.05);
 }
 
 .mobile-nav__index {
@@ -377,15 +392,15 @@ button {
   background:
     linear-gradient(
       160deg,
-      rgba(34, 34, 31, 0.2) 0%,
-      rgba(24, 24, 22, 0.95) 100%
+      rgba(21, 18, 16, 0.2) 0%,
+      rgba(11, 10, 9, 0.95) 100%
     );
 }
 
 .placeholder-media__graphic {
   position: absolute;
   inset: 0.7rem;
-  border: 1px solid rgba(232, 224, 210, 0.12);
+  border: 1px solid var(--line);
   pointer-events: none;
 }
 
@@ -395,14 +410,14 @@ button {
       90deg,
       transparent,
       transparent 11px,
-      rgba(232, 224, 210, 0.08) 11px,
-      rgba(232, 224, 210, 0.08) 12px
+      rgba(213, 193, 173, 0.08) 11px,
+      rgba(213, 193, 173, 0.08) 12px
     ),
     linear-gradient(
       180deg,
       transparent 42%,
-      rgba(255, 84, 56, 0.35) 42%,
-      rgba(255, 84, 56, 0.35) 48%,
+      rgba(197, 178, 160, 0.4) 42%,
+      rgba(197, 178, 160, 0.4) 48%,
       transparent 48%
     );
   border: 0;
@@ -412,7 +427,7 @@ button {
 .placeholder-media--portrait .placeholder-media__graphic {
   inset: 18% 28% 32%;
   border-radius: 999px;
-  border-color: rgba(176, 170, 160, 0.35);
+  border-color: rgba(147, 134, 120, 0.4);
 }
 
 .placeholder-media--portrait .placeholder-media__graphic::after {
@@ -422,7 +437,7 @@ button {
   right: -18%;
   bottom: -55%;
   height: 55%;
-  border: 1px solid rgba(176, 170, 160, 0.3);
+  border: 1px solid rgba(147, 134, 120, 0.35);
   border-bottom: 0;
   border-radius: 999px 999px 0 0;
 }
@@ -432,7 +447,7 @@ button {
   border: 0;
   background: repeating-linear-gradient(
     90deg,
-    rgba(232, 224, 210, 0.22) 0 3px,
+    rgba(213, 193, 173, 0.22) 0 3px,
     transparent 3px 8px
   );
   mask-image: linear-gradient(
@@ -845,7 +860,7 @@ button {
   font-size: 0.66rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(232, 224, 210, 0.82);
+  color: rgba(213, 193, 173, 0.82);
 }
 
 @media (max-width: 520px) {
@@ -1139,7 +1154,7 @@ button {
 .project-card__monitor {
   position: absolute;
   inset: 0.45rem;
-  border: 1px solid rgba(232, 224, 210, 0.12);
+  border: 1px solid var(--line);
   pointer-events: none;
   z-index: 2;
 }
@@ -1432,7 +1447,7 @@ button {
   margin-top: auto;
   border-top: 1px solid var(--line);
   padding: clamp(4rem, 10vw, 7rem) 0 0;
-  background: #0a0a08;
+  background: var(--bg);
 }
 
 .site-footer__top {

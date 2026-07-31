@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420" role="img" aria-label="Music audio asset needed">
-  <rect width="900" height="420" fill="#22221f"/>
-  <rect x="16" y="16" width="868" height="388" fill="none" stroke="#e8e0d2" stroke-opacity="0.25"/>
-  <text x="36" y="52" fill="#9c978e" font-family="ui-monospace, monospace" font-size="16" letter-spacing="2">AUDIO · REF_TRACK</text>
-  <g fill="#e8e0d2" opacity="0.55">
+  <rect width="900" height="420" fill="#151210"/>
+  <rect x="16" y="16" width="868" height="388" fill="none" stroke="#d5c1ad" stroke-opacity="0.25"/>
+  <text x="36" y="52" fill="#938678" font-family="ui-monospace, monospace" font-size="16" letter-spacing="2">AUDIO · REF_TRACK</text>
+  <g fill="#d5c1ad" opacity="0.55">
     <rect x="40" y="160" width="8" height="80"/>
     <rect x="56" y="140" width="8" height="120"/>
     <rect x="72" y="120" width="8" height="160"/>
@@ -24,7 +24,7 @@
     <rect x="328" y="148" width="8" height="104"/>
     <rect x="344" y="118" width="8" height="164"/>
   </g>
-  <g fill="#ff5438" opacity="0.75">
+  <g fill="#c5b2a0" opacity="0.75">
     <rect x="420" y="150" width="8" height="100"/>
     <rect x="436" y="120" width="8" height="160"/>
     <rect x="452" y="100" width="8" height="200"/>
@@ -34,6 +34,6 @@
     <rect x="516" y="110" width="8" height="180"/>
     <rect x="532" y="155" width="8" height="90"/>
   </g>
-  <text x="36" y="350" fill="#e8e0d2" font-family="ui-monospace, monospace" font-size="26" font-weight="700">MUSIC / AUDIO</text>
-  <text x="36" y="385" fill="#9c978e" font-family="ui-monospace, monospace" font-size="14" opacity="0.55">Asset needed</text>
+  <text x="36" y="350" fill="#d5c1ad" font-family="ui-monospace, monospace" font-size="26" font-weight="700">MUSIC / AUDIO</text>
+  <text x="36" y="385" fill="#938678" font-family="ui-monospace, monospace" font-size="14" opacity="0.55">Asset needed</text>
 </svg>
