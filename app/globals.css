@@ -1971,46 +1971,22 @@ button {
 
 .home-about__statement {
   margin: 1.2rem 0 0;
-  max-width: 32rem;
-  font-size: clamp(1.125rem, 2.2vw, 1.375rem);
-  line-height: 1.5;
+  max-width: 36rem;
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  line-height: 1.55;
   color: var(--paper-bright);
 }
 
 .home-about__body {
-  margin: 1rem 0 0;
-  max-width: 32rem;
+  margin: 1.1rem 0 0;
+  max-width: 36rem;
   font-size: clamp(0.9375rem, 1.7vw, 1.05rem);
   line-height: 1.65;
   color: var(--muted);
 }
 
-.home-about__facts {
-  display: grid;
-  gap: 0.45rem;
-  margin: 1.5rem 0 1.75rem;
-  padding: 0;
-  list-style: none;
-  font-family: var(--font-mono-family), ui-monospace, monospace;
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.home-about__facts li {
-  padding-left: 0.85rem;
-  position: relative;
-}
-
-.home-about__facts li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.55em;
-  width: 0.35rem;
-  height: 0.35rem;
-  background: var(--accent);
+.home-about__body--closing {
+  margin-top: 1.25rem;
 }
 
 /* ——— Closing CTA ——— */

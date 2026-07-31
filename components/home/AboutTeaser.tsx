@@ -31,23 +31,27 @@ export function AboutTeaser() {
           </h2>
 
           <p className="home-about__statement">
-            I&apos;ve been editing for more than five years—long enough that
-            pacing, sound, and the tiny choices that make a video feel finished
-            are what I think about first.
+            I&apos;m an Atlanta-based video editor and videographer obsessed
+            with branded content, social video, documentary, and digital media.
+            Over the past five years, my work has generated more than 15 million
+            views and helped build audiences of over 14,000 subscribers across
+            platforms. I&apos;ve worked with startups, restaurants, nonprofits,
+            creators, and personal brands from concept and production through
+            final delivery.
           </p>
 
           <p className="home-about__body">
-            Editing is still the center of what I do, but I also like being
-            behind the camera and getting involved before the footage reaches
-            the timeline. Based in Georgia, I work with creators and brands who
-            want cuts that feel intentional.
+            What draws me most to this work is the opportunity to understand the
+            people behind each project and build genuine creative relationships
+            with them. I believe the strongest videos go beyond compelling
+            visuals — they capture the personality, emotion, and authenticity of
+            the people I work with in a way that can be felt through the camera.
           </p>
 
-          <ul className="home-about__facts">
-            <li>Adobe creative software · 5+ years</li>
-            <li>Short-form, YouTube, lifestyle, social</li>
-            <li>Fast communication · adapts to creator voice</li>
-          </ul>
+          <p className="home-about__body home-about__body--closing">
+            Take a look around to see all of the different ways that we can work
+            together!
+          </p>
         </div>
       </div>
     </section>
