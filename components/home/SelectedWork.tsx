@@ -13,7 +13,7 @@ function sceneTreatment(
   if (orientation === "vertical") {
     return "portrait";
   }
-  return index % 2 === 0 ? "offset" : "wide";
+  return index % 2 === 0 ? "wide" : "offset";
 }
 
 export function SelectedWork() {
