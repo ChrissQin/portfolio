@@ -36,17 +36,13 @@ export function SiteHeader() {
           </ul>
 
           {hasEmail ? (
-            <Link href="/contact" className="button button--primary button--compact">
-              Get in Touch
-            </Link>
-          ) : (
-            <span
-              className="button button--ghost button--compact button--disabled"
-              title="Contact email placeholder — replace in lib/constants.ts"
+            <Link
+              href="/contact"
+              className="button button--primary button--compact"
             >
               Get in Touch
-            </span>
-          )}
+            </Link>
+          ) : null}
         </nav>
 
         <MobileNav />

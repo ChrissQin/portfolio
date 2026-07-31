@@ -41,12 +41,9 @@ export function Hero() {
               Get in Touch
             </Link>
           ) : (
-            <span
-              className="button button--ghost button--disabled"
-              title="Contact email placeholder — replace in lib/constants.ts"
-            >
-              Get in Touch
-            </span>
+            <Link href="/about" className="button button--ghost">
+              About
+            </Link>
           )}
         </div>
       </div>

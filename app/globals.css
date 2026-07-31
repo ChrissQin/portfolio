@@ -283,6 +283,7 @@ button {
 /* ——— Mobile nav ——— */
 .mobile-nav {
   position: relative;
+  z-index: 60;
 }
 
 .mobile-nav__toggle {
@@ -313,10 +314,20 @@ button {
   background: var(--ink);
 }
 
+.mobile-nav__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  background: rgba(18, 20, 23, 0.28);
+  border: 0;
+  cursor: default;
+}
+
 .mobile-nav__panel {
   position: absolute;
   top: calc(100% + 0.65rem);
   right: 0;
+  z-index: 60;
   width: min(18rem, calc(100vw - 2.5rem));
   padding: 1rem;
   border: 1px solid var(--line);
@@ -354,11 +365,6 @@ button {
 
 .mobile-nav__cta:hover {
   background: var(--accent-hover);
-}
-
-.mobile-nav__cta--disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
 }
 
 /* ——— Hero ——— */
@@ -481,16 +487,10 @@ button {
     align-items: start;
   }
 
-  .project-grid__item--horizontal:nth-child(1) {
-    grid-column: span 7;
-  }
-
-  .project-grid__item--vertical {
-    grid-column: span 5;
-  }
-
-  .project-grid__item--horizontal:nth-child(3) {
-    grid-column: span 8;
+  /* Spans come from resolveProjectGridLayout via --grid-span — no order selectors. */
+  .project-grid__item {
+    min-width: 0;
+    grid-column: span var(--grid-span);
   }
 }
 
@@ -500,8 +500,24 @@ button {
   outline-offset: 4px;
 }
 
+.project-card__frame {
+  width: 100%;
+}
+
+.project-card--vertical .project-card__frame {
+  width: min(100%, 20rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 900px) {
+  .project-card--vertical .project-card__frame {
+    width: min(100%, 18.5rem);
+  }
+}
+
 .project-card__media {
   position: relative;
+  width: 100%;
   overflow: hidden;
   border-radius: var(--radius);
   background: #2a2e33;
@@ -513,15 +529,6 @@ button {
 
 .project-card--vertical .project-card__media {
   aspect-ratio: 9 / 16;
-  width: min(100%, 22rem);
-  margin-inline: auto;
-}
-
-@media (min-width: 900px) {
-  .project-card--vertical .project-card__media {
-    width: 100%;
-    max-height: 34rem;
-  }
 }
 
 .project-card__image {

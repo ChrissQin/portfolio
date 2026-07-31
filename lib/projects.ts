@@ -28,6 +28,11 @@ export type Project = {
   /** Filter-ready; unused in the Work UI at launch. */
   services: Service[];
   orientation: Orientation;
+  /**
+   * Optional explicit 12-column span. When omitted, the grid packer assigns a
+   * span from orientation pairing so layout does not depend on list order hacks.
+   */
+  gridSpan?: number;
   thumbnail: string;
   videoUrl?: string;
   videoProvider: VideoProvider;
