@@ -536,6 +536,7 @@ button {
   display: block;
   width: 100%;
   height: 100%;
+  max-width: none;
   object-fit: cover;
   object-position: var(--hero-object-position, 50% 50%);
 }
@@ -724,7 +725,7 @@ button {
 
 .cinema-hero__copy {
   grid-area: copy;
-  max-width: 36rem;
+  max-width: min(36rem, 92%);
   align-self: end;
 }
 
@@ -732,8 +733,9 @@ button {
   margin: 0;
   display: grid;
   gap: 0.12rem;
+  max-width: 22ch;
   font-family: var(--font-display-family), system-ui, sans-serif;
-  font-size: clamp(1.85rem, 5.6vw, 3.65rem);
+  font-size: clamp(1.65rem, 4.8vw, 3.15rem);
   font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 0.98;
@@ -743,8 +745,8 @@ button {
 
 .cinema-hero__lede {
   margin: 1rem 0 0;
-  max-width: 28rem;
-  font-size: clamp(0.9rem, 1.7vw, 1.02rem);
+  max-width: 30rem;
+  font-size: clamp(0.875rem, 1.7vw, 1.02rem);
   line-height: 1.55;
   color: var(--text-primary);
 }
@@ -865,8 +867,13 @@ button {
     min-height: min(100svh - 1.7rem, 920px);
   }
 
+  .cinema-hero__headline {
+    max-width: 21ch;
+    font-size: clamp(1.45rem, 6.8vw, 2.05rem);
+  }
+
   .cinema-hero__lede--secondary {
-    display: none;
+    display: block;
   }
 
   .cinema-hero__disciplines {
