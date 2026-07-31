@@ -295,10 +295,11 @@ export function HeroRipple({ imageSrc, className = "" }: HeroRippleProps) {
       if (disposed) {
         return;
       }
-      raf = window.requestAnimationFrame(draw);
       if (!visible) {
+        raf = 0;
         return;
       }
+      raf = window.requestAnimationFrame(draw);
 
       const t = (now - start) / 1000;
       pointer.x += (pointer.tx - pointer.x) * 0.08;
@@ -338,7 +339,15 @@ export function HeroRipple({ imageSrc, className = "" }: HeroRippleProps) {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        visible = Boolean(entry?.isIntersecting);
+        const nowVisible = Boolean(entry?.isIntersecting);
+        if (nowVisible && !visible) {
+          visible = true;
+          if (!raf) {
+            raf = window.requestAnimationFrame(draw);
+          }
+        } else if (!nowVisible) {
+          visible = false;
+        }
       },
       { threshold: 0.05 },
     );

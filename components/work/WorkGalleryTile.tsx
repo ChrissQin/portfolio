@@ -64,7 +64,7 @@ export function WorkGalleryTile({ project, wide = false }: WorkGalleryTileProps)
       ref={playButtonRef}
       type="button"
       className="work-tile__play"
-      aria-label={`Play ${project.title}`}
+              aria-label={`Play ${project.title}, ${roleLabel}`}
       onClick={() => setLightboxOpen(true)}
     >
       <span className="work-tile__play-icon" aria-hidden="true" />
@@ -169,6 +169,7 @@ export function WorkGalleryTile({ project, wide = false }: WorkGalleryTileProps)
       {lightboxOpen && canPlay && project.videoUrl ? (
         <VideoLightbox
           title={project.title}
+          detail={[project.contentType, roleLabel].filter(Boolean).join(" · ")}
           videoUrl={project.videoUrl}
           orientation={project.orientation}
           onClose={() => setLightboxOpen(false)}

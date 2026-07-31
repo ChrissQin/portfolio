@@ -73,7 +73,7 @@ export function ProjectPreview({
         src={thumbnail}
         alt={`${title} poster`}
         label={title}
-        hint="Poster needed"
+        hint="Unavailable"
         aspectRatio={aspectRatio}
         motif={orientation === "vertical" ? "vertical" : "frame"}
         className="project-preview__poster"

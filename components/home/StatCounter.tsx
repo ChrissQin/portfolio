@@ -66,7 +66,7 @@ export function StatCounter({ stat, delayMs = 0 }: StatCounterProps) {
       <p className="by-numbers__label">{stat.label}</p>
       <p
         className="by-numbers__value"
-        aria-label={`${stat.accessibleValue} ${stat.label}`}
+        aria-label={stat.accessibleValue}
       >
         <span aria-hidden="true">
           {stat.prefix}

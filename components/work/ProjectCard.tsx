@@ -44,7 +44,7 @@ export function ProjectCard({
               src={project.thumbnail}
               alt={`${project.title} poster`}
               label={project.title}
-              hint="Poster needed"
+              hint="Unavailable"
               aspectRatio={isVertical ? "9 / 16" : "16 / 9"}
               motif={isVertical ? "vertical" : "frame"}
               className="project-card__placeholder"

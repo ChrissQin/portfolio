@@ -64,6 +64,7 @@ export function getYouTubeEmbedSrc(
     rel: "0",
     modestbranding: "1",
     playsinline: "1",
+    iv_load_policy: "3",
   });
 
   if (options?.autoplay) {
