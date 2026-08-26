@@ -1,28 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 import { MobileNav } from "@/components/layout/MobileNav";
 import { getPrimaryNavLinks } from "@/lib/nav";
+import { siteConfig } from "@/lib/constants";
 
 /**
- * Global header for non-home routes. On `/`, the cinematic hero owns navigation
- * so desktop does not show a separate black header bar above the media frame.
+ * Sticky studio header — wordmark left, primary anchors right.
+ * Shown on every route, including the homepage.
  */
 export function SiteHeader() {
-  const pathname = usePathname();
   const links = getPrimaryNavLinks();
-
-  if (pathname === "/") {
-    return null;
-  }
 
   return (
     <header className="site-header">
       <div className="container site-header__inner">
         <Link href="/#top" className="site-header__brand">
-          Chris Qin
+          {siteConfig.name}
         </Link>
 
         <nav aria-label="Primary" className="site-header__desktop">

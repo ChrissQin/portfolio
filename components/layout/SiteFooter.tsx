@@ -40,8 +40,7 @@ export function SiteFooter() {
             {FOOTER_NAV.map((link) => (
               <li key={link.href}>
                 <a href={link.href} className="site-footer__nav-link">
-                  <span>{link.label}</span>
-                  <span aria-hidden="true">↗</span>
+                  {link.label}
                 </a>
               </li>
             ))}
@@ -52,14 +51,12 @@ export function SiteFooter() {
           <p className="site-footer__eyebrow">Get in touch</p>
           {email ? (
             <a href={`mailto:${email}`} className="site-footer__contact-link">
-              <span>{email}</span>
-              <span aria-hidden="true">↗</span>
+              {email}
             </a>
           ) : null}
           {phoneDisplay && phoneHref ? (
             <a href={phoneHref} className="site-footer__contact-link">
-              <span>{phoneDisplay}</span>
-              <span aria-hidden="true">↗</span>
+              {phoneDisplay}
             </a>
           ) : null}
         </div>
@@ -76,8 +73,7 @@ export function SiteFooter() {
                     rel="noopener noreferrer"
                     className="site-footer__nav-link"
                   >
-                    <span>{social.label}</span>
-                    <span aria-hidden="true">↗</span>
+                    {social.label}
                   </a>
                 </li>
               ))}
@@ -87,8 +83,7 @@ export function SiteFooter() {
                     className="site-footer__nav-link site-footer__nav-link--disabled"
                     aria-disabled="true"
                   >
-                    <span>{social.label}</span>
-                    <span className="site-footer__needed">URL needed</span>
+                    {social.label}
                   </span>
                 </li>
               ))}
@@ -100,7 +95,7 @@ export function SiteFooter() {
       <div className="container site-footer__closing">
         <GeorgiaClock />
         <p className="site-footer__copyright">
-          © {year} {siteConfig.name.toUpperCase()}
+          © {year} {siteConfig.name}
         </p>
       </div>
     </footer>

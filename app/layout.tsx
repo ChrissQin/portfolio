@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo_Black, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -7,24 +7,10 @@ import { getSiteUrl, siteConfig } from "@/lib/constants";
 
 import "./globals.css";
 
-const display = Archivo_Black({
-  variable: "--font-display-family",
+const sans = Plus_Jakarta_Sans({
+  variable: "--font-sans-family",
   subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-
-const body = IBM_Plex_Sans({
-  variable: "--font-body-family",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-});
-
-const mono = IBM_Plex_Mono({
-  variable: "--font-mono-family",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
@@ -35,8 +21,8 @@ const pageDescription =
   "Portfolio of Chris Qin, an Atlanta-based video editor and videographer working across YouTube, social content, documentary, and branded video.";
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
-  colorScheme: "dark",
+  themeColor: "#F3F1EC",
+  colorScheme: "light",
 };
 
 export const metadata: Metadata = {
@@ -83,10 +69,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${display.variable} ${body.variable} ${mono.variable} h-full`}
-    >
+    <html lang="en" className={`${sans.variable} h-full`}>
       <body className="min-h-full antialiased">
         <div className="site-shell">
           <SiteHeader />

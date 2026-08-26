@@ -10,18 +10,17 @@ export function HomeCTA() {
   return (
     <section className="home-cta" aria-labelledby="home-cta-heading">
       <div className="container home-cta__inner">
+        <p className="section-kicker">Contact</p>
         <h2 id="home-cta-heading" className="home-cta__title">
-          <span>Got footage?</span>
-          <span>Let&apos;s make something good.</span>
+          Got footage? <em>Let&apos;s make something good.</em>
         </h2>
 
         {showContact ? (
           <div className="home-cta__contact">
             {email ? (
               <div className="home-cta__email-row">
-                <a href={`mailto:${email}`} className="editorial-link">
-                  Email Me
-                  <span aria-hidden="true"> →</span>
+                <a href={`mailto:${email}`} className="btn btn--primary">
+                  Get in touch
                 </a>
                 <span className="home-cta__email">{email}</span>
                 <CopyEmailButton email={email} />
@@ -30,8 +29,8 @@ export function HomeCTA() {
 
             {siteConfig.phoneDisplay && siteConfig.phoneHref ? (
               <p className="home-cta__availability">
-                <a href={siteConfig.phoneHref} className="editorial-link editorial-link--muted">
-                  Call Me · {siteConfig.phoneDisplay}
+                <a href={siteConfig.phoneHref} className="text-link">
+                  {siteConfig.phoneDisplay}
                 </a>
               </p>
             ) : null}
@@ -48,7 +47,7 @@ export function HomeCTA() {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="editorial-link editorial-link--muted"
+                      className="text-link"
                     >
                       {social.label}
                     </a>
@@ -59,7 +58,7 @@ export function HomeCTA() {
           </div>
         ) : (
           <div className="home-cta__actions">
-            <a href="#about" className="editorial-link editorial-link--muted">
+            <a href="#about" className="text-link">
               About Me
               <span aria-hidden="true"> →</span>
             </a>

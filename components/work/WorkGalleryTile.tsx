@@ -10,7 +10,7 @@ import { getYouTubeVideoId } from "@/lib/youtube";
 
 type WorkGalleryTileProps = {
   project: Project;
-  /** When true, tile spans the full grid row (e.g. third of three). */
+  /** @deprecated Unused in studio layout — kept for call-site compatibility. */
   wide?: boolean;
 };
 
@@ -18,7 +18,7 @@ type WorkGalleryTileProps = {
  * Portfolio tile. Never navigates externally.
  * When a YouTube videoUrl is present, a play control opens an on-page lightbox.
  */
-export function WorkGalleryTile({ project, wide = false }: WorkGalleryTileProps) {
+export function WorkGalleryTile({ project }: WorkGalleryTileProps) {
   const reducedMotion = usePrefersReducedMotion();
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
@@ -46,124 +46,71 @@ export function WorkGalleryTile({ project, wide = false }: WorkGalleryTileProps)
 
   const tileClass = [
     "work-tile",
-    isPortraitSplit
-      ? "work-tile--portrait-split"
-      : isVertical
-        ? "work-tile--vertical"
-        : "work-tile--horizontal",
+    isPortraitSplit || isVertical
+      ? "work-tile--portrait"
+      : "work-tile--landscape",
     hasPoster ? "work-tile--has-media" : "",
-    wide ? "work-tile--wide" : "",
   ]
     .filter(Boolean)
     .join(" ");
 
-  const surfaceClass = `work-tile__surface${interactive ? " work-tile__surface--active" : ""}`;
-
-  const playControl = canPlay ? (
-    <button
-      ref={playButtonRef}
-      type="button"
-      className="work-tile__play"
-              aria-label={`Play ${project.title}, ${roleLabel}`}
-      onClick={() => setLightboxOpen(true)}
-    >
-      <span className="work-tile__play-icon" aria-hidden="true" />
-      <span className="work-tile__play-label">Play</span>
-    </button>
-  ) : null;
-
-  const preview = (
-    <ProjectPreview
-      title={project.title}
-      thumbnail={project.thumbnail}
-      previewVideoUrl={project.previewVideoUrl}
-      orientation={project.orientation}
-      active={finePointer && interactive && !reducedMotion}
-      sizes={
-        isPortraitSplit
-          ? "(max-width: 759px) 70vw, 18vw"
-          : isVertical
-            ? "(max-width: 759px) 100vw, 28vw"
-            : "(max-width: 759px) 100vw, 50vw"
-      }
-    />
-  );
-
-  const standardMeta = (
-    <>
-      <div className="work-tile__shade" aria-hidden="true" />
-      <div className="work-tile__meta">
-        <h3 className="work-tile__title">{project.title}</h3>
-        <div className="work-tile__meta-end">
-          <p className="work-tile__detail">
-            <span>{project.contentType}</span>
-            <span aria-hidden="true"> · </span>
-            <span>{roleLabel}</span>
-            {hasYear ? (
-              <>
-                <span aria-hidden="true"> · </span>
-                <span>{year}</span>
-              </>
-            ) : null}
-            {project.subscriberContext ? (
-              <>
-                <span aria-hidden="true"> · </span>
-                <span>{project.subscriberContext}</span>
-              </>
-            ) : null}
-          </p>
-          {project.recognition ? (
-            <p className="work-tile__recognition">{project.recognition}</p>
-          ) : null}
-        </div>
-      </div>
-    </>
-  );
-
-  const splitPanel = (
-    <div className="work-tile__split-panel">
-      <h3 className="work-tile__split-title">{project.title}</h3>
-      {project.client ? (
-        <p className="work-tile__split-client">{project.client}</p>
-      ) : null}
-      <p className="work-tile__split-meta">{project.contentType}</p>
-      <p className="work-tile__split-meta">{roleLabel}</p>
-      {hasYear ? <p className="work-tile__split-meta">{year}</p> : null}
-      {project.subscriberContext ? (
-        <p className="work-tile__split-meta">{project.subscriberContext}</p>
-      ) : null}
-      {project.recognition ? (
-        <p className="work-tile__split-recognition">{project.recognition}</p>
-      ) : null}
-    </div>
-  );
+  const tags = [
+    project.contentType,
+    project.client,
+    hasYear ? year : null,
+  ].filter(Boolean) as string[];
 
   return (
     <article className={tileClass}>
       <div
-        className={surfaceClass}
+        className={`work-tile__surface${interactive ? " work-tile__surface--active" : ""}`}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
       >
-        {isPortraitSplit ? (
-          <div className="work-tile__split">
-            <div className="work-tile__split-media">
-              <div className="work-tile__media work-tile__media--portrait">
-                {preview}
-                {playControl}
-              </div>
-            </div>
-            {splitPanel}
-          </div>
-        ) : (
-          <div className="work-tile__media">
-            {preview}
-            {standardMeta}
-            {playControl}
-          </div>
-        )}
+        <div className="work-tile__media">
+          <ProjectPreview
+            title={project.title}
+            thumbnail={project.thumbnail}
+            previewVideoUrl={project.previewVideoUrl}
+            orientation={project.orientation}
+            active={finePointer && interactive && !reducedMotion}
+            sizes={
+              isPortraitSplit || isVertical
+                ? "(max-width: 759px) 70vw, 22vw"
+                : "(max-width: 759px) 100vw, 48vw"
+            }
+          />
+          {canPlay ? (
+            <button
+              ref={playButtonRef}
+              type="button"
+              className="work-tile__play"
+              aria-label={`Play ${project.title}, ${roleLabel}`}
+              onClick={() => setLightboxOpen(true)}
+            >
+              <span className="work-tile__play-icon" aria-hidden="true" />
+              <span className="work-tile__play-label">Play</span>
+            </button>
+          ) : null}
+        </div>
+
+        <div className="work-tile__caption">
+          <h3 className="work-tile__title">{project.title}</h3>
+          <ul className="work-tile__tags" aria-label="Project details">
+            {tags.map((tag) => (
+              <li key={tag}>{tag}</li>
+            ))}
+          </ul>
+          <p className="work-tile__roles">{roleLabel}</p>
+          {project.subscriberContext ? (
+            <p className="work-tile__extra">{project.subscriberContext}</p>
+          ) : null}
+          {project.recognition ? (
+            <p className="work-tile__extra">{project.recognition}</p>
+          ) : null}
+        </div>
       </div>
 
       {lightboxOpen && canPlay && project.videoUrl ? (

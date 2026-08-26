@@ -12,13 +12,13 @@ export function AboutTeaser() {
     >
       <div className="container home-about__spread">
         <div className="home-about__visuals">
-          <figure className="home-about__frame home-about__frame--portrait">
+          <figure className="home-about__frame">
             <div className="home-about__photo">
               <Image
                 src="/about/chris-qin-portrait.png"
                 alt="Portrait of Chris Qin"
                 fill
-                sizes="(max-width: 899px) 100vw, min(480px, 42vw)"
+                sizes="(max-width: 899px) 100vw, min(420px, 40vw)"
                 className="home-about__photo-img"
               />
             </div>
@@ -26,7 +26,8 @@ export function AboutTeaser() {
         </div>
 
         <div className="home-about__copy">
-          <h2 id="about-teaser-heading" className="display-heading">
+          <p className="section-kicker">About</p>
+          <h2 id="about-teaser-heading" className="section-heading">
             {siteConfig.name}
           </h2>
 
