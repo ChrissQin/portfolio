@@ -1,0 +1,81 @@
+"use client";
+
+import { useMemo, useState } from "react";
+
+import {
+  placeholderWork,
+  type WorkCategory,
+} from "@/data/placeholders";
+
+type Filter = "all" | WorkCategory;
+
+const FILTERS: { id: Filter; label: string }[] = [
+  { id: "video", label: "Video" },
+  { id: "brand", label: "Brand" },
+  { id: "product", label: "Product" },
+  { id: "all", label: "All works" },
+];
+
+export function SelectWork() {
+  const [filter, setFilter] = useState<Filter>("all");
+
+  const items = useMemo(() => {
+    if (filter === "all") {
+      return placeholderWork;
+    }
+    return placeholderWork.filter((item) => item.category === filter);
+  }, [filter]);
+
+  return (
+    <section
+      id="work"
+      className="nen-work"
+      aria-labelledby="nen-work-heading"
+      tabIndex={-1}
+    >
+      <div className="nen-container">
+        <div className="nen-work__header">
+          <h2 id="nen-work-heading" className="nen-section-title">
+            Select Work
+          </h2>
+          <div
+            className="nen-work__filters"
+            role="group"
+            aria-label="Filter work by category"
+          >
+            {FILTERS.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                className={`nen-pill${filter === item.id ? " nen-pill--active" : ""}`}
+                aria-pressed={filter === item.id}
+                onClick={() => setFilter(item.id)}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <ul className="nen-work__grid">
+          {items.map((project) => (
+            <li key={project.slug} className="nen-work__item">
+              <article className="nen-work-card">
+                <div
+                  className="nen-work-card__thumb"
+                  style={{ background: project.gradient }}
+                  role="img"
+                  aria-label={`${project.title} placeholder thumbnail`}
+                />
+                <div className="nen-work-card__meta">
+                  <h3 className="nen-work-card__title">{project.title}</h3>
+                  <span className="nen-work-card__tag">{project.categoryLabel}</span>
+                </div>
+              </article>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}

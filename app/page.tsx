@@ -1,19 +1,15 @@
-import { AboutTeaser } from "@/components/home/AboutTeaser";
-import { ByTheNumbers } from "@/components/home/ByTheNumbers";
-import { Collaborators } from "@/components/home/Collaborators";
 import { Hero } from "@/components/home/Hero";
-import { HomeCTA } from "@/components/home/HomeCTA";
-import { SelectedWork } from "@/components/home/SelectedWork";
+import { SelectClients } from "@/components/home/SelectClients";
+import { SelectWork } from "@/components/home/SelectWork";
+import { MarqueeCTA } from "@/components/layout/MarqueeCTA";
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <Collaborators />
-      <SelectedWork />
-      <AboutTeaser />
-      <ByTheNumbers />
-      <HomeCTA />
+      <SelectClients />
+      <SelectWork />
+      <MarqueeCTA />
     </>
   );
 }
