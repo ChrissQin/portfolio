@@ -1,14 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #ffffff;
-  --bg-muted: #f4f4f4;
-  --text: #111111;
-  --text-soft: #333333;
-  --muted: #666666;
-  --accent: #ff4d00;
-  --accent-hover: #e64500;
-  --line: rgba(17, 17, 17, 0.12);
+  /* Brand 5-color set */
+  --paper: #f7f5f1;
+  --ink: #11110f;
+  --accent: #ff573d;
+  --stone: #7b8188;
+  --sand: #e6e1d8;
+
+  --bg: var(--paper);
+  --bg-muted: var(--sand);
+  --text: var(--ink);
+  --text-soft: var(--ink);
+  --muted: var(--stone);
+  --accent-hover: color-mix(in srgb, var(--accent) 82%, var(--ink));
+  --line: var(--sand);
+  --on-accent: var(--paper);
   --max-width: 82rem;
   --radius: 0.75rem;
   --header-offset: 4rem;
@@ -120,7 +127,7 @@ button {
   position: sticky;
   top: 0;
   z-index: 40;
-  background: rgba(255, 255, 255, 0.92);
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
   backdrop-filter: blur(10px);
 }
 
@@ -209,7 +216,7 @@ button {
   position: fixed;
   inset: 0;
   z-index: 45;
-  background: rgba(17, 17, 17, 0.35);
+  background: color-mix(in srgb, var(--ink) 35%, transparent);
   border: 0;
 }
 
@@ -223,7 +230,7 @@ button {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--bg);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 16px 40px color-mix(in srgb, var(--ink) 8%, transparent);
 }
 
 .nen-mobile-nav__list {
@@ -358,12 +365,12 @@ button {
 }
 
 .nen-pill:hover {
-  background: #ececec;
+  background: color-mix(in srgb, var(--sand) 70%, var(--stone));
 }
 
 .nen-pill--active {
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .nen-pill--active:hover {
@@ -428,7 +435,7 @@ button {
   overflow: hidden;
   padding: 1.35rem 0;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .nen-marquee__track {
@@ -459,11 +466,11 @@ button {
   z-index: 2;
   padding: 0.65rem 1.35rem;
   border-radius: 999px;
-  background: #fff;
+  background: var(--paper);
   color: var(--text);
   font-size: 0.88rem;
   font-weight: 600;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--ink) 12%, transparent);
   transition: transform 0.2s ease;
 }
 
@@ -647,7 +654,7 @@ button {
   padding: 0.75rem 1.5rem;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   transition: background 0.15s linear;
 }

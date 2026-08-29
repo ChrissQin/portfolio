@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DM_Sans } from "next/font/google";
 
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -12,6 +12,11 @@ const sans = DM_Sans({
   weight: ["400", "500", "600", "700"],
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  themeColor: "#F7F5F1",
+  colorScheme: "light",
+};
 
 export const metadata: Metadata = {
   title: {
