@@ -1,17 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Sans } from "next/font/google";
 
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { sohne, sohneBreit } from "@/lib/fonts";
 import { site } from "@/lib/site";
 
 import "./globals.css";
-
-const sans = DM_Sans({
-  variable: "--font-sans-family",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
 
 export const viewport: Viewport = {
   themeColor: "#F7F5F1",
@@ -32,7 +25,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${sans.variable} h-full`}>
+    <html
+      lang="en"
+      className={`${sohne.variable} ${sohneBreit.variable} h-full`}
+    >
       <body className="min-h-full antialiased">
         <div className="nen-shell">
           <SiteHeader />

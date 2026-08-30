@@ -22,7 +22,8 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-sans-family);
+  --font-sans: var(--font-sohne);
+  --font-display: var(--font-sohne-breit);
 }
 
 * {
@@ -60,7 +61,7 @@ body {
   min-width: 320px;
   background: var(--bg);
   color: var(--text);
-  font-family: var(--font-sans-family), system-ui, sans-serif;
+  font-family: var(--font-sohne), system-ui, sans-serif;
   font-size: 1rem;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -140,6 +141,7 @@ button {
 }
 
 .nen-header__brand {
+  font-family: var(--font-sohne-breit), var(--font-sohne), system-ui, sans-serif;
   font-size: 1.35rem;
   font-weight: 700;
   letter-spacing: -0.03em;
@@ -261,6 +263,7 @@ button {
 .nen-hero__headline {
   margin: 0;
   max-width: 54rem;
+  font-family: var(--font-sohne-breit), var(--font-sohne), system-ui, sans-serif;
   font-size: clamp(2rem, 4.8vw, 3.65rem);
   font-weight: 500;
   letter-spacing: -0.035em;
@@ -277,6 +280,7 @@ button {
 /* ——— Section titles ——— */
 .nen-section-title {
   margin: 0 0 1.75rem;
+  font-family: var(--font-sohne-breit), var(--font-sohne), system-ui, sans-serif;
   font-size: clamp(1.35rem, 2.5vw, 1.75rem);
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -495,6 +499,7 @@ button {
 .nen-page-hero__headline {
   margin: 0;
   max-width: 56rem;
+  font-family: var(--font-sohne-breit), var(--font-sohne), system-ui, sans-serif;
   font-size: clamp(1.85rem, 4vw, 3.25rem);
   font-weight: 500;
   letter-spacing: -0.035em;
