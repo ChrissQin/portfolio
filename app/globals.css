@@ -137,19 +137,20 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  min-height: var(--header-offset);
+  min-height: calc(var(--header-offset) + 0.35rem);
 }
 
 .nen-header__brand {
   display: inline-flex;
   align-items: center;
   line-height: 0;
+  padding-block: 0.15rem;
 }
 
 .nen-header__logo {
   display: block;
   width: auto;
-  height: 1.65rem;
+  height: clamp(2.35rem, 7vw, 3.1rem);
 }
 
 .nen-header__nav {
