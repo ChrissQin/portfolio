@@ -18,7 +18,7 @@
   --on-accent: var(--paper);
   --max-width: 82rem;
   --radius: 0.75rem;
-  --header-offset: 4rem;
+  --header-offset: 4.75rem;
 }
 
 @theme inline {
@@ -137,20 +137,20 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  min-height: calc(var(--header-offset) + 0.35rem);
+  min-height: calc(var(--header-offset) + 0.5rem);
 }
 
 .nen-header__brand {
   display: inline-flex;
   align-items: center;
   line-height: 0;
-  padding-block: 0.15rem;
+  padding-block: 0.25rem;
 }
 
 .nen-header__logo {
   display: block;
   width: auto;
-  height: clamp(2.35rem, 7vw, 3.1rem);
+  height: clamp(3.35rem, 12vw, 4.85rem);
 }
 
 .nen-header__nav {

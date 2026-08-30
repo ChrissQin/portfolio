@@ -12,8 +12,8 @@ export function SiteHeader() {
           <Image
             src={site.logo}
             alt={site.name}
-            width={1254}
-            height={1254}
+            width={1536}
+            height={1024}
             priority
             className="nen-header__logo"
           />
