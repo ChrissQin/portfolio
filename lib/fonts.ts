@@ -1,6 +1,6 @@
 import localFont from "next/font/local";
 
-/** Söhne — body, UI, nav */
+/** Söhne Buch / Kraftig — body copy, hero, UI, nav */
 export const sohne = localFont({
   src: [
     {
@@ -18,7 +18,7 @@ export const sohne = localFont({
   display: "swap",
 });
 
-/** Söhne Breit — display headlines */
+/** Söhne Breit Kraftig — marquee / accent display only */
 export const sohneBreit = localFont({
   src: [
     {
