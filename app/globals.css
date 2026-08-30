@@ -18,7 +18,7 @@
   --on-accent: var(--paper);
   --max-width: 82rem;
   --radius: 0.75rem;
-  --header-offset: 4rem;
+  --header-offset: 5rem;
   --header-control-size: 2.5rem;
 }
 
@@ -129,6 +129,7 @@ button {
   position: sticky;
   top: 0;
   z-index: 40;
+  padding-block: 0.85rem 0.7rem;
   background: color-mix(in srgb, var(--paper) 92%, transparent);
   backdrop-filter: blur(10px);
 }
@@ -161,7 +162,7 @@ button {
   mask-position: center;
   -webkit-mask-size: contain;
   mask-size: contain;
-  transition: background-color 0.45s cubic-bezier(0.4, 0, 0.15, 1);
+  transition: background-color 0.32s cubic-bezier(0.4, 0, 0.15, 1);
 }
 
 .nen-header__brand:hover .nen-header__logo,
