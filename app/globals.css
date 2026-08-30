@@ -326,7 +326,7 @@ button {
 
 .nen-hero__headline {
   margin: 0;
-  max-width: 54rem;
+  max-width: none;
   font-family: var(--font-sohne-breit), var(--font-sohne), system-ui, sans-serif;
   font-size: clamp(2.1rem, 5.2vw, 3.85rem);
   font-weight: 400;
