@@ -18,7 +18,8 @@
   --on-accent: var(--paper);
   --max-width: 82rem;
   --radius: 0.75rem;
-  --header-offset: 4.75rem;
+  --header-offset: 4rem;
+  --header-control-size: 2.5rem;
 }
 
 @theme inline {
@@ -137,20 +138,19 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  min-height: calc(var(--header-offset) + 0.5rem);
+  min-height: var(--header-offset);
 }
 
 .nen-header__brand {
   display: inline-flex;
   align-items: center;
   line-height: 0;
-  padding-block: 0.25rem;
   background: transparent;
 }
 
 .nen-header__logo {
   display: block;
-  height: clamp(3.35rem, 12vw, 4.85rem);
+  height: var(--header-control-size);
   aspect-ratio: 1221 / 676;
   background-color: var(--ink);
   -webkit-mask-image: var(--logo-mask, url("/brand/cq-mark.png"));
@@ -216,8 +216,8 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: var(--header-control-size);
+  height: var(--header-control-size);
   border: 1px solid var(--line);
   border-radius: 999px;
 }
