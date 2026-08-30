@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { MobileNav } from "@/components/layout/MobileNav";
+import { NavWeightLink } from "@/components/layout/NavWeightLink";
 import { navLinks, site } from "@/lib/site";
 
 export function SiteHeader() {
@@ -19,9 +20,7 @@ export function SiteHeader() {
           <ul className="nen-header__links">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="nen-header__link">
-                  {link.label}
-                </Link>
+                <NavWeightLink href={link.href} label={link.label} />
               </li>
             ))}
           </ul>

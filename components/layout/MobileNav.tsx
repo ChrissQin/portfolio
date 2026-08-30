@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 
+import { NavWeightLink } from "@/components/layout/NavWeightLink";
 import { navLinks } from "@/lib/site";
 
 export function MobileNav() {
@@ -65,13 +65,12 @@ export function MobileNav() {
             <ul className="nen-mobile-nav__list">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <Link
+                  <NavWeightLink
                     href={link.href}
+                    label={link.label}
                     className="nen-mobile-nav__link"
-                    onClick={() => setOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
+                    onNavigate={() => setOpen(false)}
+                  />
                 </li>
               ))}
             </ul>

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source "../components/originkit";
 
 :root {
   /* Brand 5-color set */
@@ -198,17 +199,44 @@ button {
 }
 
 .nen-header__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.95rem;
+  border-radius: 0.45rem;
   font-family: var(--font-sohne), system-ui, sans-serif;
   font-size: 0.72rem;
-  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text);
-  transition: color 0.15s linear;
+  isolation: isolate;
 }
 
-.nen-header__link:hover {
-  color: var(--accent);
+.nen-header__link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--sand);
+  opacity: 0;
+  transform: scale(0.94);
+  transition:
+    opacity 0.28s cubic-bezier(0.4, 0, 0.15, 1),
+    transform 0.28s cubic-bezier(0.4, 0, 0.15, 1);
+  z-index: -1;
+}
+
+.nen-header__link:hover::before,
+.nen-header__link:focus-visible::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.nen-header__link-text {
+  position: relative;
+  z-index: 1;
+  line-height: 1;
 }
 
 @media (min-width: 768px) {
@@ -281,16 +309,16 @@ button {
 }
 
 .nen-mobile-nav__link {
-  display: block;
+  width: 100%;
+  justify-content: flex-start;
   padding: 0.75rem;
   border-radius: 0.5rem;
   font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
 }
 
 .nen-mobile-nav__link:hover {
-  background: var(--bg-muted);
+  background: transparent;
 }
 
 /* ——— Hero ——— */
