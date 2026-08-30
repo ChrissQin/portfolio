@@ -253,7 +253,23 @@ button {
   position: absolute;
   inset: 0;
   font-weight: 700;
+  opacity: 0;
   pointer-events: none;
+  transition: opacity 0.38s cubic-bezier(0.4, 0, 0.15, 1);
+  transition-delay: calc(var(--letter-index, 0) * 30ms);
+}
+
+.nen-header__link:hover .nav-letter-bold,
+.nen-header__link:focus-visible .nav-letter-bold {
+  opacity: 1;
+  transition-delay: calc(var(--letter-index, 0) * 30ms);
+}
+
+.nen-header__link:not(:hover):not(:focus-visible) .nav-letter-bold {
+  opacity: 0;
+  transition-delay: calc(
+    (var(--letter-count, 1) - var(--letter-index, 0) - 1) * 30ms
+  );
 }
 
 @media (min-width: 768px) {
