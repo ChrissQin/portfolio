@@ -239,33 +239,36 @@ button {
   line-height: 1;
 }
 
-.nav-letter {
+.nav-letter,
+.letter {
   position: relative;
   display: inline-block;
   white-space: pre;
 }
 
-.nav-letter-regular {
+.nav-letter-regular,
+.letter-regular {
   font-weight: 400;
 }
 
-.nav-letter-bold {
+.nav-letter-bold,
+.letter-bold {
   position: absolute;
   inset: 0;
   font-weight: 700;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.38s cubic-bezier(0.4, 0, 0.15, 1);
+  transition: opacity 0.7s cubic-bezier(0.34, 1.25, 0.64, 1);
   transition-delay: calc(var(--letter-index, 0) * 30ms);
 }
 
-.nen-header__link:hover .nav-letter-bold,
-.nen-header__link:focus-visible .nav-letter-bold {
+.nen-header__link:hover .letter-bold,
+.nen-header__link:focus-visible .letter-bold {
   opacity: 1;
   transition-delay: calc(var(--letter-index, 0) * 30ms);
 }
 
-.nen-header__link:not(:hover):not(:focus-visible) .nav-letter-bold {
+.nen-header__link:not(:hover):not(:focus-visible) .letter-bold {
   opacity: 0;
   transition-delay: calc(
     (var(--letter-count, 1) - var(--letter-index, 0) - 1) * 30ms

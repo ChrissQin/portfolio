@@ -10,7 +10,8 @@ type NavWeightLinkProps = {
 };
 
 /**
- * Nav link with sand pill on hover + staggered Buch → Kraftig reveal via CSS.
+ * Nav link with sand pill on hover + per-letter weight reveal.
+ * Originkit weight-hover pattern adapted for static Söhne (Buch/Kraftig crossfade).
  */
 export function NavWeightLink({
   href,
@@ -31,14 +32,14 @@ export function NavWeightLink({
         {letters.map((letter, index) => (
           <span
             key={`${label}-${index}`}
-            className="nav-letter"
+            className="letter"
             style={{
               ["--letter-index" as string]: index,
               ["--letter-count" as string]: letters.length,
             }}
           >
-            <span className="nav-letter-regular">{letter}</span>
-            <span className="nav-letter-bold">{letter}</span>
+            <span className="letter-regular">{letter}</span>
+            <span className="letter-bold">{letter}</span>
           </span>
         ))}
       </span>
