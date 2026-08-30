@@ -28,6 +28,16 @@
   --font-display: var(--font-sohne-breit);
 }
 
+/* ——— Type roles ——— */
+.font-display {
+  font-family: var(--font-sohne-breit), var(--font-sohne), system-ui, sans-serif;
+}
+
+.font-ui {
+  font-family: var(--font-sohne), system-ui, sans-serif;
+  font-weight: 700;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -291,11 +301,11 @@ button {
 .nen-hero__headline {
   margin: 0;
   max-width: 54rem;
-  font-family: var(--font-sohne), system-ui, sans-serif;
+  font-family: var(--font-sohne-breit), var(--font-sohne), system-ui, sans-serif;
   font-size: clamp(2.1rem, 5.2vw, 3.85rem);
   font-weight: 400;
-  letter-spacing: -0.04em;
-  line-height: 1.06;
+  letter-spacing: -0.045em;
+  line-height: 1.04;
   color: var(--text);
 }
 
@@ -309,9 +319,9 @@ button {
 .nen-section-title {
   margin: 0 0 1.75rem;
   font-family: var(--font-sohne), system-ui, sans-serif;
-  font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+  font-size: clamp(1.2rem, 2.1vw, 1.5rem);
   font-weight: 700;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
   color: var(--text);
 }
 
@@ -335,7 +345,7 @@ button {
 
 .nen-clients__item {
   font-size: 0.92rem;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--text);
   line-height: 1.35;
 }
@@ -533,11 +543,11 @@ button {
 .nen-page-hero__headline {
   margin: 0;
   max-width: 56rem;
-  font-family: var(--font-sohne), system-ui, sans-serif;
+  font-family: var(--font-sohne-breit), var(--font-sohne), system-ui, sans-serif;
   font-size: clamp(1.9rem, 4.2vw, 3.35rem);
   font-weight: 400;
-  letter-spacing: -0.04em;
-  line-height: 1.08;
+  letter-spacing: -0.045em;
+  line-height: 1.06;
   color: var(--text);
 }
 
@@ -619,7 +629,7 @@ button {
 
 .nen-team__member {
   font-size: 0.98rem;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .nen-team__hiring {
@@ -627,7 +637,7 @@ button {
 }
 
 .nen-inline-link {
-  font-weight: 600;
+  font-weight: 700;
   color: var(--accent);
   border-bottom: 1px solid transparent;
   transition: border-color 0.15s linear;
@@ -712,6 +722,6 @@ button {
   margin: 0;
   padding: 1rem 0;
   font-size: 1.05rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--accent);
 }

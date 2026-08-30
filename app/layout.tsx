@@ -29,7 +29,7 @@ export default function RootLayout({
       lang="en"
       className={`${sohne.variable} ${sohneBreit.variable} h-full`}
     >
-      <body className="min-h-full antialiased">
+      <body className={`${sohne.className} min-h-full antialiased`}>
         <div className="nen-shell">
           <SiteHeader />
           <main>{children}</main>
