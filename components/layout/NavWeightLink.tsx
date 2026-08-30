@@ -17,7 +17,8 @@ type NavWeightLinkProps = {
 };
 
 /**
- * Nav link with sand pill on hover + letter weight morph (Originkit weight-hover pattern, Söhne).
+ * Nav link with sand pill on hover + letter weight reveal (Originkit weight-hover
+ * pattern adapted for static Söhne Buch/Kraftig via opacity crossfade).
  */
 export function NavWeightLink({
   href,
@@ -25,8 +26,6 @@ export function NavWeightLink({
   className = "",
   onNavigate,
 }: NavWeightLinkProps) {
-  const fromWeight = 400;
-  const toWeight = 700;
   const staggerDuration = 30;
   const staggerFrom = "first" as const;
   const [scope, animate] = useAnimate();
@@ -54,16 +53,16 @@ export function NavWeightLink({
   useEffect(() => {
     const runStart = () => {
       void animate(
-        ".nav-letter",
-        { fontWeight: toWeight },
+        ".nav-letter-bold",
+        { opacity: 1 },
         mergeStagger(transition),
       );
     };
 
     const runEnd = () => {
       void animate(
-        ".nav-letter",
-        { fontWeight: fromWeight },
+        ".nav-letter-bold",
+        { opacity: 0 },
         mergeStagger(transition),
       );
     };
@@ -127,17 +126,12 @@ export function NavWeightLink({
       <span className="sr-only">{label}</span>
       <span ref={scope} className="nen-header__link-text" aria-hidden="true">
         {letters.map((letter, index) => (
-          <motion.span
-            key={`${label}-${index}`}
-            className="nav-letter"
-            style={{
-              display: "inline-block",
-              whiteSpace: "pre",
-              fontWeight: fromWeight,
-            }}
-          >
-            {letter}
-          </motion.span>
+          <span key={`${label}-${index}`} className="nav-letter">
+            <span className="nav-letter-regular">{letter}</span>
+            <motion.span className="nav-letter-bold" style={{ opacity: 0 }}>
+              {letter}
+            </motion.span>
+          </span>
         ))}
       </span>
     </Link>

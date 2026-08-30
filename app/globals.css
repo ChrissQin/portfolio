@@ -192,7 +192,7 @@ button {
 .nen-header__links {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1.15rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -203,11 +203,11 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 0.95rem;
+  padding: 0.45rem 0.7rem;
   border-radius: 0.45rem;
   font-family: var(--font-sohne), system-ui, sans-serif;
   font-size: 0.72rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--text);
   isolation: isolate;
@@ -237,6 +237,23 @@ button {
   position: relative;
   z-index: 1;
   line-height: 1;
+}
+
+.nav-letter {
+  position: relative;
+  display: inline-block;
+  white-space: pre;
+}
+
+.nav-letter-regular {
+  font-weight: 400;
+}
+
+.nav-letter-bold {
+  position: absolute;
+  inset: 0;
+  font-weight: 700;
+  pointer-events: none;
 }
 
 @media (min-width: 768px) {
