@@ -20,6 +20,7 @@
   --radius: 0.75rem;
   --header-offset: 5rem;
   --header-control-size: 2.5rem;
+  --header-logo-size: 2.15rem;
 }
 
 @theme inline {
