@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { MobileNav } from "@/components/layout/MobileNav";
@@ -9,14 +8,10 @@ export function SiteHeader() {
     <header className="nen-header">
       <div className="nen-container nen-header__inner">
         <Link href="/" className="nen-header__brand" aria-label={`${site.name} — Home`}>
-          <Image
-            src={site.logo}
-            alt={site.name}
-            width={1221}
-            height={676}
-            priority
-            unoptimized
+          <span
             className="nen-header__logo"
+            style={{ ["--logo-mask" as string]: `url("${site.logo}")` }}
+            aria-hidden="true"
           />
         </Link>
 
