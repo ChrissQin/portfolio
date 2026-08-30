@@ -1,6 +1,7 @@
 export const site = {
-  wordmark: "NEN",
-  title: "Nen Creative | Design Studio for Tech Startups",
+  name: "Chris Qin",
+  logo: "/brand/cq-mark.png",
+  title: "Chris Qin — Video Editor & Videographer",
   description:
     "Strategy, design, and video for teams shaping what comes next.",
   marqueeText: "Let's define the future of tech together",

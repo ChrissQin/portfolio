@@ -14,7 +14,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: {
     default: site.title,
-    template: `%s | ${site.wordmark}`,
+    template: `%s | ${site.name}`,
   },
   description: site.description,
 };
