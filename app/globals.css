@@ -1,15 +1,4 @@
 @import "tailwindcss";
-@source "../components/originkit";
-
-/* Inter Variable — required for Originkit weight-hover (variant-4) */
-@font-face {
-  font-family: "InterVariableNav";
-  src: url("https://rsms.me/inter/font-files/InterVariable.woff2?v=4.0")
-    format("woff2-variations");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
 
 :root {
   /* Brand 5-color set */
@@ -213,14 +202,16 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.45rem 0.7rem;
-  border-radius: 0.45rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 0.5rem;
   font-family: var(--font-sohne), system-ui, sans-serif;
   font-size: 0.72rem;
-  letter-spacing: 0.04em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text);
   isolation: isolate;
+  transition: color 0.2s ease;
 }
 
 .nen-header__link::before {
@@ -230,47 +221,22 @@ button {
   border-radius: inherit;
   background: var(--sand);
   opacity: 0;
-  transform: scale(0.94);
+  transform: scale(0.96);
   transition:
     opacity 0.28s cubic-bezier(0.4, 0, 0.15, 1),
     transform 0.28s cubic-bezier(0.4, 0, 0.15, 1);
   z-index: -1;
 }
 
+.nen-header__link:hover,
+.nen-header__link:focus-visible {
+  color: var(--text);
+}
+
 .nen-header__link:hover::before,
 .nen-header__link:focus-visible::before {
   opacity: 1;
   transform: scale(1);
-}
-
-.nen-header__link-text {
-  position: relative;
-  z-index: 1;
-  line-height: 1;
-}
-
-.nen-header__link-weight {
-  font-family: "InterVariableNav", "Inter Variable", Inter, system-ui, sans-serif;
-}
-
-.nen-header__link-weight .letter {
-  --letter-i: 0;
-  display: inline-block;
-  white-space: pre;
-  font-variation-settings: "wght" 400;
-  transition: font-variation-settings 0.7s cubic-bezier(0.34, 1.25, 0.64, 1);
-  transition-delay: calc(var(--letter-i) * 30ms);
-}
-
-.nen-header__link:hover .nen-header__link-weight .letter,
-.nen-header__link:focus-visible .nen-header__link-weight .letter {
-  font-variation-settings: "wght" 800;
-  transition-delay: calc(var(--letter-i) * 30ms);
-}
-
-.nen-header__link:not(:hover):not(:focus-visible) .nen-header__link-weight .letter {
-  font-variation-settings: "wght" 400;
-  transition-delay: calc((var(--letter-count, 8) - var(--letter-i) - 1) * 30ms);
 }
 
 @media (min-width: 768px) {
@@ -345,14 +311,10 @@ button {
 .nen-mobile-nav__link {
   width: 100%;
   justify-content: flex-start;
-  padding: 0.75rem;
+  padding: 0.75rem 0.85rem;
   border-radius: 0.5rem;
   font-size: 0.9rem;
   letter-spacing: 0.08em;
-}
-
-.nen-mobile-nav__link:hover {
-  background: transparent;
 }
 
 /* ——— Hero ——— */
