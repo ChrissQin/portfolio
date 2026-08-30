@@ -1,6 +1,16 @@
 @import "tailwindcss";
 @source "../components/originkit";
 
+/* Inter Variable — required for Originkit weight-hover (variant-4) */
+@font-face {
+  font-family: "InterVariableNav";
+  src: url("https://rsms.me/inter/font-files/InterVariable.woff2?v=4.0")
+    format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Brand 5-color set */
   --paper: #f7f5f1;
@@ -239,40 +249,27 @@ button {
   line-height: 1;
 }
 
-.nav-letter,
-.letter {
-  position: relative;
+.nen-header__link-weight {
+  font-family: "InterVariableNav", "Inter Variable", Inter, system-ui, sans-serif;
+}
+
+.nen-header__link-weight .letter {
   display: inline-block;
   white-space: pre;
+  font-variation-settings: "wght" 400;
+  transition: font-variation-settings 0.7s cubic-bezier(0.34, 1.25, 0.64, 1);
+  transition-delay: calc(var(--stagger-in, 0) * 1ms);
 }
 
-.nav-letter-regular,
-.letter-regular {
-  font-weight: 400;
+.nen-header__link:hover .nen-header__link-weight .letter,
+.nen-header__link:focus-visible .nen-header__link-weight .letter {
+  font-variation-settings: "wght" 800;
+  transition-delay: calc(var(--stagger-in, 0) * 1ms);
 }
 
-.nav-letter-bold,
-.letter-bold {
-  position: absolute;
-  inset: 0;
-  font-weight: 700;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.7s cubic-bezier(0.34, 1.25, 0.64, 1);
-  transition-delay: calc(var(--letter-index, 0) * 30ms);
-}
-
-.nen-header__link:hover .letter-bold,
-.nen-header__link:focus-visible .letter-bold {
-  opacity: 1;
-  transition-delay: calc(var(--letter-index, 0) * 30ms);
-}
-
-.nen-header__link:not(:hover):not(:focus-visible) .letter-bold {
-  opacity: 0;
-  transition-delay: calc(
-    (var(--letter-count, 1) - var(--letter-index, 0) - 1) * 30ms
-  );
+.nen-header__link:not(:hover):not(:focus-visible) .nen-header__link-weight .letter {
+  font-variation-settings: "wght" 400;
+  transition-delay: calc(var(--stagger-out, 0) * 1ms);
 }
 
 @media (min-width: 768px) {
