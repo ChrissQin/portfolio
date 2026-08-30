@@ -254,22 +254,23 @@ button {
 }
 
 .nen-header__link-weight .letter {
+  --letter-i: 0;
   display: inline-block;
   white-space: pre;
   font-variation-settings: "wght" 400;
   transition: font-variation-settings 0.7s cubic-bezier(0.34, 1.25, 0.64, 1);
-  transition-delay: calc(var(--stagger-in, 0) * 1ms);
+  transition-delay: calc(var(--letter-i) * 30ms);
 }
 
 .nen-header__link:hover .nen-header__link-weight .letter,
 .nen-header__link:focus-visible .nen-header__link-weight .letter {
   font-variation-settings: "wght" 800;
-  transition-delay: calc(var(--stagger-in, 0) * 1ms);
+  transition-delay: calc(var(--letter-i) * 30ms);
 }
 
 .nen-header__link:not(:hover):not(:focus-visible) .nen-header__link-weight .letter {
   font-variation-settings: "wght" 400;
-  transition-delay: calc(var(--stagger-out, 0) * 1ms);
+  transition-delay: calc((var(--letter-count, 8) - var(--letter-i) - 1) * 30ms);
 }
 
 @media (min-width: 768px) {
