@@ -6,6 +6,7 @@ import {
   placeholderWork,
   type WorkCategory,
 } from "@/data/placeholders";
+import { WorkThumbCursor } from "@/components/work/WorkThumbCursor";
 
 type Filter = "all" | WorkCategory;
 
@@ -61,11 +62,9 @@ export function SelectWork() {
           {items.map((project) => (
             <li key={project.slug} className="nen-work__item">
               <article className="nen-work-card">
-                <div
-                  className="nen-work-card__thumb"
-                  style={{ background: project.gradient }}
-                  role="img"
-                  aria-label={`${project.title} placeholder thumbnail`}
+                <WorkThumbCursor
+                  gradient={project.gradient}
+                  title={project.title}
                 />
                 <div className="nen-work-card__meta">
                   <h3 className="nen-work-card__title">{project.title}</h3>
