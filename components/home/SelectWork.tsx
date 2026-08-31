@@ -59,7 +59,7 @@ export function SelectWork() {
           </div>
         </div>
 
-        <ul className="nen-work__grid">
+        <ul id="nen-work-grid" className="nen-work__grid">
           {items.map((project) => (
             <li key={project.slug} className="nen-work__item">
               <article className="nen-work-card">

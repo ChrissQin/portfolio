@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useSyncExternalStore } from "react";
+import {
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { createPortal } from "react-dom";
 
 function useIsClient() {
@@ -11,6 +17,7 @@ function useIsClient() {
   );
 }
 
+const GRID_ID = "nen-work-grid";
 const THUMB_SELECTOR = ".nen-work-card__thumb";
 const HEAD = "#11110F";
 const OUTLINE = "#F7F5F1";
@@ -82,19 +89,28 @@ function setThumbCursorActive(thumb: Element | null) {
 
 /** One viewport canvas — dot + trail while the pointer is over a work thumbnail. */
 export function WorkGridDotCursor() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const isClient = useIsClient();
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [canvasEl, setCanvasEl] = useState<HTMLCanvasElement | null>(null);
+  const setCanvasRef = useCallback((node: HTMLCanvasElement | null) => {
+    canvasRef.current = node;
+    setCanvasEl(node);
+  }, []);
 
-  useEffect(() => {
-    if (!isClient) return;
+  useLayoutEffect(() => {
+    if (!isClient || !canvasEl) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
+    const grid = document.getElementById(GRID_ID);
+    if (!canvas || !grid) return;
+
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return;
-    }
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
 
     let w = window.innerWidth;
     let h = window.innerHeight;
@@ -119,33 +135,38 @@ export function WorkGridDotCursor() {
     let visible = false;
     let points: Point[] = [];
 
-    const onMove = (e: PointerEvent) => {
-      const thumb =
-        document.elementFromPoint(e.clientX, e.clientY)?.closest(THUMB_SELECTOR) ??
-        null;
-      const over = thumb !== null;
-
-      if (over) {
-        if (!visible) {
-          ballX = e.clientX;
-          ballY = e.clientY;
-          points = [];
-          visible = true;
-          canvas.style.opacity = "1";
-        }
-        targetX = e.clientX;
-        targetY = e.clientY;
-        active = true;
-        setThumbCursorActive(thumb);
-      } else {
-        active = false;
-        setThumbCursorActive(null);
+    const enterThumb = (x: number, y: number, thumb: Element) => {
+      if (!visible) {
+        ballX = x;
+        ballY = y;
+        points = [];
+        visible = true;
+        canvas.style.opacity = "1";
       }
+      targetX = x;
+      targetY = y;
+      active = true;
+      setThumbCursorActive(thumb);
     };
 
-    const onLeave = () => {
+    const leaveThumb = () => {
       active = false;
       setThumbCursorActive(null);
+    };
+
+    const onGridMove = (e: PointerEvent) => {
+      const thumb = (e.target as Element | null)?.closest(THUMB_SELECTOR);
+      if (!thumb) {
+        leaveThumb();
+        return;
+      }
+      enterThumb(e.clientX, e.clientY, thumb);
+    };
+
+    const onGridLeave = (e: PointerEvent) => {
+      const next = e.relatedTarget as Node | null;
+      if (next && grid.contains(next)) return;
+      leaveThumb();
     };
 
     let raf = 0;
@@ -166,12 +187,16 @@ export function WorkGridDotCursor() {
       ballX += (targetX - ballX) * followEase;
       ballY += (targetY - ballY) * followEase;
 
-      const trailMs = TRAIL_LENGTH * 40;
-      if (active) points.push({ x: ballX, y: ballY, age: 0 });
+      const trailMs = reducedMotion ? 0 : TRAIL_LENGTH * 40;
+      if (active && !reducedMotion) {
+        points.push({ x: ballX, y: ballY, age: 0 });
+      }
       for (const pt of points) pt.age += dt * 1000;
       points = points.filter((pt) => pt.age < trailMs);
 
-      drawTrail(ctx, points, trailMs);
+      if (!reducedMotion) {
+        drawTrail(ctx, points, trailMs);
+      }
 
       if (!active && points.length === 0) {
         visible = false;
@@ -192,26 +217,26 @@ export function WorkGridDotCursor() {
       raf = requestAnimationFrame(frame);
     };
 
-    window.addEventListener("pointermove", onMove, { passive: true });
+    grid.addEventListener("pointermove", onGridMove, { passive: true });
+    grid.addEventListener("pointerleave", onGridLeave);
     window.addEventListener("resize", resize);
-    document.documentElement.addEventListener("pointerleave", onLeave);
     raf = requestAnimationFrame(frame);
 
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener("pointermove", onMove);
+      grid.removeEventListener("pointermove", onGridMove);
+      grid.removeEventListener("pointerleave", onGridLeave);
       window.removeEventListener("resize", resize);
-      document.documentElement.removeEventListener("pointerleave", onLeave);
       setThumbCursorActive(null);
       canvas.style.opacity = "0";
     };
-  }, [isClient]);
+  }, [isClient, canvasEl]);
 
   if (!isClient) return null;
 
   return createPortal(
     <canvas
-      ref={canvasRef}
+      ref={setCanvasRef}
       className="nen-work-grid-cursor"
       aria-hidden="true"
     />,
