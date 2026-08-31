@@ -10,9 +10,9 @@ import {
 type Filter = "all" | WorkCategory;
 
 const FILTERS: { id: Filter; label: string }[] = [
-  { id: "video", label: "Video" },
-  { id: "brand", label: "Brand" },
   { id: "product", label: "Product" },
+  { id: "narrative", label: "Narrative" },
+  { id: "short-form", label: "Short-form" },
   { id: "all", label: "All works" },
 ];
 
