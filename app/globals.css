@@ -21,16 +21,24 @@
   --header-offset: 5rem;
   --header-control-size: 2.5rem;
   --header-logo-size: 2.15rem;
+
+  /* Display type: Breit narrowed ~7% — midpoint between Breit and standard Söhne */
+  --display-font: var(--font-sohne-breit), var(--font-sohne), system-ui, sans-serif;
+  --display-scale-x: 0.93;
+  --display-tracking: -0.038em;
 }
 
 @theme inline {
   --font-sans: var(--font-sohne);
-  --font-display: var(--font-sohne);
+  --font-display: var(--display-font);
 }
 
 /* ——— Type roles ——— */
 .font-display {
-  font-family: var(--font-sohne), system-ui, sans-serif;
+  font-family: var(--display-font);
+  letter-spacing: var(--display-tracking);
+  transform: scaleX(var(--display-scale-x));
+  transform-origin: left top;
 }
 
 .font-ui {
@@ -327,12 +335,14 @@ button {
 .nen-hero__headline {
   margin: 0;
   max-width: none;
-  font-family: var(--font-sohne), system-ui, sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(2.1rem, 5.2vw, 3.85rem);
   font-weight: 400;
-  letter-spacing: -0.03em;
-  line-height: 1.06;
+  letter-spacing: var(--display-tracking);
+  line-height: 1.05;
   color: var(--text);
+  transform: scaleX(var(--display-scale-x));
+  transform-origin: left top;
 }
 
 .nen-hero__headline em {
@@ -523,11 +533,13 @@ button {
 }
 
 .nen-marquee__text {
-  font-family: var(--font-sohne), system-ui, sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(1.15rem, 2.6vw, 1.75rem);
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--display-tracking);
   white-space: nowrap;
+  transform: scaleX(var(--display-scale-x));
+  transform-origin: left center;
 }
 
 .nen-marquee__cta {
@@ -569,12 +581,14 @@ button {
 .nen-page-hero__headline {
   margin: 0;
   max-width: 56rem;
-  font-family: var(--font-sohne), system-ui, sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(1.9rem, 4.2vw, 3.35rem);
   font-weight: 400;
-  letter-spacing: -0.03em;
-  line-height: 1.08;
+  letter-spacing: var(--display-tracking);
+  line-height: 1.07;
   color: var(--text);
+  transform: scaleX(var(--display-scale-x));
+  transform-origin: left top;
 }
 
 .nen-services {
