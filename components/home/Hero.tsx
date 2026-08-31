@@ -4,7 +4,7 @@ export function Hero() {
       <div className="nen-container">
         <h1 id="nen-hero-heading" className="nen-hero__headline">
           Emotionally resonant, high-in-craft, collaborative experiences that{" "}
-          <em>catapults bold ideas forward.</em>
+          <em>catapult bold ideas forward.</em>
         </h1>
       </div>
     </section>
