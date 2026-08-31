@@ -487,6 +487,13 @@ button {
   touch-action: none;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .nen-work-card__thumb:hover,
+  .nen-work-card__thumb--active {
+    cursor: none;
+  }
+}
+
 .nen-work-card__thumb--active {
   cursor: none;
 }

@@ -4,7 +4,6 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -12,11 +11,15 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 
-import DotCursor from "@/components/originkit/ui/dot-cursor";
+import DotCursor, {
+  type ExternalPointer,
+} from "@/components/originkit/ui/dot-cursor";
 
 /** Brand palette — keep in sync with :root in globals.css */
 const CURSOR_HEAD = "#FF573D"; /* accent */
 const CURSOR_TRAIL = "#7B8188"; /* stone */
+
+const INACTIVE_POINTER: ExternalPointer = { x: 0, y: 0, active: false };
 
 type WorkCursorContextValue = {
   bindThumb: (el: HTMLElement | null) => void;
@@ -41,14 +44,17 @@ function applyFrame(el: HTMLDivElement, thumb: Element | null) {
   el.style.height = `${rect.height}px`;
 }
 
-function seedDotCursor(x: number, y: number) {
-  window.dispatchEvent(
-    new PointerEvent("pointermove", {
-      clientX: x,
-      clientY: y,
-      bubbles: true,
-    }),
-  );
+function toLocalPointer(
+  thumb: HTMLElement,
+  clientX: number,
+  clientY: number,
+): ExternalPointer {
+  const rect = thumb.getBoundingClientRect();
+  return {
+    x: clientX - rect.left,
+    y: clientY - rect.top,
+    active: true,
+  };
 }
 
 export function WorkCursorProvider({ children }: { children: ReactNode }) {
@@ -56,28 +62,42 @@ export function WorkCursorProvider({ children }: { children: ReactNode }) {
   const activeThumbRef = useRef<HTMLElement | null>(null);
   const [frameEl, setFrameEl] = useState<HTMLDivElement | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [thumbPointer, setThumbPointer] =
+    useState<ExternalPointer>(INACTIVE_POINTER);
   const setFrameRef = useCallback((node: HTMLDivElement | null) => {
     frameRef.current = node;
     setFrameEl(node);
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setMounted(true);
   }, []);
 
-  const bindThumb = useCallback((el: HTMLElement | null) => {
-    activeThumbRef.current = el;
-    if (frameRef.current) applyFrame(frameRef.current, el);
+  const setThumbActiveState = useCallback((el: HTMLElement | null) => {
     document.querySelectorAll(".nen-work-card__thumb").forEach((thumb) => {
       thumb.classList.toggle("nen-work-card__thumb--active", thumb === el);
     });
+    document.documentElement.style.cursor = el ? "none" : "";
   }, []);
+
+  const bindThumb = useCallback(
+    (el: HTMLElement | null) => {
+      activeThumbRef.current = el;
+      if (frameRef.current) applyFrame(frameRef.current, el);
+      setThumbActiveState(el);
+      if (!el) {
+        setThumbPointer(INACTIVE_POINTER);
+      }
+    },
+    [setThumbActiveState],
+  );
 
   const moveThumb = useCallback((el: HTMLElement, x: number, y: number) => {
     activeThumbRef.current = el;
     if (frameRef.current) applyFrame(frameRef.current, el);
-    seedDotCursor(x, y);
-  }, []);
+    setThumbPointer(toLocalPointer(el, x, y));
+    setThumbActiveState(el);
+  }, [setThumbActiveState]);
 
   useLayoutEffect(() => {
     if (!frameEl) return;
@@ -123,6 +143,7 @@ export function WorkCursorProvider({ children }: { children: ReactNode }) {
                 size={20}
                 trailLength={8}
                 trailThickness={10}
+                externalPointer={thumbPointer}
               />
             </div>,
             document.body,
