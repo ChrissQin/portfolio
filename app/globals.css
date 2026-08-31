@@ -483,12 +483,18 @@ button {
   border-radius: var(--radius);
   background: var(--bg-muted);
   overflow: hidden;
+}
+
+.nen-work-card__thumb--cursor {
   cursor: none;
 }
 
-.nen-work-card__thumb > div {
-  position: absolute;
+.nen-work-grid-cursor {
+  position: fixed;
   inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
 }
 
 .nen-work-card__meta {

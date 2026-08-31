@@ -7,6 +7,7 @@ import {
   type WorkCategory,
 } from "@/data/placeholders";
 import { WorkThumbCursor } from "@/components/work/WorkThumbCursor";
+import { WorkGridDotCursor } from "@/components/work/WorkGridDotCursor";
 
 type Filter = "all" | WorkCategory;
 
@@ -74,6 +75,7 @@ export function SelectWork() {
             </li>
           ))}
         </ul>
+        <WorkGridDotCursor />
       </div>
     </section>
   );
