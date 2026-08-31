@@ -486,11 +486,6 @@ button {
   overflow: hidden;
 }
 
-.nen-work-card__thumb > div {
-  position: absolute;
-  inset: 0;
-}
-
 .nen-work-card__meta {
   display: flex;
   align-items: baseline;
