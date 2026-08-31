@@ -484,6 +484,11 @@ button {
   border-radius: var(--radius);
   background: var(--bg-muted);
   overflow: hidden;
+  touch-action: none;
+}
+
+.nen-work-card__thumb--active {
+  cursor: none;
 }
 
 .nen-work-card__meta {

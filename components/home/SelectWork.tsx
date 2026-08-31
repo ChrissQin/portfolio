@@ -7,7 +7,7 @@ import {
   type WorkCategory,
 } from "@/data/placeholders";
 import { WorkThumbCursor } from "@/components/work/WorkThumbCursor";
-import { WorkThumbDotCursorLayer } from "@/components/work/WorkThumbDotCursorLayer";
+import { WorkCursorProvider } from "@/components/work/WorkCursorProvider";
 
 type Filter = "all" | WorkCategory;
 
@@ -59,23 +59,24 @@ export function SelectWork() {
           </div>
         </div>
 
-        <ul className="nen-work__grid">
-          {items.map((project) => (
-            <li key={project.slug} className="nen-work__item">
-              <article className="nen-work-card">
-                <WorkThumbCursor
-                  gradient={project.gradient}
-                  title={project.title}
-                />
-                <div className="nen-work-card__meta">
-                  <h3 className="nen-work-card__title">{project.title}</h3>
-                  <span className="nen-work-card__tag">{project.categoryLabel}</span>
-                </div>
-              </article>
-            </li>
-          ))}
-        </ul>
-        <WorkThumbDotCursorLayer />
+        <WorkCursorProvider>
+          <ul className="nen-work__grid">
+            {items.map((project) => (
+              <li key={project.slug} className="nen-work__item">
+                <article className="nen-work-card">
+                  <WorkThumbCursor
+                    gradient={project.gradient}
+                    title={project.title}
+                  />
+                  <div className="nen-work-card__meta">
+                    <h3 className="nen-work-card__title">{project.title}</h3>
+                    <span className="nen-work-card__tag">{project.categoryLabel}</span>
+                  </div>
+                </article>
+              </li>
+            ))}
+          </ul>
+        </WorkCursorProvider>
       </div>
     </section>
   );
