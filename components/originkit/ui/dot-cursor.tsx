@@ -9,10 +9,14 @@ type Props = {
   labelColor?: string;
   labelFont?: React.CSSProperties;
   headColor?: string;
+  /** Optional ring around the filled dot for contrast on varied backgrounds */
+  headOutlineColor?: string;
   trailColor?: string;
   size?: number;
   trailLength?: number;
   trailThickness?: number;
+  /** When false, rely on parent CSS (e.g. cursor: none) instead of hiding globally */
+  hideDocumentCursor?: boolean;
   style?: React.CSSProperties;
 };
 
@@ -87,8 +91,11 @@ export default function DotCursor(props: Props) {
     label = DEFAULTS.label,
     labelText = DEFAULTS.labelText,
     labelColor = DEFAULTS.labelColor,
+    hideDocumentCursor = true,
     style,
   } = props;
+
+  const headOutlineColor = props.headOutlineColor;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
@@ -147,6 +154,7 @@ export default function DotCursor(props: Props) {
     const previousCursor = document.documentElement.style.cursor;
     let cursorHidden = false;
     const hideNativeCursor = (hide: boolean) => {
+      if (!hideDocumentCursor) return;
       if (hide === cursorHidden) return;
       cursorHidden = hide;
       document.documentElement.style.cursor = hide ? "none" : previousCursor;
@@ -381,6 +389,11 @@ export default function DotCursor(props: Props) {
         if (fillOpacity > 0.01) {
           ctx.fillStyle = withAlpha(p.headColor, fillOpacity);
           ctx.fill();
+          if (headOutlineColor) {
+            ctx.strokeStyle = withAlpha(headOutlineColor, fillOpacity);
+            ctx.lineWidth = BORDER_WIDTH;
+            ctx.stroke();
+          }
         }
       }
 
@@ -399,7 +412,7 @@ export default function DotCursor(props: Props) {
         onWindowLeave,
       );
     };
-  }, []);
+  }, [headOutlineColor, hideDocumentCursor]);
 
   const labelNode = label ? (
     <div
