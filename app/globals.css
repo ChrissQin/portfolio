@@ -24,8 +24,8 @@
 
   /* Display type: Breit narrowed ~7% — midpoint between Breit and standard Söhne */
   --display-font: var(--font-sohne-breit), var(--font-sohne), system-ui, sans-serif;
-  --display-scale-x: 0.93;
-  --display-tracking: -0.038em;
+  --display-scale-x: 0.91;
+  --display-tracking: -0.04em;
 }
 
 @theme inline {
