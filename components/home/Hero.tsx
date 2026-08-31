@@ -3,7 +3,7 @@ export function Hero() {
     <section className="nen-hero" aria-labelledby="nen-hero-heading">
       <div className="nen-container">
         <h1 id="nen-hero-heading" className="nen-hero__headline">
-          Emotionally resonant, collaborative, high-in-craft, and impactful
+          Emotionally resonant, high-in-craft, collaborative, and impactful
           storytelling that <em>catapults bold ideas forward.</em>
         </h1>
       </div>
