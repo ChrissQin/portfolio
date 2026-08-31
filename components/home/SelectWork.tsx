@@ -7,7 +7,6 @@ import {
   type WorkCategory,
 } from "@/data/placeholders";
 import { WorkThumbCursor } from "@/components/work/WorkThumbCursor";
-import { WorkGridDotCursor } from "@/components/work/WorkGridDotCursor";
 
 type Filter = "all" | WorkCategory;
 
@@ -59,7 +58,7 @@ export function SelectWork() {
           </div>
         </div>
 
-        <ul id="nen-work-grid" className="nen-work__grid">
+        <ul className="nen-work__grid">
           {items.map((project) => (
             <li key={project.slug} className="nen-work__item">
               <article className="nen-work-card">
@@ -75,7 +74,6 @@ export function SelectWork() {
             </li>
           ))}
         </ul>
-        <WorkGridDotCursor />
       </div>
     </section>
   );

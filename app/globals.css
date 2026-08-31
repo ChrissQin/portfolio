@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source "../components/originkit";
 
 :root {
   /* Brand 5-color set */
@@ -485,16 +486,9 @@ button {
   overflow: hidden;
 }
 
-.nen-work-card__thumb--cursor {
-  cursor: none;
-}
-
-.nen-work-grid-cursor {
-  position: fixed;
+.nen-work-card__thumb > div {
+  position: absolute;
   inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0;
 }
 
 .nen-work-card__meta {
