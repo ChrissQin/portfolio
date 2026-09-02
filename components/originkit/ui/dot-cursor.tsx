@@ -3,12 +3,6 @@
 import * as React from "react";
 import { useEffect, useRef } from "react";
 
-export type ExternalPointer = {
-    x: number;
-    y: number;
-    active: boolean;
-};
-
 type Props = {
     label?: boolean;
     labelText?: string;
@@ -20,8 +14,6 @@ type Props = {
     trailLength?: number;
     trailThickness?: number;
     style?: React.CSSProperties;
-    /** When set, pointer position is driven by the parent instead of hit-testing. */
-    externalPointer?: ExternalPointer;
 };
 
 const DEFAULT_LABEL_FONT: React.CSSProperties = {
@@ -103,15 +95,10 @@ export default function DotCursor(props: Props) {
         labelText = DEFAULTS.labelText,
         labelColor = DEFAULTS.labelColor,
         style,
-        externalPointer,
     } = props;
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const frameRef = useRef<HTMLDivElement>(null);
-    const externalPointerRef = useRef(externalPointer);
-    const drivenExternallyRef = useRef(externalPointer !== undefined);
-    externalPointerRef.current = externalPointer;
-    drivenExternallyRef.current = externalPointer !== undefined;
 
     // Live props for the rAF loop — mutated in place so tweaking a control
     // never tears down the canvas or resets the dot to the centre.
@@ -265,7 +252,6 @@ export default function DotCursor(props: Props) {
         };
 
         const onMove = (e: PointerEvent) => {
-            if (drivenExternallyRef.current) return;
             const pt = localize(e.clientX, e.clientY);
             if (!pt.over) {
                 if (inside) exitTo(pt.x, pt.y);
@@ -305,19 +291,6 @@ export default function DotCursor(props: Props) {
             const p = live.current;
 
             ctx.clearRect(0, 0, w, h);
-
-            if (drivenExternallyRef.current) {
-                const ext = externalPointerRef.current;
-                if (ext?.active) {
-                    if (!seeded || !inside) seedAt(ext.x, ext.y);
-                    targetX = ext.x;
-                    targetY = ext.y;
-                    inside = true;
-                    hideNativeCursor(true);
-                } else if (inside) {
-                    exitTo(targetX, targetY);
-                }
-            }
 
             // Before the pointer has ever been seen there is nothing to draw —
             // no dot parked anywhere, no trail.
