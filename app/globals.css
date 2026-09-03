@@ -1138,10 +1138,10 @@ button {
 .nen-footer__logo {
   display: block;
   width: min(42vw, 7.25rem);
-  aspect-ratio: 1024 / 576;
+  aspect-ratio: 1221 / 676;
   background-color: var(--accent);
-  -webkit-mask-image: var(--footer-logo-mask);
-  mask-image: var(--footer-logo-mask);
+  -webkit-mask-image: url("/brand/cq-mark.png");
+  mask-image: url("/brand/cq-mark.png");
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-position: center;

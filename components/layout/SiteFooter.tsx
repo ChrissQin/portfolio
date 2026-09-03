@@ -89,10 +89,6 @@ export function SiteFooter() {
               <div className="nen-footer__brand">
                 <span
                   className="nen-footer__logo"
-                  style={{
-                    ["--footer-logo-mask" as string]:
-                      'url("/brand/cq-mark-accent.png")',
-                  }}
                   role="img"
                   aria-label={site.name}
                 />
