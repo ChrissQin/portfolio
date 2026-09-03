@@ -11,59 +11,41 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 
-import DotCursor, {
-  type ExternalPointer,
-} from "@/components/originkit/ui/dot-cursor";
-
-/** Brand palette — keep in sync with :root in globals.css */
-const CURSOR_HEAD = "#FF573D"; /* accent */
-const CURSOR_TRAIL = "#7B8188"; /* stone */
-
-const INACTIVE_POINTER: ExternalPointer = { x: 0, y: 0, active: false };
+import DotCursor from "@/components/originkit/ui/dot-cursor";
 
 type WorkCursorContextValue = {
-  bindThumb: (el: HTMLElement | null) => void;
-  moveThumb: (el: HTMLElement, x: number, y: number) => void;
+  bindSurface: (el: HTMLElement | null) => void;
+  moveSurface: (el: HTMLElement, x: number, y: number) => void;
 };
 
 const WorkCursorContext = createContext<WorkCursorContextValue | null>(null);
 
-function applyFrame(el: HTMLDivElement, thumb: Element | null) {
-  if (!thumb) {
+const CURSOR_PAD = 36;
+
+function applyFrame(el: HTMLDivElement, surface: Element | null) {
+  if (!surface) {
     el.style.visibility = "hidden";
     el.style.width = "0";
     el.style.height = "0";
     return;
   }
 
-  const rect = thumb.getBoundingClientRect();
+  const rect = surface.getBoundingClientRect();
   el.style.visibility = "visible";
-  el.style.left = `${rect.left}px`;
-  el.style.top = `${rect.top}px`;
-  el.style.width = `${rect.width}px`;
-  el.style.height = `${rect.height}px`;
-}
-
-function toLocalPointer(
-  thumb: HTMLElement,
-  clientX: number,
-  clientY: number,
-): ExternalPointer {
-  const rect = thumb.getBoundingClientRect();
-  return {
-    x: clientX - rect.left,
-    y: clientY - rect.top,
-    active: true,
-  };
+  el.style.position = "fixed";
+  el.style.left = `${rect.left - CURSOR_PAD}px`;
+  el.style.top = `${rect.top - CURSOR_PAD}px`;
+  el.style.width = `${rect.width + CURSOR_PAD * 2}px`;
+  el.style.height = `${rect.height + CURSOR_PAD * 2}px`;
+  el.style.zIndex = "9999";
+  el.style.overflow = "visible";
 }
 
 export function WorkCursorProvider({ children }: { children: ReactNode }) {
   const frameRef = useRef<HTMLDivElement>(null);
-  const activeThumbRef = useRef<HTMLElement | null>(null);
+  const activeSurfaceRef = useRef<HTMLElement | null>(null);
   const [frameEl, setFrameEl] = useState<HTMLDivElement | null>(null);
   const [mounted, setMounted] = useState(false);
-  const [thumbPointer, setThumbPointer] =
-    useState<ExternalPointer>(INACTIVE_POINTER);
   const setFrameRef = useCallback((node: HTMLDivElement | null) => {
     frameRef.current = node;
     setFrameEl(node);
@@ -73,38 +55,56 @@ export function WorkCursorProvider({ children }: { children: ReactNode }) {
     setMounted(true);
   }, []);
 
-  const setThumbActiveState = useCallback((el: HTMLElement | null) => {
-    document.querySelectorAll(".nen-work-card__thumb").forEach((thumb) => {
-      thumb.classList.toggle("nen-work-card__thumb--active", thumb === el);
-    });
-    document.documentElement.style.cursor = el ? "none" : "";
+  const setSurfaceActiveState = useCallback((el: HTMLElement | null) => {
+    document
+      .querySelectorAll(".nen-work-card__surface, .nen-palette-card__surface")
+      .forEach((surface) => {
+        const isActive = surface === el;
+        surface.classList.toggle("nen-work-card__surface--active", isActive);
+        surface.classList.toggle("nen-palette-card__surface--active", isActive);
+      });
   }, []);
 
-  const bindThumb = useCallback(
+  const bindSurface = useCallback(
     (el: HTMLElement | null) => {
-      activeThumbRef.current = el;
+      if (activeSurfaceRef.current === el) return;
+      activeSurfaceRef.current = el;
       if (frameRef.current) applyFrame(frameRef.current, el);
-      setThumbActiveState(el);
+      setSurfaceActiveState(el);
       if (!el) {
-        setThumbPointer(INACTIVE_POINTER);
+        window.dispatchEvent(
+          new PointerEvent("pointermove", {
+            clientX: -1,
+            clientY: -1,
+            bubbles: true,
+          }),
+        );
       }
     },
-    [setThumbActiveState],
+    [setSurfaceActiveState],
   );
 
-  const moveThumb = useCallback((el: HTMLElement, x: number, y: number) => {
-    activeThumbRef.current = el;
-    if (frameRef.current) applyFrame(frameRef.current, el);
-    setThumbPointer(toLocalPointer(el, x, y));
-    setThumbActiveState(el);
-  }, [setThumbActiveState]);
+  const moveSurface = useCallback(
+    (el: HTMLElement, x: number, y: number) => {
+      activeSurfaceRef.current = el;
+      if (frameRef.current) applyFrame(frameRef.current, el);
+      window.dispatchEvent(
+        new PointerEvent("pointermove", {
+          clientX: x,
+          clientY: y,
+          bubbles: true,
+        }),
+      );
+    },
+    [],
+  );
 
   useLayoutEffect(() => {
     if (!frameEl) return;
 
     const onReposition = () => {
-      if (!activeThumbRef.current || !frameRef.current) return;
-      applyFrame(frameRef.current, activeThumbRef.current);
+      if (!activeSurfaceRef.current || !frameRef.current) return;
+      applyFrame(frameRef.current, activeSurfaceRef.current);
     };
 
     window.addEventListener("scroll", onReposition, { passive: true, capture: true });
@@ -113,12 +113,12 @@ export function WorkCursorProvider({ children }: { children: ReactNode }) {
     return () => {
       window.removeEventListener("scroll", onReposition, true);
       window.removeEventListener("resize", onReposition);
-      bindThumb(null);
+      bindSurface(null);
     };
-  }, [frameEl, bindThumb]);
+  }, [frameEl, bindSurface]);
 
   return (
-    <WorkCursorContext.Provider value={{ bindThumb, moveThumb }}>
+    <WorkCursorContext.Provider value={{ bindSurface, moveSurface }}>
       {children}
       {mounted
         ? createPortal(
@@ -138,12 +138,15 @@ export function WorkCursorProvider({ children }: { children: ReactNode }) {
             >
               <DotCursor
                 label={false}
-                headColor={CURSOR_HEAD}
-                trailColor={CURSOR_TRAIL}
-                size={20}
+                headColor="#FF573D"
+                trailColor="#FF573D"
+                size={18}
                 trailLength={8}
                 trailThickness={10}
-                externalPointer={thumbPointer}
+                instantPresence
+                suppressNativeCursor
+                halo
+                style={{ overflow: "visible" }}
               />
             </div>,
             document.body,

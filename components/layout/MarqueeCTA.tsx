@@ -7,8 +7,8 @@ export function MarqueeCTA() {
   const repeats = Array.from({ length: 8 }, (_, index) => `${phrase}-${index}`);
 
   return (
-    <section className="nen-marquee" aria-label="Get in touch">
-      <div className="nen-marquee__track" aria-hidden="true">
+    <Link href="/contact" className="nen-marquee" aria-label={phrase}>
+      <div className="nen-marquee__track">
         <div className="nen-marquee__group">
           {repeats.map((key) => (
             <span key={key} className="nen-marquee__text">
@@ -24,9 +24,6 @@ export function MarqueeCTA() {
           ))}
         </div>
       </div>
-      <Link href="/contact" className="nen-marquee__cta">
-        Get in touch
-      </Link>
-    </section>
+    </Link>
   );
 }

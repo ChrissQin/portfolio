@@ -13,6 +13,12 @@ type Props = {
     size?: number;
     trailLength?: number;
     trailThickness?: number;
+    /** Skip fade-in/out — used when a parent already coordinates native cursor hiding. */
+    instantPresence?: boolean;
+    /** Parent owns cursor hiding (e.g. CSS cursor:none on the hover surface). */
+    suppressNativeCursor?: boolean;
+    /** Filled dot with a thin outer ring and gap. */
+    halo?: boolean;
     style?: React.CSSProperties;
 };
 
@@ -32,6 +38,8 @@ const FOLLOW_TAU = 0.01;
 const SNAPPINESS = 10;
 // Ring stroke and link underline weight.
 const BORDER_WIDTH = 2;
+// Gap between filled dot edge and outer halo ring (px).
+const HALO_GAP = 4;
 // Ring diameter as a multiple of the dot size (12 → 40 at the old defaults).
 const HOVER_SCALE = 3.3;
 
@@ -83,6 +91,7 @@ const HIDE_SELECTOR =
 const LINK_SELECTOR =
     '[aria-label~="trail{link}"],[data-framer-name~="trail{link}"]';
 const RING_SELECTOR = 'a,button,[role="button"]';
+const RING_EXCLUDE_SELECTOR = '[data-dot-cursor="fill"]';
 
 export default function DotCursor(props: Props) {
     const {
@@ -94,6 +103,9 @@ export default function DotCursor(props: Props) {
         label = DEFAULTS.label,
         labelText = DEFAULTS.labelText,
         labelColor = DEFAULTS.labelColor,
+        instantPresence = false,
+        suppressNativeCursor = false,
+        halo = false,
         style,
     } = props;
 
@@ -108,6 +120,7 @@ export default function DotCursor(props: Props) {
         size,
         trailLength,
         trailThickness,
+        halo,
     });
     live.current = {
         headColor,
@@ -115,6 +128,7 @@ export default function DotCursor(props: Props) {
         size,
         trailLength,
         trailThickness,
+        halo,
     };
     const labelFont = { ...DEFAULT_LABEL_FONT, ...props.labelFont };
 
@@ -137,6 +151,14 @@ export default function DotCursor(props: Props) {
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         };
         resize();
+
+        const reducedMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)",
+        ).matches;
+        const ENTRANCE_SCALE_START = 0.22;
+
+        let displayOpacity = 0;
+        let entranceScale = ENTRANCE_SCALE_START;
 
         // Screen pixels in, frame-local pixels out, plus whether the pointer is
         // over the frame at all. The pointer is tracked on the document rather
@@ -163,11 +185,34 @@ export default function DotCursor(props: Props) {
         const previousCursor = document.documentElement.style.cursor;
         let cursorHidden = false;
         const hideNativeCursor = (hide: boolean) => {
+            if (suppressNativeCursor) return;
             if (hide === cursorHidden) return;
             cursorHidden = hide;
             document.documentElement.style.cursor = hide
                 ? "none"
                 : previousCursor;
+        };
+
+        const stepPresence = (active: boolean, dt: number) => {
+            if (reducedMotion || instantPresence) {
+                displayOpacity = active ? 1 : 0;
+                entranceScale = active ? 1 : ENTRANCE_SCALE_START;
+                hideNativeCursor(active);
+                return;
+            }
+
+            const ease = 1 - Math.exp(-dt / 0.11);
+            const targetOpacity = active ? 1 : 0;
+            const targetScale = active ? 1 : ENTRANCE_SCALE_START;
+
+            displayOpacity += (targetOpacity - displayOpacity) * ease;
+            entranceScale += (targetScale - entranceScale) * ease;
+
+            if (active && displayOpacity > 0.32) {
+                hideNativeCursor(true);
+            } else if (!active && displayOpacity < 0.28) {
+                hideNativeCursor(false);
+            }
         };
 
         // Nothing is positioned until the pointer is actually seen — the dot
@@ -212,8 +257,6 @@ export default function DotCursor(props: Props) {
             targetY = y;
             ballX = x;
             ballY = y;
-            // Nothing is shown until the pointer is first seen OVER THE FRAME,
-            // so an untouched section has no cursor parked in it.
             canvas.style.opacity = "1";
             // A stale trail would otherwise be joined to the entry point by one
             // long chord across the frame.
@@ -248,7 +291,6 @@ export default function DotCursor(props: Props) {
             }
             inside = false;
             hitDirty = false;
-            hideNativeCursor(false);
         };
 
         const onMove = (e: PointerEvent) => {
@@ -264,7 +306,6 @@ export default function DotCursor(props: Props) {
             hitY = e.clientY;
             inside = true;
             hitDirty = true;
-            hideNativeCursor(true);
         };
         // Leaving the window entirely never produces a pointermove outside the
         // frame, so the trail would be left hanging where it last was.
@@ -290,6 +331,8 @@ export default function DotCursor(props: Props) {
             last = now;
             const p = live.current;
 
+            stepPresence(inside, dt);
+
             ctx.clearRect(0, 0, w, h);
 
             // Before the pointer has ever been seen there is nothing to draw —
@@ -311,7 +354,9 @@ export default function DotCursor(props: Props) {
                 const el = document.elementFromPoint(hitX, hitY);
                 overHide = !!el?.closest(HIDE_SELECTOR);
                 linkEl = el?.closest(LINK_SELECTOR) ?? null;
-                overRing = !!el?.closest(RING_SELECTOR);
+                const ringTarget = el?.closest(RING_SELECTOR);
+                overRing =
+                    !!ringTarget && !ringTarget.closest(RING_EXCLUDE_SELECTOR);
                 hitDirty = false;
             }
 
@@ -380,8 +425,11 @@ export default function DotCursor(props: Props) {
                     for (let i = 1; i < n; i++) ctx.lineTo(lx[i], ly[i]);
                     for (let i = n - 1; i >= 0; i--) ctx.lineTo(rx[i], ry[i]);
                     ctx.closePath();
+                    ctx.save();
+                    ctx.globalAlpha = displayOpacity;
                     ctx.fillStyle = p.trailColor;
                     ctx.fill();
+                    ctx.restore();
                 }
             } else {
                 points = [];
@@ -420,9 +468,8 @@ export default function DotCursor(props: Props) {
             lineOpacity += ((isLink ? 1 : 0) - lineOpacity) * ease;
             lineWidth += (lineTargetWidth - lineWidth) * ease;
 
-            // The dot itself belongs to the pointer, so it goes when the
-            // pointer does — only the trail is left to finish fading.
-            if (!inside) {
+            // Keep drawing while the pointer fades out after exit.
+            if (!inside && displayOpacity < 0.02) {
                 raf = requestAnimationFrame(frame);
                 return;
             }
@@ -438,16 +485,39 @@ export default function DotCursor(props: Props) {
                 ctx.lineCap = "round";
                 ctx.stroke();
             } else {
-                ctx.beginPath();
-                ctx.arc(ballX, ballY, Math.max(0.5, radius), 0, Math.PI * 2);
-                if (strokeOpacity > 0.01) {
-                    ctx.strokeStyle = withAlpha(p.headColor, strokeOpacity);
+                const dotRadius =
+                    Math.max(0.5, radius) * entranceScale;
+                const colorAlpha = (alpha: number) =>
+                    withAlpha(p.headColor, alpha * displayOpacity);
+                const showHalo =
+                    p.halo && fillOpacity > 0.5 && strokeOpacity < 0.5;
+
+                if (showHalo) {
+                    const innerR = dotRadius;
+                    const outerR = innerR + HALO_GAP + BORDER_WIDTH / 2;
+
+                    ctx.beginPath();
+                    ctx.arc(ballX, ballY, outerR, 0, Math.PI * 2);
+                    ctx.strokeStyle = colorAlpha(fillOpacity);
                     ctx.lineWidth = BORDER_WIDTH;
                     ctx.stroke();
-                }
-                if (fillOpacity > 0.01) {
-                    ctx.fillStyle = withAlpha(p.headColor, fillOpacity);
+
+                    ctx.beginPath();
+                    ctx.arc(ballX, ballY, innerR, 0, Math.PI * 2);
+                    ctx.fillStyle = colorAlpha(fillOpacity);
                     ctx.fill();
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(ballX, ballY, dotRadius, 0, Math.PI * 2);
+                    if (strokeOpacity > 0.01) {
+                        ctx.strokeStyle = colorAlpha(strokeOpacity);
+                        ctx.lineWidth = BORDER_WIDTH;
+                        ctx.stroke();
+                    }
+                    if (fillOpacity > 0.01) {
+                        ctx.fillStyle = colorAlpha(fillOpacity);
+                        ctx.fill();
+                    }
                 }
             }
 

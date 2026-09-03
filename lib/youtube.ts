@@ -51,6 +51,29 @@ export function getYouTubeVideoId(url: string | null | undefined): string | null
   return null;
 }
 
+/** Best-effort poster URLs, highest quality first. */
+export function getYouTubeThumbnailCandidates(
+  url: string | null | undefined,
+): string[] {
+  const id = getYouTubeVideoId(url);
+  if (!id) return [];
+
+  const isShorts = Boolean(url?.includes("/shorts/"));
+  if (isShorts) {
+    return [
+      `https://i.ytimg.com/vi/${id}/oar1.jpg`,
+      `https://img.youtube.com/vi/${id}/oar1.jpg`,
+      `https://i.ytimg.com/vi/${id}/hq2.jpg`,
+    ];
+  }
+
+  return [
+    `https://img.youtube.com/vi/${id}/maxresdefault.jpg`,
+    `https://img.youtube.com/vi/${id}/sddefault.jpg`,
+    `https://img.youtube.com/vi/${id}/hqdefault.jpg`,
+  ];
+}
+
 export function getYouTubeEmbedSrc(
   url: string | null | undefined,
   options?: { autoplay?: boolean },
