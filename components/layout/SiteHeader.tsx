@@ -1,37 +1,26 @@
-"use client";
-
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 import { MobileNav } from "@/components/layout/MobileNav";
-import { getPrimaryNavLinks } from "@/lib/nav";
+import { NavWeightLink } from "@/components/layout/NavWeightLink";
+import { navLinks, site } from "@/lib/site";
 
-/**
- * Global header for non-home routes. On `/`, the cinematic hero owns navigation
- * so desktop does not show a separate black header bar above the media frame.
- */
 export function SiteHeader() {
-  const pathname = usePathname();
-  const links = getPrimaryNavLinks();
-
-  if (pathname === "/") {
-    return null;
-  }
-
   return (
-    <header className="site-header">
-      <div className="container site-header__inner">
-        <Link href="/#top" className="site-header__brand">
-          Chris Qin
+    <header className="nen-header">
+      <div className="nen-container nen-header__inner">
+        <Link href="/" className="nen-header__brand" aria-label={`${site.name} — Home`}>
+          <span
+            className="nen-header__logo"
+            style={{ ["--logo-mask" as string]: `url("${site.logo}")` }}
+            aria-hidden="true"
+          />
         </Link>
 
-        <nav aria-label="Primary" className="site-header__desktop">
-          <ul className="site-header__links">
-            {links.map((link) => (
-              <li key={`${link.label}-${link.href}`}>
-                <a href={link.href} className="site-header__link">
-                  {link.label}
-                </a>
+        <nav aria-label="Primary" className="nen-header__nav">
+          <ul className="nen-header__links">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <NavWeightLink href={link.href} label={link.label} />
               </li>
             ))}
           </ul>

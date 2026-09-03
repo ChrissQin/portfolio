@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 
-import { HashRedirect } from "@/components/layout/HashRedirect";
+import { WorkArchive } from "@/components/work/WorkArchive";
 
 export const metadata: Metadata = {
-  robots: {
-    index: false,
-    follow: false,
-  },
+  title: "Work",
+  description: "Versatile work that creates a resonant experience — strategy, design, and video.",
 };
 
-export default function WorkRedirectPage() {
-  return <HashRedirect hash="work" />;
+export default function WorkPage() {
+  return <WorkArchive variant="page" />;
 }

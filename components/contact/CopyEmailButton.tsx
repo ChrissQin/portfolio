@@ -22,7 +22,7 @@ export function CopyEmailButton({ email }: CopyEmailButtonProps) {
   return (
     <button
       type="button"
-      className="editorial-link editorial-link--muted"
+      className="text-link"
       onClick={onCopy}
     >
       {copied ? "Email copied" : "Copy email"}

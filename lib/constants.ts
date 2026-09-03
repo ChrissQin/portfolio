@@ -48,9 +48,9 @@ export const siteConfig = {
   timezone: "America/New_York",
   /** Keep null — Instagram / LinkedIn are not shown on the public site. */
   socials: {
-    instagram: null,
-    linkedin: null,
-    youtube: null,
+    instagram: "https://www.instagram.com/_cqvisuals/",
+    linkedin: "https://www.linkedin.com/in/thechrisqin/",
+    youtube: "https://www.youtube.com/@chrisqinvisuals?sub_confirmation=1",
   } satisfies SocialLinks,
   /** Keep null — résumé is not shown on the public site. */
   resumeUrl: null as string | null,
