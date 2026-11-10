@@ -68,6 +68,11 @@ function shouldFillColumnEnd(
   const isLast = itemIndex === columnItems.length - 1;
   const isSecondToLast = itemIndex === columnItems.length - 2;
 
+  // Never stretch vertical short-form frames into the leftover column height.
+  if (currentItem?.orientation === "vertical") {
+    return false;
+  }
+
   if (isLast) {
     return !hasFixedFrameTail(lastItem);
   }
