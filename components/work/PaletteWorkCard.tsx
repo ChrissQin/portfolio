@@ -13,7 +13,6 @@ type PaletteWorkCardProps = {
   orientation?: WorkOrientation;
   frameRatio?: string;
   index: number;
-  fillColumnEnd?: boolean;
   href?: string;
   thumbnail?: string | null;
   thumbnailPosition?: string;
@@ -28,7 +27,6 @@ export function PaletteWorkCard({
   orientation,
   frameRatio,
   index,
-  fillColumnEnd = false,
   href,
   thumbnail,
   thumbnailPosition,
@@ -53,10 +51,10 @@ export function PaletteWorkCard({
       }}
     >
       <div
-        className={`nen-palette-card__media${fillColumnEnd ? " nen-palette-card__media--fill" : ""}`}
-        style={
-          fillColumnEnd ? undefined : { aspectRatio: frameRatio ?? getWorkCardRatio(orientation, index) }
-        }
+        className="nen-palette-card__media"
+        style={{
+          aspectRatio: frameRatio ?? getWorkCardRatio(orientation, index),
+        }}
       >
         {hasThumbnail ? (
           <img
@@ -93,10 +91,7 @@ export function PaletteWorkCard({
   );
 
   return (
-    <article
-      className={`nen-palette-card${fillColumnEnd ? " nen-palette-card--fill" : ""}`}
-      aria-label={title}
-    >
+    <article className="nen-palette-card" aria-label={title}>
       {href ? (
         <a
           href={href}

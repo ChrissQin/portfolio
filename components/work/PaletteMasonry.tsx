@@ -3,7 +3,11 @@
 import { useEffect, useMemo, useState } from "react";
 
 import type { PlaceholderWork } from "@/data/placeholders";
-import { getCategoryFilterFrameRatio } from "@/components/work/palette-layouts";
+import {
+  getCategoryFilterFrameRatio,
+  HORIZONTAL_FRAME_RATIO,
+  VERTICAL_FRAME_RATIO,
+} from "@/components/work/palette-layouts";
 import { PaletteWorkCard } from "@/components/work/PaletteWorkCard";
 import type { WorkFilter } from "@/components/work/work-filters";
 
@@ -47,45 +51,55 @@ function useMasonryColumnCount(options?: {
   return columnCount;
 }
 
-function distributeToColumns<T>(items: T[], columnCount: number): T[][] {
-  const columns = Array.from({ length: columnCount }, () => [] as T[]);
-  items.forEach((item, index) => {
-    columns[index % columnCount]!.push(item);
-  });
+/** CSS aspect-ratio is width / height; return height / width for packing. */
+function frameHeightRatio(item: PlaceholderWork): number {
+  const raw =
+    item.frameRatio ??
+    (item.orientation === "vertical"
+      ? VERTICAL_FRAME_RATIO
+      : item.orientation === "horizontal"
+        ? HORIZONTAL_FRAME_RATIO
+        : HORIZONTAL_FRAME_RATIO);
+
+  const parts = raw.split("/").map((part) => Number(part.trim()));
+  const width = parts[0];
+  const height = parts[1];
+  if (!width || !height || !Number.isFinite(width) || !Number.isFinite(height)) {
+    return 9.8 / 16;
+  }
+  return height / width;
+}
+
+/** Pack into the shortest column so mixed ratios stay balanced. */
+function distributeToColumns(
+  items: PlaceholderWork[],
+  columnCount: number,
+): PlaceholderWork[][] {
+  const columns = Array.from({ length: columnCount }, () => [] as PlaceholderWork[]);
+  const heights = Array.from({ length: columnCount }, () => 0);
+
+  for (const item of items) {
+    let target = 0;
+    for (let i = 1; i < columnCount; i++) {
+      if (heights[i]! < heights[target]!) target = i;
+    }
+    columns[target]!.push(item);
+    heights[target]! += frameHeightRatio(item);
+  }
+
   return columns;
 }
 
-function hasFixedFrameTail(item?: PlaceholderWork): boolean {
-  return item?.orientation === "horizontal" || Boolean(item?.frameRatio);
-}
-
-function shouldFillColumnEnd(
-  columnItems: PlaceholderWork[],
-  itemIndex: number,
-): boolean {
-  const lastItem = columnItems[columnItems.length - 1];
-  const currentItem = columnItems[itemIndex];
-  const isLast = itemIndex === columnItems.length - 1;
-  const isSecondToLast = itemIndex === columnItems.length - 2;
-
-  // Never stretch vertical short-form frames into the leftover column height.
-  if (currentItem?.orientation === "vertical") {
-    return false;
-  }
-
-  if (isLast) {
-    return !hasFixedFrameTail(lastItem);
-  }
-
-  if (
-    isSecondToLast &&
-    hasFixedFrameTail(lastItem) &&
-    !currentItem?.frameRatio
-  ) {
-    return true;
-  }
-
-  return false;
+function resolveFrameRatio(
+  project: PlaceholderWork,
+  isCategoryFilter: boolean,
+  categoryFrameRatio: string | undefined,
+): string | undefined {
+  if (isCategoryFilter) return categoryFrameRatio;
+  if (project.frameRatio) return project.frameRatio;
+  if (project.orientation === "vertical") return VERTICAL_FRAME_RATIO;
+  if (project.orientation === "horizontal") return HORIZONTAL_FRAME_RATIO;
+  return undefined;
 }
 
 type PaletteMasonryProps = {
@@ -111,35 +125,14 @@ export function PaletteMasonry({
     ? getCategoryFilterFrameRatio(filter)
     : undefined;
 
-  // Homepage All works: Peer left, Twine middle, Georgia Paint right.
-  const displayColumns = useMemo(() => {
-    if (
-      tagVariant === "home" &&
-      filter === "all" &&
-      columnCount === 3 &&
-      columns.length === 3
-    ) {
-      return [
-        { items: columns[1]!, sourceIndex: 1 },
-        { items: columns[2]!, sourceIndex: 2 },
-        { items: columns[0]!, sourceIndex: 0 },
-      ];
-    }
-
-    return columns.map((items, sourceIndex) => ({ items, sourceIndex }));
-  }, [columns, columnCount, filter, tagVariant]);
-
   return (
     <div
       className={`nen-work__masonry-columns${denserShortForm ? " nen-work__masonry-columns--short-form" : ""}`}
     >
-      {displayColumns.map(({ items: columnItems, sourceIndex }, columnIndex) => (
-        <div key={sourceIndex} className="nen-work__masonry-column">
+      {columns.map((columnItems, columnIndex) => (
+        <div key={columnIndex} className="nen-work__masonry-column">
           {columnItems.map((project, itemIndex) => {
-            const globalIndex = itemIndex * columnCount + sourceIndex;
-            const fillColumnEnd = isCategoryFilter
-              ? false
-              : shouldFillColumnEnd(columnItems, itemIndex);
+            const globalIndex = itemIndex * columnCount + columnIndex;
 
             return (
               <PaletteWorkCard
@@ -156,11 +149,12 @@ export function PaletteMasonry({
                       : "horizontal"
                     : project.orientation
                 }
-                frameRatio={
-                  isCategoryFilter ? categoryFrameRatio : project.frameRatio
-                }
+                frameRatio={resolveFrameRatio(
+                  project,
+                  isCategoryFilter,
+                  categoryFrameRatio,
+                )}
                 index={globalIndex}
-                fillColumnEnd={fillColumnEnd}
                 href={project.href}
                 thumbnail={project.thumbnail}
                 thumbnailPosition={project.thumbnailPosition}

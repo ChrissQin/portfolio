@@ -687,7 +687,7 @@ button {
 /* ——— Palette-style masonry (homepage select work) ——— */
 .nen-work__masonry-columns {
   display: flex;
-  align-items: stretch;
+  align-items: flex-start;
   gap: 1rem;
 }
 

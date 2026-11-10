@@ -136,6 +136,24 @@ export function WorkArchive({
       });
     }
 
+    // Homepage All works: seed Peer / Aucert / Georgia as the top of each column.
+    if (isHome && filter === "all") {
+      const preferredTop = [
+        "peer-yc-s26",
+        "aucert-yc-f26",
+        "georgia-paint",
+      ] as const;
+      const rank = new Map<string, number>(
+        preferredTop.map((slug, index) => [slug, index]),
+      );
+      filtered = [...filtered].sort((a, b) => {
+        const aRank = rank.get(a.slug) ?? Number.MAX_SAFE_INTEGER;
+        const bRank = rank.get(b.slug) ?? Number.MAX_SAFE_INTEGER;
+        if (aRank !== bRank) return aRank - bRank;
+        return 0;
+      });
+    }
+
     // /work Short-form: fixed sequence for real projects, placeholders after.
     if (!isHome && filter === "short-form") {
       const rank = new Map<string, number>(
