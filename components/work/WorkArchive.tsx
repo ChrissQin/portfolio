@@ -13,6 +13,7 @@ import {
 
 /** Explicit order for /work Short-form only (homepage All works unchanged). */
 const WORK_PAGE_SHORT_FORM_ORDER = [
+  "northwestern-u",
   "twine-yc-s23",
   "btrt-run-club",
   "uni-uni-boba",

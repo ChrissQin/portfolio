@@ -86,6 +86,17 @@ export const placeholderWork: PlaceholderWork[] = [
     thumbnail: "/work/peer-yc-s26.jpg",
   },
   {
+    slug: "aucert-yc-f26",
+    title: "Aucert (YC F26)",
+    category: "product",
+    categoryLabel: "Product",
+    subCategoryLabel: "Launch",
+    orientation: "horizontal",
+    gradient: "linear-gradient(135deg, #11110F 0%, #22C55E 55%, #F7F5F1 100%)",
+    href: "https://lnkd.in/p/gfK_qBHn",
+    thumbnail: "/work/aucert-yc-f26.jpg",
+  },
+  {
     slug: "twine-yc-s23",
     title: "Twine (YC S23)",
     category: "short-form",
@@ -198,6 +209,17 @@ export const placeholderWork: PlaceholderWork[] = [
     gradient: "linear-gradient(135deg, #E6E1D8 0%, #7B8188 55%, #11110F 100%)",
     href: "https://www.instagram.com/anandvalavalkar/reel/DbjrxSRS_XS/",
     thumbnail: "/work/anand-valavalkar.jpg",
+  },
+  {
+    slug: "northwestern-u",
+    title: "NU (@northwesternu)",
+    category: "short-form",
+    categoryLabel: "Short-form",
+    subCategoryLabel: "Social",
+    orientation: "horizontal",
+    gradient: "linear-gradient(135deg, #4E2A84 0%, #11110F 100%)",
+    href: "https://www.instagram.com/reels/DfU_pSvp8g-/",
+    thumbnail: "/work/northwestern-u.jpg",
   },
 ];
 
