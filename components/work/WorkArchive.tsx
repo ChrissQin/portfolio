@@ -127,6 +127,11 @@ export function WorkArchive({
         ? placeholderWork
         : placeholderWork.filter((item) => item.category === filter);
 
+    // Homepage Select Work: keep Georgia Paint on /work only.
+    if (isHome) {
+      filtered = filtered.filter((item) => item.slug !== "georgia-paint");
+    }
+
     // Product filter: Peer first (home + /work).
     if (filter === "product") {
       filtered = [...filtered].sort((a, b) => {

@@ -108,6 +108,17 @@ export const placeholderWork: PlaceholderWork[] = [
     thumbnail: "/work/velobyte-yc-f26.jpg",
   },
   {
+    slug: "georgia-paint",
+    title: "Georgia Paint",
+    category: "product",
+    categoryLabel: "Product",
+    subCategoryLabel: "Intro",
+    orientation: "horizontal",
+    gradient: "linear-gradient(135deg, #F7F5F1 0%, #E6E1D8 100%)",
+    href: "https://youtu.be/S3hpLnVWv_4",
+    thumbnail: "/work/georgia-paint.jpg",
+  },
+  {
     slug: "twine-yc-s23",
     title: "Twine (YC S23)",
     category: "short-form",
