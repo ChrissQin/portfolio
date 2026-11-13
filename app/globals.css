@@ -406,7 +406,8 @@ button {
 .nen-clients__interactive {
   width: 100%;
   margin-inline: auto;
-  aspect-ratio: 2 / 1;
+  /* 4×3 client grid */
+  aspect-ratio: 4 / 3;
   min-height: 0;
   overflow: visible;
   border-radius: clamp(0.875rem, 1.5vw, 1.125rem);
@@ -414,7 +415,8 @@ button {
 
 @media (max-width: 639px) {
   .nen-clients__interactive {
-    aspect-ratio: 1 / 2;
+    /* 2×6 client grid */
+    aspect-ratio: 1 / 3;
   }
 }
 

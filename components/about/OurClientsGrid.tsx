@@ -12,16 +12,20 @@ const clientLogos = [
   { src: "/clients/toppings.png" },
   { src: "/clients/masshole-donuts.png", scale: 0.88 },
   { src: "/clients/coffee-croissant.png", scale: 0.92 },
+  // Bottom row — sized to match visual weight of the wider wordmarks above.
+  { src: "/clients/aucert.png", scale: 1.08 },
+  { src: "/clients/infraoptimal.png", scale: 1.02 },
+  { src: "/clients/outworld-labs.png", scale: 0.94 },
 ];
 
 function useClientGridLayout() {
-  const [layout, setLayout] = useState({ columns: 4, rows: 2 });
+  const [layout, setLayout] = useState({ columns: 4, rows: 3 });
 
   useEffect(() => {
     const media = window.matchMedia("(max-width: 639px)");
     const update = () => {
       setLayout(
-        media.matches ? { columns: 2, rows: 4 } : { columns: 4, rows: 2 },
+        media.matches ? { columns: 2, rows: 6 } : { columns: 4, rows: 3 },
       );
     };
 
@@ -56,6 +60,7 @@ export function OurClientsGrid() {
         glowEnd="#38EF7D"
         glowIntensity={50}
         perspective={1600}
+        centerIncomplete
       />
     </div>
   );

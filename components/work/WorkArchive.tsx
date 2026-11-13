@@ -23,6 +23,24 @@ const WORK_PAGE_SHORT_FORM_ORDER = [
   "dreamcollege-ai",
 ] as const;
 
+/**
+ * Homepage Select Work (All works). Order is tuned for 3-column packing:
+ * center column = NU → Aucert → BTRT; Twine stays left; right fills with
+ * shorter cards so column heights stay close.
+ */
+const HOME_ALL_WORKS_ORDER = [
+  "peer-yc-s26",
+  "northwestern-u",
+  "outworld-labs-yc-f26",
+  "twine-yc-s23",
+  "aucert-yc-f26",
+  "uni-uni-boba",
+  "btrt-run-club",
+  "velobyte-yc-f26",
+  "georgia-paint",
+  "houlai-chinese-immigration-story",
+] as const;
+
 type WorkArchiveProps = {
   variant?: "home" | "page";
   limit?: number;
@@ -127,11 +145,6 @@ export function WorkArchive({
         ? placeholderWork
         : placeholderWork.filter((item) => item.category === filter);
 
-    // Homepage Select Work: keep Georgia Paint on /work only.
-    if (isHome) {
-      filtered = filtered.filter((item) => item.slug !== "georgia-paint");
-    }
-
     // Product filter: Peer first (home + /work).
     if (filter === "product") {
       filtered = [...filtered].sort((a, b) => {
@@ -141,22 +154,14 @@ export function WorkArchive({
       });
     }
 
-    // Homepage All works: seed Peer / Aucert / Outworld as the top of each column.
+    // Homepage All works: curated sequence for balanced masonry.
     if (isHome && filter === "all") {
-      const preferredTop = [
-        "peer-yc-s26",
-        "aucert-yc-f26",
-        "outworld-labs-yc-f26",
-      ] as const;
       const rank = new Map<string, number>(
-        preferredTop.map((slug, index) => [slug, index]),
+        HOME_ALL_WORKS_ORDER.map((slug, index) => [slug, index]),
       );
-      filtered = [...filtered].sort((a, b) => {
-        const aRank = rank.get(a.slug) ?? Number.MAX_SAFE_INTEGER;
-        const bRank = rank.get(b.slug) ?? Number.MAX_SAFE_INTEGER;
-        if (aRank !== bRank) return aRank - bRank;
-        return 0;
-      });
+      filtered = [...filtered]
+        .filter((item) => rank.has(item.slug))
+        .sort((a, b) => (rank.get(a.slug) ?? 0) - (rank.get(b.slug) ?? 0));
     }
 
     // /work Short-form: fixed sequence for real projects, placeholders after.

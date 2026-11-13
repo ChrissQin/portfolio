@@ -131,6 +131,17 @@ export const placeholderWork: PlaceholderWork[] = [
     thumbnail: "/work/twine-yc-s23.jpg",
   },
   {
+    slug: "northwestern-u",
+    title: "NU (@northwesternu)",
+    category: "short-form",
+    categoryLabel: "Short-form",
+    subCategoryLabel: "Social",
+    orientation: "horizontal",
+    gradient: "linear-gradient(135deg, #4E2A84 0%, #11110F 100%)",
+    href: "https://www.instagram.com/reels/DfU_pSvp8g-/",
+    thumbnail: "/work/northwestern-u.jpg",
+  },
+  {
     slug: "uni-uni-boba",
     title: "Uni Uni Boba",
     category: "short-form",
@@ -237,17 +248,6 @@ export const placeholderWork: PlaceholderWork[] = [
     gradient: "linear-gradient(135deg, #E6E1D8 0%, #7B8188 55%, #11110F 100%)",
     href: "https://www.instagram.com/anandvalavalkar/reel/DbjrxSRS_XS/",
     thumbnail: "/work/anand-valavalkar.jpg",
-  },
-  {
-    slug: "northwestern-u",
-    title: "NU (@northwesternu)",
-    category: "short-form",
-    categoryLabel: "Short-form",
-    subCategoryLabel: "Social",
-    orientation: "horizontal",
-    gradient: "linear-gradient(135deg, #4E2A84 0%, #11110F 100%)",
-    href: "https://www.instagram.com/reels/DfU_pSvp8g-/",
-    thumbnail: "/work/northwestern-u.jpg",
   },
 ];
 

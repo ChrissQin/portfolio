@@ -110,6 +110,11 @@ interface InteractiveGridProps {
   perspective: number;
   rotateX: number;
   rotateY: number;
+  /**
+   * Render only the provided logos (no empty/wrap filler) and center an
+   * incomplete final row so the grid stays symmetrical.
+   */
+  centerIncomplete?: boolean;
   style?: CSSProperties;
 }
 
@@ -140,6 +145,7 @@ export default function InteractiveGrid(props: Partial<InteractiveGridProps>) {
     perspective = DEFAULTS.perspective,
     rotateX = DEFAULTS.rotateX,
     rotateY = DEFAULTS.rotateY,
+    centerIncomplete = false,
     style,
   } = props;
 
@@ -150,7 +156,9 @@ export default function InteractiveGrid(props: Partial<InteractiveGridProps>) {
 
   const cols = Math.max(1, Math.round(columns));
   const rowCount = Math.max(1, Math.round(rows));
-  const count = cols * rowCount;
+  const count = centerIncomplete ? urls.length : cols * rowCount;
+  const cardWidth = `calc((100% - ${(cols - 1) * gap}px) / ${cols})`;
+  const cardHeight = `calc((100% - ${(rowCount - 1) * gap}px) / ${rowCount})`;
 
   const [hovered, setHovered] = useState<number | null>(null);
   const leaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -212,16 +220,30 @@ export default function InteractiveGrid(props: Partial<InteractiveGridProps>) {
       <style>{CSS}</style>
       <div
         onPointerLeave={onLeave}
-        style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
-          gridTemplateRows: `repeat(${rowCount}, minmax(0, 1fr))`,
-          gap,
-          width: "100%",
-          height: "100%",
-          transform: `perspective(${perspective}px) rotateX(${rotateY}deg) rotateY(${rotateX}deg)`,
-          transformStyle: "preserve-3d",
-        }}
+        style={
+          centerIncomplete
+            ? {
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                alignContent: "center",
+                gap,
+                width: "100%",
+                height: "100%",
+                transform: `perspective(${perspective}px) rotateX(${rotateY}deg) rotateY(${rotateX}deg)`,
+                transformStyle: "preserve-3d",
+              }
+            : {
+                display: "grid",
+                gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
+                gridTemplateRows: `repeat(${rowCount}, minmax(0, 1fr))`,
+                gap,
+                width: "100%",
+                height: "100%",
+                transform: `perspective(${perspective}px) rotateX(${rotateY}deg) rotateY(${rotateX}deg)`,
+                transformStyle: "preserve-3d",
+              }
+        }
       >
         {Array.from({ length: count }).map((_, i) => {
           const isBig = hovered === i;
@@ -263,6 +285,13 @@ export default function InteractiveGrid(props: Partial<InteractiveGridProps>) {
                 minHeight: 0,
                 overflow: "visible",
                 zIndex: isBig ? count + 1 : i + 1,
+                ...(centerIncomplete
+                  ? {
+                      flex: `0 0 ${cardWidth}`,
+                      width: cardWidth,
+                      height: cardHeight,
+                    }
+                  : null),
               }}
             >
               <img
