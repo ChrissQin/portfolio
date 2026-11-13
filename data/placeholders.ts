@@ -64,17 +64,6 @@ export const placeholderClients: string[] = [
 
 export const placeholderWork: PlaceholderWork[] = [
   {
-    slug: "georgia-paint",
-    title: "Georgia Paint",
-    category: "product",
-    categoryLabel: "Product",
-    subCategoryLabel: "Intro",
-    orientation: "horizontal",
-    gradient: "linear-gradient(135deg, #F7F5F1 0%, #E6E1D8 100%)",
-    href: "https://youtu.be/S3hpLnVWv_4",
-    thumbnail: "/work/georgia-paint.jpg",
-  },
-  {
     slug: "peer-yc-s26",
     title: "Peer (YC S26)",
     category: "product",
@@ -95,6 +84,28 @@ export const placeholderWork: PlaceholderWork[] = [
     gradient: "linear-gradient(135deg, #11110F 0%, #22C55E 55%, #F7F5F1 100%)",
     href: "https://lnkd.in/p/gfK_qBHn",
     thumbnail: "/work/aucert-yc-f26.jpg",
+  },
+  {
+    slug: "outworld-labs-yc-f26",
+    title: "Outworld Labs (YC F26)",
+    category: "product",
+    categoryLabel: "Product",
+    subCategoryLabel: "Launch",
+    orientation: "horizontal",
+    gradient: "linear-gradient(135deg, #F7F5F1 0%, #7B8188 55%, #11110F 100%)",
+    href: "https://lnkd.in/p/ghpyUjHq",
+    thumbnail: "/work/outworld-labs-yc-f26.jpg",
+  },
+  {
+    slug: "velobyte-yc-f26",
+    title: "Velobyte (YC F26)",
+    category: "product",
+    categoryLabel: "Product",
+    subCategoryLabel: "Launch",
+    orientation: "horizontal",
+    gradient: "linear-gradient(135deg, #11110F 0%, #3B82F6 55%, #F7F5F1 100%)",
+    href: "https://youtu.be/R6wzewKEPbE",
+    thumbnail: "/work/velobyte-yc-f26.jpg",
   },
   {
     slug: "twine-yc-s23",

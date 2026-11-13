@@ -76,7 +76,7 @@ export function getYouTubeThumbnailCandidates(
 
 export function getYouTubeEmbedSrc(
   url: string | null | undefined,
-  options?: { autoplay?: boolean },
+  options?: { autoplay?: boolean; locked?: boolean; origin?: string },
 ): string | null {
   const id = getYouTubeVideoId(url);
   if (!id) {
@@ -88,10 +88,27 @@ export function getYouTubeEmbedSrc(
     modestbranding: "1",
     playsinline: "1",
     iv_load_policy: "3",
+    cc_load_policy: "0",
+    // Keep playback on-site: no related-channel chrome, no fullscreen jump-off.
+    fs: "0",
+    disablekb: "1",
+    enablejsapi: "1",
   });
+
+  if (options?.origin) {
+    params.set("origin", options.origin);
+  }
 
   if (options?.autoplay) {
     params.set("autoplay", "1");
+  }
+
+  // Locked lightbox: hide native controls so YouTube UI isn't the interaction surface.
+  // Loop (requires playlist=id) so the end-screen with channel / related links never appears.
+  if (options?.locked) {
+    params.set("controls", "0");
+    params.set("loop", "1");
+    params.set("playlist", id);
   }
 
   return `https://www.youtube-nocookie.com/embed/${id}?${params.toString()}`;

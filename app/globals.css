@@ -757,6 +757,16 @@ button {
   text-decoration: none;
 }
 
+.nen-palette-card__link--button {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
 .nen-palette-card--fill {
   display: flex;
   flex: 1;
@@ -1652,4 +1662,135 @@ button {
 .nen-form__submit:disabled {
   cursor: not-allowed;
   opacity: 0.7;
+}
+
+/* ——— Video lightbox ——— */
+.video-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 4vw, 2.5rem);
+  background: rgba(17, 17, 15, 0.86);
+  backdrop-filter: blur(8px);
+  overflow: auto;
+}
+
+.video-lightbox__dialog {
+  width: min(100%, 56rem);
+  display: grid;
+  gap: 0.85rem;
+  max-height: min(100%, calc(100svh - 2rem));
+}
+
+.video-lightbox__dialog--vertical {
+  width: min(100%, 24rem);
+}
+
+.video-lightbox__frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: #000;
+  max-height: min(70svh, 36rem);
+}
+
+.video-lightbox__frame--vertical {
+  aspect-ratio: 9 / 16;
+  width: min(100%, 22rem);
+  margin-inline: auto;
+  max-height: min(72svh, 40rem);
+  height: auto;
+}
+
+.video-lightbox__chrome {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.video-lightbox__heading {
+  min-width: 0;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.video-lightbox__title {
+  margin: 0;
+  font-family: var(--font-sohne), system-ui, sans-serif;
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  font-weight: 700;
+  color: var(--paper);
+}
+
+.video-lightbox__detail {
+  margin: 0;
+  font-family: var(--font-sohne), system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--paper) 55%, transparent);
+}
+
+.video-lightbox__close {
+  margin: 0;
+  flex-shrink: 0;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid color-mix(in srgb, var(--paper) 28%, transparent);
+  border-radius: 999px;
+  background: transparent;
+  color: color-mix(in srgb, var(--paper) 70%, transparent);
+  font-family: var(--font-sohne), system-ui, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.video-lightbox__close:hover,
+.video-lightbox__close:focus-visible {
+  color: var(--paper);
+  border-color: color-mix(in srgb, var(--paper) 55%, transparent);
+  outline: none;
+}
+
+.video-lightbox__iframe,
+.video-lightbox__frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  /* Block all clicks on YouTube chrome (logo, title, channel, watch later). */
+  pointer-events: none !important;
+}
+
+.video-lightbox__hitbox {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.video-lightbox__hint {
+  margin: 0;
+  font-family: var(--font-sohne), system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--paper) 45%, transparent);
+  text-align: center;
 }

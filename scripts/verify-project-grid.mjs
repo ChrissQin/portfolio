@@ -19,6 +19,7 @@ function project(slug, orientation, gridSpan) {
     featured: true,
     description: "stub",
     contentType: "Content Needed",
+    category: "narrative",
     roles: ["Editor"],
     services: ["editing"],
     orientation,

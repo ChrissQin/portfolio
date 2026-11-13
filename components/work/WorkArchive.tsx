@@ -127,7 +127,7 @@ export function WorkArchive({
         ? placeholderWork
         : placeholderWork.filter((item) => item.category === filter);
 
-    // Product filter: Peer before Georgia Paint (home + /work).
+    // Product filter: Peer first (home + /work).
     if (filter === "product") {
       filtered = [...filtered].sort((a, b) => {
         if (a.slug === "peer-yc-s26") return -1;
@@ -136,12 +136,12 @@ export function WorkArchive({
       });
     }
 
-    // Homepage All works: seed Peer / Aucert / Georgia as the top of each column.
+    // Homepage All works: seed Peer / Aucert / Outworld as the top of each column.
     if (isHome && filter === "all") {
       const preferredTop = [
         "peer-yc-s26",
         "aucert-yc-f26",
-        "georgia-paint",
+        "outworld-labs-yc-f26",
       ] as const;
       const rank = new Map<string, number>(
         preferredTop.map((slug, index) => [slug, index]),

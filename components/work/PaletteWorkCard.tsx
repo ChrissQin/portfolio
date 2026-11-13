@@ -1,8 +1,12 @@
 "use client";
 
+import { useRef, useState } from "react";
+
 import { getWorkCardRatio } from "@/components/work/palette-layouts";
+import { VideoLightbox } from "@/components/work/VideoLightbox";
 import type { WorkOrientation } from "@/data/placeholders";
 import { useWorkCursor } from "@/components/work/WorkCursorProvider";
+import { getYouTubeVideoId } from "@/lib/youtube";
 
 type PaletteWorkCardProps = {
   gradient: string;
@@ -32,7 +36,11 @@ export function PaletteWorkCard({
   thumbnailPosition,
 }: PaletteWorkCardProps) {
   const { bindSurface, moveSurface } = useWorkCursor();
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const hasThumbnail = Boolean(thumbnail?.trim());
+  const youtubeId = getYouTubeVideoId(href);
+  const playsInline = Boolean(youtubeId);
   const tagLabel =
     tagVariant === "page" && subCategoryLabel ? subCategoryLabel : categoryLabel;
 
@@ -92,7 +100,18 @@ export function PaletteWorkCard({
 
   return (
     <article className="nen-palette-card" aria-label={title}>
-      {href ? (
+      {playsInline && href ? (
+        <button
+          ref={triggerRef}
+          type="button"
+          className="nen-palette-card__link nen-palette-card__link--button"
+          data-dot-cursor="fill"
+          aria-label={`Play ${title}`}
+          onClick={() => setLightboxOpen(true)}
+        >
+          {surface}
+        </button>
+      ) : href ? (
         <a
           href={href}
           target="_blank"
@@ -106,6 +125,17 @@ export function PaletteWorkCard({
       ) : (
         surface
       )}
+
+      {lightboxOpen && href ? (
+        <VideoLightbox
+          title={title}
+          detail={tagLabel}
+          videoUrl={href}
+          orientation={orientation === "vertical" ? "vertical" : "horizontal"}
+          onClose={() => setLightboxOpen(false)}
+          returnFocusRef={triggerRef}
+        />
+      ) : null}
     </article>
   );
 }
